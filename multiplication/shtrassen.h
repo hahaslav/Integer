@@ -1,0 +1,4 @@
+#ifndef LAB2_SHTRASSEN_H
+#define LAB2_SHTRASSEN_H
+
+#endif //LAB2_SHTRASSEN_H

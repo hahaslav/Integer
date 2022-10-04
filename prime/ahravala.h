@@ -1,0 +1,4 @@
+#ifndef LAB2_AHRAVALA_H
+#define LAB2_AHRAVALA_H
+
+#endif //LAB2_AHRAVALA_H

@@ -1,0 +1,4 @@
+#ifndef LAB2_THOMA_COOK_H
+#define LAB2_THOMA_COOK_H
+
+#endif //LAB2_THOMA_COOK_H

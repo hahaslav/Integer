@@ -1,0 +1,4 @@
+#ifndef LAB2_FLOAT_KUKA_H
+#define LAB2_FLOAT_KUKA_H
+
+#endif //LAB2_FLOAT_KUKA_H

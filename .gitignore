@@ -1,0 +1,5 @@
+# CMake build
+cmake-build-debug/
+
+# CLion/IntelliJ IDEA specific
+.idea/

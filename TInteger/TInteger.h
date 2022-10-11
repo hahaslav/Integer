@@ -18,6 +18,12 @@ public:
 
     TInteger(std::string integer);
 
+    TInteger(std::vector<int> integer);
+
+    int length();
+
+    TInteger operator+(TInteger other);
+
     std::string to_string();
 };
 #endif //LAB2_TINTEGER_H

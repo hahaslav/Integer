@@ -1,5 +1,5 @@
 #include <iostream>
-#include "main.h"
+#include "TInteger.h"
 
 #include "multiplication/karatsuba.h"
 #include "multiplication/thoma_cook.h"
@@ -15,5 +15,9 @@
 #include "prime/ahravala.h"
 
 int main() {
+    TInteger n(123), s("456");
+
+    std::cout << n.to_string() << ' ' << s.to_string();
+
     return 0;
 }

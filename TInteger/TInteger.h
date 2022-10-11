@@ -1,0 +1,4 @@
+#ifndef LAB2_TINTEGER_H
+#define LAB2_TINTEGER_H
+
+#endif //LAB2_TINTEGER_H

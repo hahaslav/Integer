@@ -24,6 +24,8 @@ public:
 
     TInteger operator+(TInteger other);
 
+    TInteger operator-(TInteger other);
+
     std::string to_string();
 };
 #endif //LAB2_TINTEGER_H

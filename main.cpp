@@ -15,9 +15,9 @@
 #include "prime/ahravala.h"
 
 int main() {
-    TInteger a(999), b("999");
+    TInteger a(123), b("456");
 
-    std::cout << a.to_string() << '\n' << b.to_string() << "\n" << (a + b).to_string();
+    std::cout << a.to_string() << '\n' << b.to_string() << "\n" << (a - b).to_string();
 
     return 0;
 }

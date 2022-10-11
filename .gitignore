@@ -1,5 +1,8 @@
 # CMake build
 cmake-build-debug/
 
+# Python virtual enviornment
+venv/
+
 # CLion/IntelliJ IDEA specific
 .idea/

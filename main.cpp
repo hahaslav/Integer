@@ -14,10 +14,15 @@
 #include "prime/solovey_shtrassen.h"
 #include "prime/ahravala.h"
 
-int main() {
-    TInteger n(123), s("456");
+int main(int argc, char *argv[]) {
+    std::cout << argc << " values:";
+    for (int i = 0; i < argc; i++) {
+        std::cout << "\n" << argv[i];
+    }
 
-    std::cout << n.to_string() << ' ' << s.to_string();
+//    TInteger n(123), s("456");
+
+//    std::cout << n.to_string() << ' ' << s.to_string();
 
     return 0;
 }

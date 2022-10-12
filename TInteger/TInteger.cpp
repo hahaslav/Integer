@@ -110,7 +110,7 @@ TInteger TInteger::operator-(TInteger other) {
     return result;
 }
 
-std::string TInteger::to_string() {
+TInteger::operator std::string() {
     int i;
     std::string result = "";
     for (i = digits.size() - 1; i >= 0; i--) {

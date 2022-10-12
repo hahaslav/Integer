@@ -17,7 +17,7 @@
 int main() {
     TInteger a(123), b("456");
 
-    std::cout << a.to_string() << '\n' << b.to_string() << "\n" << (a - b).to_string();
+    std::cout << (std::string)a << '\n' << (std::string)b << "\n" << (std::string)(a - b);
 
     return 0;
 }

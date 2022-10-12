@@ -14,10 +14,14 @@
 #include "prime/solovey_shtrassen.h"
 #include "prime/ahravala.h"
 
+std::ostream &operator<<(std::ostream &output, TInteger a) {
+    return output << (std::string)a;
+}
+
 int main() {
     TInteger a(123), b("456");
 
-    std::cout << (std::string)a << '\n' << (std::string)b << "\n" << (std::string)(a - b);
+    std::cout << a << '\n' << b << "\n" << a - b;
 
     return 0;
 }

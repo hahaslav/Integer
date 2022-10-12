@@ -1,4 +1,0 @@
-#ifndef LAB2_SCHONHAGE_H
-#define LAB2_SCHONHAGE_H
-
-#endif //LAB2_SCHONHAGE_H

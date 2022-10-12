@@ -2,17 +2,17 @@
 #include "TInteger.h"
 
 #include "multiplication/karatsuba.h"
-#include "multiplication/thoma_cook.h"
-#include "multiplication/schonhage.h"
-#include "multiplication/shtrassen.h"
+#include "multiplication/tom_cook.h"
+#include "multiplication/modular.h"
+#include "multiplication/schonhage_shtrassen.h"
 
-#include "kuka/float_kuka.h"
-#include "kuka/division_kuka.h"
+#include "cook/float_cook.h"
+#include "cook/division_cook.h"
 
-#include "prime/ferma.h"
+#include "prime/fermat.h"
 #include "prime/rabin_miller.h"
-#include "prime/solovey_shtrassen.h"
-#include "prime/ahravala.h"
+#include "prime/solovay_shtrassen.h"
+#include "prime/agrawal.h"
 
 std::ostream &operator<<(std::ostream &output, TInteger a) {
     return output << (std::string)a;

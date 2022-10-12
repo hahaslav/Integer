@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(TInteger)
 
-add_executable(integer main.cpp multiplication/karatsuba.cpp multiplication/karatsuba.h multiplication/thoma_cook.cpp multiplication/thoma_cook.h multiplication/schonhage.cpp multiplication/schonhage.h multiplication/shtrassen.cpp multiplication/shtrassen.h kuka/float_kuka.cpp kuka/float_kuka.h kuka/division_kuka.cpp kuka/division_kuka.h prime/ferma.cpp prime/ferma.h prime/rabin_miller.cpp prime/rabin_miller.h prime/solovey_shtrassen.cpp prime/solovey_shtrassen.h prime/ahravala.cpp prime/ahravala.h TInteger/TInteger.cpp TInteger/TInteger.h multiplication/Multiplication.cpp multiplication/Multiplication.h prime/Prime.cpp prime/Prime.h)
+add_executable(integer main.cpp multiplication/karatsuba.cpp multiplication/karatsuba.h multiplication/tom_cook.cpp multiplication/tom_cook.h multiplication/modular.cpp multiplication/modular.h multiplication/schonhage_shtrassen.cpp multiplication/schonhage_shtrassen.h cook/float_cook.cpp cook/float_cook.h cook/division_cook.cpp cook/division_cook.h prime/fermat.cpp prime/fermat.h prime/rabin_miller.cpp prime/rabin_miller.h prime/solovay_shtrassen.cpp prime/solovay_shtrassen.h prime/agrawal.cpp prime/agrawal.h TInteger/TInteger.cpp TInteger/TInteger.h multiplication/Multiplication.cpp multiplication/Multiplication.h prime/Prime.cpp prime/Prime.h)
 
 set(CMAKE_EXE_LINKER_FLAGS "-static")

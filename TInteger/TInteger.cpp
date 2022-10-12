@@ -23,6 +23,14 @@ TInteger::TInteger(std::string integer) {
 }
 
 TInteger::TInteger(std::vector<int> integer) {
+    int i;
+
+    for (i = integer.size() - 1; i > 0; i--) {
+        if (integer[i] == 0) {
+            integer.pop_back();
+        } else break;
+    }
+
     digits = integer;
 }
 
@@ -61,7 +69,48 @@ TInteger TInteger::operator+(TInteger other) {
     return result;
 }
 
-std::string TInteger::to_string() {
+TInteger TInteger::operator-(TInteger other) {
+    // if a - b < 0, then it returns 0 instead
+    // because all methods use positive numbers
+    if (length() < other.length()) {
+        TInteger result(0);
+        return result;
+    }
+
+    std::vector<int> result_value;
+    int i, overflow = 0;
+
+    for (i = 0; i < other.length(); i++) {
+        int next = overflow + digits[i] - other.digits[i];
+        if (next < 0) {
+            overflow = -1;
+            next += BASE;
+        } else {
+            overflow = 0;
+        }
+        result_value.push_back(next);
+    }
+    for (; i < length(); i++) {
+        int next = overflow + digits[i];
+        if (next < 0) {
+            overflow = -1;
+            next += BASE;
+        } else {
+            overflow = 0;
+        }
+        result_value.push_back(next);
+    }
+
+    TInteger result;
+    if (overflow < 0) {
+        result = TInteger(0);
+    } else {
+        result = TInteger(result_value);
+    }
+    return result;
+}
+
+TInteger::operator std::string() {
     int i;
     std::string result = "";
     for (i = digits.size() - 1; i >= 0; i--) {

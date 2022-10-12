@@ -14,6 +14,10 @@
 #include "prime/solovey_shtrassen.h"
 #include "prime/ahravala.h"
 
+std::ostream &operator<<(std::ostream &output, TInteger a) {
+    return output << (std::string)a;
+}
+
 int charstring_to_int(char s[]) {
     int result = 0;
 
@@ -59,9 +63,9 @@ int main(int argc, char *argv[]) {
 
     switch (charstring_to_int(argv[1])) {
         case 0:
-            std::cout << a.to_string();
+            std::cout << a;
             if (second_integer_exist) {
-                std::cout << ' ' << b.to_string();
+                std::cout << ' ' << b;
             }
             break;
         default:

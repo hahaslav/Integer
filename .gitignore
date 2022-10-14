@@ -6,3 +6,6 @@ venv/
 
 # CLion/IntelliJ IDEA specific
 .idea/
+
+# Testing temporary files
+test.txt

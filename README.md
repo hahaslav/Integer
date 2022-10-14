@@ -1,13 +1,15 @@
 # Very long integer class with various methods of multiplying operations, primality checking and other.
 
-This repository has modified main program and a python script for testing purposes.
+This repository has modified main app and a python script for testing purposes.
 
-TODO:
+Tests TODO:
+* [X] Python script for testing
+* [X] Main app can accept arguments from the shell 
 * [X] Base definition of the class TInteger
-* [X] Support for + operator
-* [X] Support for - operator
+* [ ] Support for + operator
+* [ ] Support for - operator
 * [ ] Support for * operator
-* [X] Support for << operator (for cout)
+* [ ] Support for << operator (for cout)
 * [ ] Multiplication base class
 * [ ] Karatsuba multiplication method
 * [ ] Tom-Cook multiplication method

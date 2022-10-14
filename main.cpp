@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
      * [1; 4] - multiplication methods
      * 5 - float method
      * 6 - division method
-     * [7; 10] - prime check methods
+     * [7; 10] - primality check methods
      * 11 - sum
      * 12 - subtraction
      * 13 - multiplication "in column"
@@ -60,14 +60,30 @@ int main(int argc, char *argv[]) {
     if (second_integer_exist) {
         b = TInteger(argv[3]);
     }
-
     switch (charstring_to_int(argv[1])) {
-        case 0:
+        case 0: {
             std::cout << a;
             if (second_integer_exist) {
                 std::cout << ' ' << b;
             }
             break;
+        }
+        case 11: {
+            if (! second_integer_exist) {
+                std::cout << "Second integer is required. Aborting execution.";
+            } else {
+                std::cout << a + b;
+            }
+            break;
+        }
+        case 12: {
+            if (! second_integer_exist) {
+                std::cout << "Second integer is required. Aborting execution.";
+            } else {
+                std::cout << a - b;
+            }
+            break;
+        }
         default:
             std::cout << "Not implemented!";
     }

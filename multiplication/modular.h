@@ -1,4 +1,0 @@
-#ifndef LAB2_MODULAR_H
-#define LAB2_MODULAR_H
-
-#endif //LAB2_MODULAR_H

@@ -1,4 +1,0 @@
-#ifndef LAB2_KARATSUBA_H
-#define LAB2_KARATSUBA_H
-
-#endif //LAB2_KARATSUBA_H

@@ -1,4 +1,4 @@
-#include "tom_cook.h"
+#include "Multiplication.h"
 
 // https://en.wikipedia.org/wiki/Tom-Cook_multiplication
 // base 2 is not required

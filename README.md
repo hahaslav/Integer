@@ -6,14 +6,14 @@ TODO:
 * [X] Support for - operator
 * [ ] Support for * operator
 * [X] Support for << operator (for cout)
-* [ ] Multiplication base class
+* [X] Multiplication base class
 * [ ] Karatsuba multiplication method
 * [ ] Tom-Cook multiplication method
 * [ ] Modular multiplication method
 * [ ] Schönhage-Strassen multiplication method
 * [ ] Cook method of calculating numbers after comma?
 * [ ] Cook division method?
-* [ ] Primality check base class
+* [X] Primality check base class
 * [ ] Fermat primality check method
 * [ ] Rabin-Miller primality check method
 * [ ] Solovay-Strassen primality check method

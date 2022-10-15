@@ -1,4 +1,0 @@
-#ifndef LAB2_RABIN_MILLER_H
-#define LAB2_RABIN_MILLER_H
-
-#endif //LAB2_RABIN_MILLER_H

@@ -5,10 +5,7 @@
 #include "cook/float_cook.h"
 #include "cook/division_cook.h"
 
-#include "prime/fermat.h"
-#include "prime/rabin_miller.h"
-#include "prime/solovay_shtrassen.h"
-#include "prime/agrawal.h"
+#include "prime/Prime.h"
 
 std::ostream &operator<<(std::ostream &output, TInteger a) {
     return output << (std::string)a;
@@ -19,16 +16,23 @@ int main() {
 
     // Should output:
     // 12345
+    // 59932
     // 54321
+    // 33141
 
-    // It means, that Karatsuba was the first method
-    // and Modular the second
+    // It means, that all methods have been used
 
-    Multiplication* method = new Karatsuba;
-    std::cout << method->multiply(a, b) << "\n";
+    Multiplication* multiply_method = new Karatsuba;
+    std::cout << multiply_method->multiply(a, b) << "\n";
 
-    method = new Modular;
-    std::cout << method->multiply(a, b) << "\n";
+    multiply_method = new TomCook;
+    std::cout << multiply_method->multiply(a, b) << "\n";
+
+    multiply_method = new Modular;
+    std::cout << multiply_method->multiply(a, b) << "\n";
+
+    multiply_method = new SchonhageShtrassen;
+    std::cout << multiply_method->multiply(a, b) << "\n";
 
     return 0;
 }

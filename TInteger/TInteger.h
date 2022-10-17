@@ -3,6 +3,8 @@
 
 #ifndef LAB2_TINTEGER_H
 #define LAB2_TINTEGER_H
+const int BASE = 10;
+
 class TInteger {
     /*
      * Holds an integer of a large length
@@ -29,5 +31,11 @@ public:
     TInteger operator*(TInteger other);
 
     operator std::string();
+
+    operator int();
+
+    std::vector<TInteger> halves();
+
+    std::vector<TInteger> halves(int half_length);
 };
 #endif //LAB2_TINTEGER_H

@@ -1,8 +1,5 @@
 #include "TInteger.h"
 
-const int BASE = 10;
-const int MAX_LENGTH = 1000;
-
 TInteger::TInteger() {}
 
 TInteger::TInteger(int integer) {
@@ -150,6 +147,56 @@ TInteger::operator std::string() {
     for (i = digits.size() - 1; i >= 0; i--) {
         result += digits[i] + '0'; // it is converted to the ASCII character code
     }
+
+    return result;
+}
+
+TInteger::operator int() {
+    // if integer is bigger than 999'999'999, returns 1'000'000'000
+    if (length() > 9) {
+        return 1'000'000'000;
+    }
+
+    int result = 0, i;
+
+    for (i = length() - 1; i >= 0; i--) {
+        result = result * BASE + digits[i];
+    }
+
+    return result;
+}
+
+std::vector<TInteger> TInteger::halves() {
+    if (length() < 2) throw;
+
+    return halves(length());
+}
+
+std::vector<TInteger> TInteger::halves(int half_length) {
+    /*
+     * Returns two halves of the integer, with using given length
+     */
+    int full_length = half_length * 2;
+
+    if (length() > full_length) throw;
+
+    std::vector<int> result_values1, result_values2;
+    int i;
+
+    for (i = 0; i < half_length; i++) {
+        result_values2.push_back(digits[i]);
+    }
+    for (; i < full_length; i++) {
+        if (i < length()) {
+            result_values1.push_back(digits[i]);
+        } else {
+            result_values1.push_back(0);
+        }
+    }
+
+    std::vector<TInteger> result;
+    result.push_back(TInteger(result_values1));
+    result.push_back(TInteger(result_values2));
 
     return result;
 }

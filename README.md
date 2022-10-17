@@ -9,3 +9,4 @@ Tests TODO:
 * [X] Support for - operator
 * [X] Support for * operator
 * [X] Support for << operator (for cout)
+* [ ] Karatsuba multiplication method

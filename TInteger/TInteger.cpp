@@ -1,6 +1,7 @@
 #include "TInteger.h"
 
 const int BASE = 10;
+const int MAX_LENGTH = 1000;
 
 TInteger::TInteger() {}
 
@@ -107,6 +108,39 @@ TInteger TInteger::operator-(TInteger other) {
     } else {
         result = TInteger(result_value);
     }
+    return result;
+}
+
+TInteger TInteger::operator*(TInteger other) {
+    TInteger result (0);
+    int i, j;
+
+    if (other.length() == 1) {
+        int overflow = 0;
+
+        for (i = 0; i < length(); i++) {
+            std::vector<int> subvalue(i + 1, 0);
+            int subproduct = digits[i] * other.digits[0] + overflow;
+            overflow = subproduct / 10;
+            subvalue[i] = subproduct % 10;
+            result = result + TInteger(subvalue);
+        }
+        std::vector<int> subvalue(i + 1, 0);
+        subvalue[subvalue.size() - 1] = overflow;
+        result = result + TInteger(subvalue);
+
+        return result;
+    }
+
+    for (i = 0; i < other.length(); i++) {
+        TInteger subproduct = *this * TInteger(other.digits[i]);
+        std::vector<int> subvalue(subproduct.length() + i, 0);
+        for (j = 0; j < subproduct.length(); j++) {
+            subvalue[j + i] = subproduct.digits[j];
+        }
+        result = result + (TInteger(subvalue));
+    }
+
     return result;
 }
 

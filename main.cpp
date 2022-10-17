@@ -19,6 +19,7 @@ int main() {
     // 59932
     // 54321
     // 33141
+    // *then output for the next tests*
 
     // It means, that all methods have been used
 
@@ -33,6 +34,8 @@ int main() {
 
     multiply_method = new SchonhageShtrassen;
     std::cout << multiply_method->multiply(a, b) << "\n";
+
+    std::cout << a * b;
 
     return 0;
 }

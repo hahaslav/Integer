@@ -4,7 +4,7 @@ TODO:
 * [X] Base definition of the class TInteger
 * [X] Support for + operator
 * [X] Support for - operator
-* [ ] Support for * operator
+* [X] Support for * operator
 * [X] Support for << operator (for cout)
 * [X] Multiplication base class
 * [ ] Karatsuba multiplication method

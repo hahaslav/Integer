@@ -10,7 +10,7 @@ class TInteger {
      * Arithmetical operations are done
      * in a classic school way "in column"
      */
-    std::vector<int> digits;
+    std::vector<int> digits; // Index 0 points to the right end of the integer
 public:
     TInteger();
 
@@ -25,6 +25,8 @@ public:
     TInteger operator+(TInteger other);
 
     TInteger operator-(TInteger other);
+
+    TInteger operator*(TInteger other);
 
     operator std::string();
 };

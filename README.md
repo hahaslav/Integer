@@ -7,7 +7,7 @@ TODO:
 * [X] Support for * operator
 * [X] Support for << operator (for cout)
 * [X] Multiplication base class
-* [ ] Karatsuba multiplication method
+* [X] Karatsuba multiplication method
 * [ ] Tom-Cook multiplication method
 * [ ] Modular multiplication method
 * [ ] Schönhage-Strassen multiplication method

@@ -144,7 +144,7 @@ TInteger TInteger::operator*(TInteger other) {
 TInteger::operator std::string() {
     int i;
     std::string result = "";
-    for (i = digits.size() - 1; i >= 0; i--) {
+    for (i = length() - 1; i >= 0; i--) {
         result += digits[i] + '0'; // it is converted to the ASCII character code
     }
 
@@ -184,7 +184,11 @@ std::vector<TInteger> TInteger::halves(int half_length) {
     int i;
 
     for (i = 0; i < half_length; i++) {
-        result_values2.push_back(digits[i]);
+        if (i < length()) {
+            result_values2.push_back(digits[i]);
+        } else {
+            result_values2.push_back(0);
+        }
     }
     for (; i < full_length; i++) {
         if (i < length()) {

@@ -19,7 +19,8 @@ int main() {
     // 59932
     // 54321
     // 33141
-    // *then output for the next tests*
+    //
+    // *output for the next tests*
 
     // It means, that all methods have been used
 
@@ -33,9 +34,13 @@ int main() {
     std::cout << multiply_method->multiply(a, b) << "\n";
 
     multiply_method = new SchonhageShtrassen;
-    std::cout << multiply_method->multiply(a, b) << "\n";
+    std::cout << multiply_method->multiply(a, b) << "\n\n";
 
-    std::cout << a * b;
+    std::cout << a * b << "\n";
+
+    TInteger c(12345);
+    std::vector<TInteger> halves = c.halves();
+    std::cout << halves[0] << ' ' << halves[1] << "\n";
 
     return 0;
 }

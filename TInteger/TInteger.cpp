@@ -1,8 +1,5 @@
 #include "TInteger.h"
 
-const int BASE = 10;
-const int MAX_LENGTH = 1000;
-
 TInteger::TInteger() {}
 
 TInteger::TInteger(int integer) {
@@ -150,6 +147,36 @@ TInteger::operator std::string() {
     for (i = digits.size() - 1; i >= 0; i--) {
         result += digits[i] + '0'; // it is converted to the ASCII character code
     }
+
+    return result;
+}
+
+std::vector<TInteger> TInteger::halves() {
+    /*
+     * Returns two halves of the integer
+     * If the length() is odd, the second half will be longer
+     */
+    if (length() < 2) {
+        throw;
+    }
+
+    std::vector<int> result_values1, result_values2;
+    int i;
+
+    for (i = 0; i < length() / 2; i++) {
+        result_values2.push_back(digits[i]);
+    }
+    if (length() % 2 != 0) {
+        result_values2.push_back(digits[i]);
+        i++;
+    }
+    for (; i < length(); i++) {
+        result_values1.push_back(digits[i]);
+    }
+
+    std::vector<TInteger> result;
+    result.push_back(TInteger(result_values1));
+    result.push_back(TInteger(result_values2));
 
     return result;
 }

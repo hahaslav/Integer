@@ -32,6 +32,8 @@ public:
 
     operator std::string();
 
+    operator int();
+
     std::vector<TInteger> halves();
 };
 #endif //LAB2_TINTEGER_H

@@ -38,7 +38,10 @@ int main() {
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088
 
-    TInteger c(12345);
+    TInteger c("21474836470");
+
+    std::cout << (int)c << "\n";
+
     std::vector<TInteger> halves = c.halves();
     std::cout << halves[0] << ' ' << halves[1] << "\n";
 

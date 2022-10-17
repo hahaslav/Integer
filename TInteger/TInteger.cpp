@@ -151,6 +151,21 @@ TInteger::operator std::string() {
     return result;
 }
 
+TInteger::operator int() {
+    // if integer is bigger than 999'999'999, returns 1'000'000'000
+    if (length() > 9) {
+        return 1'000'000'000;
+    }
+
+    int result = 0, i;
+
+    for (i = length() - 1; i >= 0; i--) {
+        result = result * BASE + digits[i];
+    }
+
+    return result;
+}
+
 std::vector<TInteger> TInteger::halves() {
     /*
      * Returns two halves of the integer

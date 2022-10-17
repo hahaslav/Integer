@@ -36,7 +36,7 @@ int main() {
     multiply_method = new SchonhageShtrassen;
     std::cout << multiply_method->multiply(a, b) << "\n\n";
 
-    std::cout << a * b << "\n";
+    std::cout << a * b << "\n"; // 123 * 456 = 56088
 
     TInteger c(12345);
     std::vector<TInteger> halves = c.halves();

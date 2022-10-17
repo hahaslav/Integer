@@ -42,7 +42,7 @@ int main() {
 
     std::cout << (int)c << "\n";
 
-    std::vector<TInteger> halves = c.halves();
+    std::vector<TInteger> halves = c.halves(9);
     std::cout << halves[0] << ' ' << halves[1] << "\n";
 
     return 0;

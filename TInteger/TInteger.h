@@ -35,5 +35,7 @@ public:
     operator int();
 
     std::vector<TInteger> halves();
+
+    std::vector<TInteger> halves(int half_length);
 };
 #endif //LAB2_TINTEGER_H

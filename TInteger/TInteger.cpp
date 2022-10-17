@@ -167,26 +167,31 @@ TInteger::operator int() {
 }
 
 std::vector<TInteger> TInteger::halves() {
+    if (length() < 2) throw;
+
+    return halves(length());
+}
+
+std::vector<TInteger> TInteger::halves(int half_length) {
     /*
-     * Returns two halves of the integer
-     * If the length() is odd, the second half will be longer
+     * Returns two halves of the integer, with using given length
      */
-    if (length() < 2) {
-        throw;
-    }
+    int full_length = half_length * 2;
+
+    if (length() > full_length) throw;
 
     std::vector<int> result_values1, result_values2;
     int i;
 
-    for (i = 0; i < length() / 2; i++) {
+    for (i = 0; i < half_length; i++) {
         result_values2.push_back(digits[i]);
     }
-    if (length() % 2 != 0) {
-        result_values2.push_back(digits[i]);
-        i++;
-    }
-    for (; i < length(); i++) {
-        result_values1.push_back(digits[i]);
+    for (; i < full_length; i++) {
+        if (i < length()) {
+            result_values1.push_back(digits[i]);
+        } else {
+            result_values1.push_back(0);
+        }
     }
 
     std::vector<TInteger> result;

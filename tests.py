@@ -5,9 +5,22 @@ from random import randint
 
 BASE_COMMAND = "cmake-build-debug\\integer.exe "
 TEST_FILE = "test.txt"
-SUM_METHOD = 11
-SUBTRACT_METHOD = 12
-PRODUCT_METHOD = 13
+METHOD_NUMBER = {
+    "Output": 0,
+    "Karatsuba": 1,
+    "Tom-Cook": 2,
+    "Modular": 3,
+    "Schonhage-Shtrassen": 4,
+    "Float": 5,
+    "Division": 6,
+    "Fermat": 7,
+    "Rabin-Miller": 8,
+    "Solovay_Shtrassen": 8,
+    "Agrawal": 10,
+    "Sum": 11,
+    "Subtract": 12,
+    "Product": 13
+}
 TESTS_FOR_CATEGORY = 10
 MAX_DIGITS = 1000
 SHORT_NUMBER = 200
@@ -106,7 +119,7 @@ class ArithmeticTest(Test):
 class SumTest(ArithmeticTest):
     name = "Sum test"
     operation = operator.add
-    method_number = SUM_METHOD
+    method_number = METHOD_NUMBER["Sum"]
 
 
 def custom_subtract(obj, a: int, b: int):
@@ -123,13 +136,18 @@ def custom_subtract(obj, a: int, b: int):
 class SubtractTest(ArithmeticTest):
     name = "Subtract test"
     operation = custom_subtract
-    method_number = SUBTRACT_METHOD
+    method_number = METHOD_NUMBER["Subtract"]
 
 
 class ProductTest(ArithmeticTest):
     name = "Product test"
     operation = operator.mul
-    method_number = PRODUCT_METHOD
+    method_number = METHOD_NUMBER["Product"]
+
+
+class KaratsubaTest(ProductTest):
+    name = "Karatsuba multiplication test"
+    method_number = METHOD_NUMBER["Karatsuba"]
 
 
 def update_output():
@@ -178,20 +196,21 @@ def get_random_integer(length=None) -> int:
 
 
 def main():
-    test_types = [Test, SumTest, SubtractTest, ProductTest]
+    test_types = [Test, SumTest, SubtractTest, ProductTest, KaratsubaTest]
+    fast_test_types = [Test, SumTest, SubtractTest]
 
     all_tests = []
 
     for category in test_types:
         for i in range(TESTS_FOR_CATEGORY):
-            if category is not ProductTest:
+            if category in fast_test_types:
                 all_tests.append(category(integer1=get_random_integer(MAX_DIGITS), integer2=get_random_integer(MAX_DIGITS)))
             else:
                 all_tests.append(category(integer1=get_random_integer(SHORT_NUMBER), integer2=get_random_integer(SHORT_NUMBER)))
 
 
     for i, test in enumerate(all_tests, 1):
-        print(f"{i:>2}. {test.name:>13}")
+        print(f"{i:>2}. {test.name:>70}")
         test.execute()
         update_output()
 

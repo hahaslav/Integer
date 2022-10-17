@@ -7,8 +7,10 @@ BASE_COMMAND = "cmake-build-debug\\integer.exe "
 TEST_FILE = "test.txt"
 SUM_METHOD = 11
 SUBTRACT_METHOD = 12
+PRODUCT_METHOD = 13
 TESTS_FOR_CATEGORY = 10
 MAX_DIGITS = 1000
+SHORT_NUMBER = 200
 
 last_test_executed = None
 final_output = ""
@@ -27,7 +29,7 @@ class Test:
     name = "Output test"
 
     def __init__(self, *, method: int = 0, integer1: int, **kwargs):
-        self.method = method
+        self.method_number = method
         self.integer1 = integer1
         if "integer2" in kwargs.keys():
             self.integer2 = kwargs["integer2"]
@@ -38,7 +40,7 @@ class Test:
         """
         Runs the app with the test's arguments
         """
-        command = f"{BASE_COMMAND} {self.method} {self.integer1}"
+        command = f"{BASE_COMMAND} {self.method_number} {self.integer1}"
         if self.integer2 is not None:
             command += f" {self.integer2}"
         command += f" > {TEST_FILE}"
@@ -92,10 +94,10 @@ class ArithmeticTest(Test):
     """
     name = "Arithmetic test"
     operation = None
-    method = None
+    method_number = None
 
     def __init__(self, integer1: int, integer2: int):
-        Test.__init__(self, method=self.method, integer1=integer1, integer2=integer2)
+        Test.__init__(self, method=self.method_number, integer1=integer1, integer2=integer2)
 
     def self_execute(self):
         self.my_result = f"{self.operation(self.integer1, self.integer2)}"
@@ -104,7 +106,7 @@ class ArithmeticTest(Test):
 class SumTest(ArithmeticTest):
     name = "Sum test"
     operation = operator.add
-    method = SUM_METHOD
+    method_number = SUM_METHOD
 
 
 def custom_subtract(obj, a: int, b: int):
@@ -121,7 +123,13 @@ def custom_subtract(obj, a: int, b: int):
 class SubtractTest(ArithmeticTest):
     name = "Subtract test"
     operation = custom_subtract
-    method = SUBTRACT_METHOD
+    method_number = SUBTRACT_METHOD
+
+
+class ProductTest(ArithmeticTest):
+    name = "Product test"
+    operation = operator.mul
+    method_number = PRODUCT_METHOD
 
 
 def update_output():
@@ -170,15 +178,20 @@ def get_random_integer(length=None) -> int:
 
 
 def main():
-    test_types = [Test, SumTest, SubtractTest]
+    test_types = [Test, SumTest, SubtractTest, ProductTest]
 
     all_tests = []
 
     for category in test_types:
         for i in range(TESTS_FOR_CATEGORY):
-            all_tests.append(category(integer1=get_random_integer(MAX_DIGITS), integer2=get_random_integer(MAX_DIGITS)))
+            if category is not ProductTest:
+                all_tests.append(category(integer1=get_random_integer(MAX_DIGITS), integer2=get_random_integer(MAX_DIGITS)))
+            else:
+                all_tests.append(category(integer1=get_random_integer(SHORT_NUMBER), integer2=get_random_integer(SHORT_NUMBER)))
 
-    for test in all_tests:
+
+    for i, test in enumerate(all_tests, 1):
+        print(f"{i:>2}. {test.name:>13}")
         test.execute()
         update_output()
 

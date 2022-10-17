@@ -7,5 +7,5 @@ Tests TODO:
 * [X] Main app can accept arguments from the shell 
 * [X] Support for + operator
 * [X] Support for - operator
-* [ ] Support for * operator
+* [X] Support for * operator
 * [X] Support for << operator (for cout)

@@ -77,6 +77,14 @@ int main(int argc, char *argv[]) {
             }
             break;
         }
+        case 13: {
+            if (! second_integer_exist) {
+                std::cout << "Second integer is required. Aborting execution.";
+            } else {
+                std::cout << a * b;
+            }
+            break;
+        }
         default:
             std::cout << "Not implemented!";
     }

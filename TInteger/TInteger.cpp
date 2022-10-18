@@ -117,6 +117,7 @@ TInteger TInteger::operator-(TInteger other) {
         return a + b;
 
     } else if (negative) {
+        a.invert();
         result = a + b;
         result.invert();
         return result;

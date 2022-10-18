@@ -21,9 +21,6 @@ METHOD_NUMBER = {
     "Subtract": 12,
     "Product": 13
 }
-TESTS_FOR_CATEGORY = 10
-MAX_DIGITS = 1000
-SHORT_NUMBER = 200
 
 last_test_executed = None
 final_output = ""
@@ -150,6 +147,23 @@ class KaratsubaTest(ProductTest):
     method_number = METHOD_NUMBER["Karatsuba"]
 
 
+TESTS_FOR_CATEGORY = {
+    Test: 40,
+    SumTest: 40,
+    SubtractTest: 40,
+    ProductTest: 10,
+    KaratsubaTest: 10
+}
+NUMBER_LENGTH = {
+    "max": 1000,
+    Test: 1000,
+    SumTest: 1000,
+    SubtractTest: 1000,
+    ProductTest: 200,
+    KaratsubaTest: 200
+}
+
+
 def update_output():
     """
     Adds the last test's result to the final output
@@ -185,7 +199,7 @@ def get_random_integer(length=None) -> int:
     The length of the integer can be specified
     """
     if length is None:
-        length = randint(1, MAX_DIGITS)
+        length = randint(1, NUMBER_LENGTH["max"])
 
     result = ""
 
@@ -197,20 +211,15 @@ def get_random_integer(length=None) -> int:
 
 def main():
     test_types = [Test, SumTest, SubtractTest, ProductTest, KaratsubaTest]
-    fast_test_types = [Test, SumTest, SubtractTest]
 
     all_tests = []
 
     for category in test_types:
-        for i in range(TESTS_FOR_CATEGORY):
-            if category in fast_test_types:
-                all_tests.append(category(integer1=get_random_integer(MAX_DIGITS), integer2=get_random_integer(MAX_DIGITS)))
-            else:
-                all_tests.append(category(integer1=get_random_integer(SHORT_NUMBER), integer2=get_random_integer(SHORT_NUMBER)))
-
+        for _ in range(TESTS_FOR_CATEGORY[category]):
+            all_tests.append(category(integer1=get_random_integer(NUMBER_LENGTH[category]), integer2=get_random_integer(NUMBER_LENGTH[category])))
 
     for i, test in enumerate(all_tests, 1):
-        print(f"{i:>2}. {test.name:>70}")
+        print(f"{i:>3}. {test.name:>70}")
         test.execute()
         update_output()
 

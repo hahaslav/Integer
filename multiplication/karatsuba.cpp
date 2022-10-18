@@ -14,9 +14,11 @@ TInteger pow_of_10(int n) {
 }
 
 TInteger Karatsuba::multiply(TInteger a, TInteger b) {
-    if ((int)a < BASE || (int)b < BASE) {
+    if (std::abs((int)a) < BASE || std::abs((int)b) < BASE) {
         return a * b;
     }
+
+    bool to_invert = negative_after_multiplication(a, b);
 
     int half_length = std::max(a.length(), b.length());
     half_length += half_length % 2;
@@ -28,5 +30,9 @@ TInteger Karatsuba::multiply(TInteger a, TInteger b) {
     TInteger result = a_halves[0] * b_halves[0] * base_2m
             + (a_halves[0] * b_halves[1] + a_halves[1] * b_halves[0]) * base_m
             + a_halves[1] * b_halves[1];
+    if (to_invert) {
+        result.invert();
+    }
+
     return result;
 }

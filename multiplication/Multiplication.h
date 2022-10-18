@@ -3,6 +3,10 @@
 #ifndef LAB2_MULTIPLICATION_H
 #define LAB2_MULTIPLICATION_H
 class Multiplication {
+protected:
+    bool negative_after_multiplication(TInteger a, TInteger b) {
+        return a.is_negative() xor b.is_negative();
+    }
 public:
     virtual TInteger multiply(TInteger a, TInteger b) { return TInteger(1); }
 };

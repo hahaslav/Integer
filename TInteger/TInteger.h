@@ -13,6 +13,7 @@ class TInteger {
      * in a classic school way "in column"
      */
     std::vector<int> digits; // Index 0 points to the right end of the integer
+    bool negative = false;
 public:
     TInteger();
 
@@ -21,6 +22,10 @@ public:
     TInteger(std::string integer);
 
     TInteger(std::vector<int> integer);
+
+    void invert();
+
+    bool is_negative();
 
     int length();
 

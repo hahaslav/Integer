@@ -42,8 +42,10 @@ int main() {
 
     std::cout << (int)c << "\n";
 
-    std::vector<TInteger> halves = c.halves(9);
-    std::cout << halves[0] << ' ' << halves[1] << "\n";
+    std::vector<TInteger> parts = c.split(8, 3);
+    for (int i = 0; i < parts.size(); i++) {
+        std::cout << parts[i] << ' ';
+    }
 
     return 0;
 }

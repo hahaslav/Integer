@@ -166,41 +166,40 @@ TInteger::operator int() {
     return result;
 }
 
-std::vector<TInteger> TInteger::halves() {
-    if (length() < 2) throw;
-
-    return halves(length());
-}
-
-std::vector<TInteger> TInteger::halves(int half_length) {
+std::vector<TInteger> TInteger::split(int parts, int part_length) {
     /*
-     * Returns two halves of the integer, with using given length
+     * Returns some parts of the integer, with using given part length
      */
-    int full_length = half_length * 2;
+    int full_length = part_length * parts;
 
     if (length() > full_length) throw;
 
-    std::vector<int> result_values1, result_values2;
-    int i;
+    std::vector<std::vector<int>> result_values;
+    int i, j = -1;
 
-    for (i = 0; i < half_length; i++) {
-        if (i < length()) {
-            result_values2.push_back(digits[i]);
-        } else {
-            result_values2.push_back(0);
+    for (i = 0; i < full_length; i++) {
+        if (i % part_length == 0) {
+            j++;
+            std::vector<int> tmp;
+            result_values.push_back(tmp);
         }
-    }
-    for (; i < full_length; i++) {
         if (i < length()) {
-            result_values1.push_back(digits[i]);
+            result_values[j].push_back(digits[i]);
         } else {
-            result_values1.push_back(0);
+            result_values[j].push_back(0);
         }
     }
 
     std::vector<TInteger> result;
-    result.push_back(TInteger(result_values1));
-    result.push_back(TInteger(result_values2));
-
+    for (i = result_values.size() - 1; i >= 0; i--) {
+        result.push_back(TInteger(result_values[i]));
+    }
     return result;
+}
+
+std::vector<TInteger> TInteger::halves(int half_length) {
+    /*
+     * Returns two parts of the integer, with using given part length
+     */
+    return split(2, half_length);
 }

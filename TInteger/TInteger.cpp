@@ -6,6 +6,10 @@ TInteger::TInteger(int integer) {
     if (integer == 0) {
         digits.push_back(0);
     } else {
+        if (integer < 0) {
+            invert();
+            integer *= -1;
+        }
         while (integer > 0) {
             digits.push_back(integer % BASE);
             integer /= BASE;
@@ -14,8 +18,14 @@ TInteger::TInteger(int integer) {
 }
 
 TInteger::TInteger(std::string integer) {
-    int i;
-    for (i = integer.length() - 1; i >= 0; i--) {
+    int i, last = 0;
+
+    if (integer[0] == '-') {
+        last++;
+        invert();
+    }
+
+    for (i = integer.length() - 1; i >= last; i--) {
         digits.push_back(integer[i] - '0'); // it is converted from the ASCII character code
     }
 }
@@ -32,6 +42,14 @@ TInteger::TInteger(std::vector<int> integer) {
     digits = integer;
 }
 
+void TInteger::invert() {
+    negative = not negative;
+}
+
+bool TInteger::is_negative() {
+    return negative;
+}
+
 int TInteger::length() {
     return digits.size();
 }
@@ -39,12 +57,23 @@ int TInteger::length() {
 TInteger TInteger::operator+(TInteger other) {
     std::vector<int> result_value;
     int i, overflow = 0;
-    TInteger a, b;
+    TInteger a = *this;
+    TInteger b = other;
 
-    if (length() >= other.length()) {
-        a = *this;
-        b = other;
-    } else {
+    bool to_invert = false;
+    if (negative && other.negative) {
+        to_invert = true;
+
+    } else if (other.negative) {
+        b.invert();
+        return a - b;
+
+    } else if (negative) {
+        a.invert();
+        return b - a;
+    }
+
+    if (length() < other.length()) {
         a = other;
         b = *this;
     }
@@ -64,22 +93,37 @@ TInteger TInteger::operator+(TInteger other) {
     }
 
     TInteger result(result_value);
+    if (to_invert) {
+        result.invert();
+    }
     return result;
 }
 
 TInteger TInteger::operator-(TInteger other) {
-    // if a - b < 0, then it returns 0 instead
-    // because all methods use positive numbers
-    if (length() < other.length()) {
-        TInteger result(0);
+    std::vector<int> result_value;
+    int i, overflow = 0;
+    TInteger a = *this;
+    TInteger b = other;
+    TInteger result;
+
+    bool to_invert = false;
+    if (negative && other.negative) {
+        a.invert();
+        b.invert();
+        return b - a;
+
+    } else if (other.negative) {
+        b.invert();
+        return a + b;
+
+    } else if (negative) {
+        result = a + b;
+        result.invert();
         return result;
     }
 
-    std::vector<int> result_value;
-    int i, overflow = 0;
-
     for (i = 0; i < other.length(); i++) {
-        int next = overflow + digits[i] - other.digits[i];
+        int next = overflow + a.digits[i] - b.digits[i];
         if (next < 0) {
             overflow = -1;
             next += BASE;
@@ -89,7 +133,7 @@ TInteger TInteger::operator-(TInteger other) {
         result_value.push_back(next);
     }
     for (; i < length(); i++) {
-        int next = overflow + digits[i];
+        int next = overflow + a.digits[i];
         if (next < 0) {
             overflow = -1;
             next += BASE;
@@ -99,9 +143,9 @@ TInteger TInteger::operator-(TInteger other) {
         result_value.push_back(next);
     }
 
-    TInteger result;
     if (overflow < 0) {
-        result = TInteger(0);
+        result = b - a;
+        result.invert();
     } else {
         result = TInteger(result_value);
     }
@@ -110,6 +154,7 @@ TInteger TInteger::operator-(TInteger other) {
 
 TInteger TInteger::operator*(TInteger other) {
     TInteger result (0);
+    bool to_invert = negative xor other.negative;
     int i, j;
 
     if (other.length() == 1) {
@@ -138,12 +183,18 @@ TInteger TInteger::operator*(TInteger other) {
         result = result + (TInteger(subvalue));
     }
 
+    if (to_invert) {
+        result.invert();
+    }
     return result;
 }
 
 TInteger::operator std::string() {
     int i;
     std::string result = "";
+    if (negative) {
+        result = "-";
+    }
     for (i = length() - 1; i >= 0; i--) {
         result += digits[i] + '0'; // it is converted to the ASCII character code
     }
@@ -152,9 +203,9 @@ TInteger::operator std::string() {
 }
 
 TInteger::operator int() {
-    // if integer is bigger than 999'999'999, returns 1'000'000'000
+    // if integer's absolute value is bigger than 999'999'999, returns (it's sign)1'000'000'000
     if (length() > 9) {
-        return 1'000'000'000;
+        return 1'000'000'000 * (-1 * (negative));
     }
 
     int result = 0, i;
@@ -163,12 +214,16 @@ TInteger::operator int() {
         result = result * BASE + digits[i];
     }
 
+    if (negative) {
+        result *= -1;
+    }
     return result;
 }
 
 std::vector<TInteger> TInteger::split(int parts, int part_length) {
     /*
      * Returns some parts of the integer, with using given part length
+     * Forgets about the integer's sign
      */
     int full_length = part_length * parts;
 
@@ -200,6 +255,7 @@ std::vector<TInteger> TInteger::split(int parts, int part_length) {
 std::vector<TInteger> TInteger::halves(int half_length) {
     /*
      * Returns two parts of the integer, with using given part length
+     * Forgets about the integer's sign
      */
     return split(2, half_length);
 }

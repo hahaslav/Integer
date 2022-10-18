@@ -1,7 +1,7 @@
 from os import system
 from time import perf_counter
 import operator
-from random import randint
+from random import randint, choice
 
 BASE_COMMAND = "cmake-build-debug\\integer.exe "
 TEST_FILE = "test.txt"
@@ -119,20 +119,9 @@ class SumTest(ArithmeticTest):
     method_number = METHOD_NUMBER["Sum"]
 
 
-def custom_subtract(obj, a: int, b: int):
-    """
-    If a < b, then returns 0
-
-    Else, does usual subtraction
-    """
-    if a < b:
-        return 0
-    return a - b
-
-
 class SubtractTest(ArithmeticTest):
     name = "Subtract test"
-    operation = custom_subtract
+    operation = operator.sub
     method_number = METHOD_NUMBER["Subtract"]
 
 
@@ -192,7 +181,7 @@ def summarise(tests: list[Test]):
         fout.write(final_output)
 
 
-def get_random_integer(length=None) -> int:
+def get_random_integer(length=None, positive=False) -> int:
     """
     Generates random integer
 
@@ -201,12 +190,17 @@ def get_random_integer(length=None) -> int:
     if length is None:
         length = randint(1, NUMBER_LENGTH["max"])
 
+    if positive is False:
+        sign = choice([-1, 1])
+    else:
+        sign = 1
+
     result = ""
 
     for _ in range(length):
         result += str(randint(0, 9))
 
-    return int(result)
+    return sign * int(result)
 
 
 def main():

@@ -123,6 +123,12 @@ TInteger TInteger::operator-(TInteger other) {
         return result;
     }
 
+    if (a.length() < b.length()) {
+        result = b - a;
+        result.invert();
+        return result;
+    }
+
     for (i = 0; i < other.length(); i++) {
         int next = overflow + a.digits[i] - b.digits[i];
         if (next < 0) {

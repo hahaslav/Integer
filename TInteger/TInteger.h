@@ -34,7 +34,7 @@ public:
 
     operator int();
 
-    std::vector<TInteger> halves();
+    std::vector<TInteger> split(int parts, int part_length);
 
     std::vector<TInteger> halves(int half_length);
 };

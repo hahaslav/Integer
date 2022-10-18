@@ -21,6 +21,7 @@ METHOD_NUMBER = {
     "Subtract": 12,
     "Product": 13
 }
+RANDOM_TO_LENGTH = 5
 
 last_test_executed = None
 final_output = ""
@@ -181,7 +182,7 @@ def summarise(tests: list[Test]):
         fout.write(final_output)
 
 
-def get_random_integer(length=None, positive=False) -> int:
+def get_random_integer(*, length=None, positive=False) -> int:
     """
     Generates random integer
 
@@ -189,6 +190,8 @@ def get_random_integer(length=None, positive=False) -> int:
     """
     if length is None:
         length = randint(1, NUMBER_LENGTH["max"])
+    else:
+        length += randint(0, RANDOM_TO_LENGTH * 2) - RANDOM_TO_LENGTH
 
     if positive is False:
         sign = choice([-1, 1])
@@ -210,7 +213,7 @@ def main():
 
     for category in test_types:
         for _ in range(TESTS_FOR_CATEGORY[category]):
-            all_tests.append(category(integer1=get_random_integer(NUMBER_LENGTH[category]), integer2=get_random_integer(NUMBER_LENGTH[category])))
+            all_tests.append(category(integer1=get_random_integer(length=NUMBER_LENGTH[category]), integer2=get_random_integer(length=NUMBER_LENGTH[category])))
 
     for i, test in enumerate(all_tests, 1):
         print(f"{i:>3}. {test.name:>70}")

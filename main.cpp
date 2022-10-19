@@ -46,6 +46,17 @@ int main() {
     for (int i = 0; i < parts.size(); i++) {
         std::cout << parts[i] << ' ';
     }
+    std::cout << "\n";
+
+    a = TInteger(256);
+    int divider = 5;
+    std::cout << a / divider << "\n";
+
+    a = TInteger(26006);
+    std::cout << a / divider << "\n";
+
+    a = TInteger(1);
+    std::cout << a / divider << "\n";
 
     return 0;
 }

@@ -7,6 +7,17 @@ protected:
     bool negative_after_multiplication(TInteger a, TInteger b) {
         return a.is_negative() xor b.is_negative();
     }
+
+    TInteger pow_of_10(int n) {
+        TInteger ten(10), result = ten;
+        int i;
+
+        for (i = 2; i <= n; i++) {
+            result = result * ten;
+        }
+
+        return result;
+    }
 public:
     virtual TInteger multiply(TInteger a, TInteger b) { return TInteger(1); }
 };

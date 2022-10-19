@@ -35,6 +35,8 @@ public:
 
     TInteger operator*(TInteger other);
 
+    TInteger operator/(int other);
+
     operator std::string();
 
     operator int();

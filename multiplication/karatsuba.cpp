@@ -2,17 +2,6 @@
 
 // https://en.wikipedia.org/wiki/Karatsuba_algorithm
 
-TInteger pow_of_10(int n) {
-    TInteger ten(10), result = ten;
-    int i;
-
-    for (i = 2; i <= n; i++) {
-        result = result * ten;
-    }
-
-    return result;
-}
-
 TInteger Karatsuba::multiply(TInteger a, TInteger b) {
     if (std::abs((int)a) < BASE || std::abs((int)b) < BASE) {
         return a * b;

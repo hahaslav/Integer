@@ -106,7 +106,6 @@ TInteger TInteger::operator-(TInteger other) {
     TInteger b = other;
     TInteger result;
 
-    bool to_invert = false;
     if (negative && other.negative) {
         a.invert();
         b.invert();
@@ -190,6 +189,45 @@ TInteger TInteger::operator*(TInteger other) {
         result = result + (TInteger(subvalue));
     }
 
+    if (to_invert) {
+        result.invert();
+    }
+    return result;
+}
+
+TInteger TInteger::operator/(int other) {
+    /*
+     * Returns integer part of division
+     */
+    bool to_invert = negative xor (other < 0);
+    int i = length() - 1, remainder = 0, one_division;
+    std::vector<int> reversed_value;
+
+    while (remainder < other && i >= 0) {
+        remainder = remainder * BASE + digits[i];
+        i--;
+    }
+    if (remainder < other) {
+        return TInteger(0);
+    }
+
+    while (i >= 0) {
+        one_division = remainder / other;
+        reversed_value.push_back(one_division);
+        remainder -= one_division * other;
+
+        remainder = remainder * BASE + digits[i];
+        i--;
+    }
+    one_division = remainder / other;
+    reversed_value.push_back(one_division);
+
+    std::vector<int> result_value;
+    for (i = reversed_value.size() - 1; i >= 0; i--) {
+        result_value.push_back(reversed_value[i]);
+    }
+
+    TInteger result(result_value);
     if (to_invert) {
         result.invert();
     }

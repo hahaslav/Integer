@@ -200,6 +200,8 @@ TInteger TInteger::operator/(int other) {
      * Returns integer part of division
      */
     bool to_invert = negative xor (other < 0);
+    other = std::abs(other);
+
     int i = length() - 1, remainder = 0, one_division;
     std::vector<int> reversed_value;
 

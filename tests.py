@@ -19,7 +19,8 @@ METHOD_NUMBER = {
     "Agrawal": 10,
     "Sum": 11,
     "Subtract": 12,
-    "Product": 13
+    "Product": 13,
+    "Division/": 14
 }
 RANDOM_TO_LENGTH = 5
 
@@ -137,20 +138,37 @@ class KaratsubaTest(ProductTest):
     method_number = METHOD_NUMBER["Karatsuba"]
 
 
+class DivisionTest(ArithmeticTest):
+    name = "Division test"
+    operation = operator.floordiv
+    method_number = METHOD_NUMBER["Division/"]
+
+
 TESTS_FOR_CATEGORY = {
     Test: 40,
     SumTest: 40,
     SubtractTest: 40,
     ProductTest: 10,
-    KaratsubaTest: 10
+    KaratsubaTest: 10,
+    DivisionTest: 40
 }
-NUMBER_LENGTH = {
+NUMBER1_LENGTH = {
     "max": 1000,
     Test: 1000,
     SumTest: 1000,
     SubtractTest: 1000,
     ProductTest: 200,
-    KaratsubaTest: 200
+    KaratsubaTest: 200,
+    DivisionTest: 1000
+}
+NUMBER2_LENGTH = {
+    "max": 1000,
+    Test: 1000,
+    SumTest: 1000,
+    SubtractTest: 1000,
+    ProductTest: 200,
+    KaratsubaTest: 200,
+    DivisionTest: 8
 }
 
 
@@ -189,8 +207,8 @@ def get_random_integer(*, length=None, positive=False) -> int:
     The length of the integer can be specified
     """
     if length is None:
-        length = randint(1, NUMBER_LENGTH["max"])
-    else:
+        length = randint(1, NUMBER1_LENGTH["max"])
+    elif length > 49:
         length += randint(0, RANDOM_TO_LENGTH * 2) - RANDOM_TO_LENGTH
 
     if positive is False:
@@ -207,13 +225,11 @@ def get_random_integer(*, length=None, positive=False) -> int:
 
 
 def main():
-    test_types = [Test, SumTest, SubtractTest, ProductTest, KaratsubaTest]
-
     all_tests = []
 
-    for category in test_types:
+    for category in TESTS_FOR_CATEGORY:
         for _ in range(TESTS_FOR_CATEGORY[category]):
-            all_tests.append(category(integer1=get_random_integer(length=NUMBER_LENGTH[category]), integer2=get_random_integer(length=NUMBER_LENGTH[category])))
+            all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category]), integer2=get_random_integer(length=NUMBER2_LENGTH[category])))
 
     for i, test in enumerate(all_tests, 1):
         print(f"{i:>3}. {test.name:>70}")

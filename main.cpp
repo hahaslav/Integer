@@ -39,6 +39,7 @@ int main(int argc, char *argv[]) {
      * 11 - sum
      * 12 - subtraction
      * 13 - multiplication "in column"
+     * 14 - division
      */
     if (argc == 1) {
         std::cout << "No arguments were given. Aborting execution.";
@@ -91,6 +92,14 @@ int main(int argc, char *argv[]) {
                 std::cout << "Second integer is required. Aborting execution.";
             } else {
                 std::cout << a * b;
+            }
+            break;
+        }
+        case 14: {
+            if (! second_integer_exist) {
+                std::cout << "Second integer is required. Aborting execution.";
+            } else {
+                std::cout << a / ((int)b);
             }
             break;
         }

@@ -8,6 +8,6 @@ Tests TODO:
 * [X] Support for + operator
 * [X] Support for - operator
 * [X] Support for * operator
-* [ ] Support for / operator
+* [X] Support for / operator
 * [X] Support for << operator (for cout)
 * [X] Karatsuba multiplication method

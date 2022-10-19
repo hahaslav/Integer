@@ -138,9 +138,21 @@ class KaratsubaTest(ProductTest):
     method_number = METHOD_NUMBER["Karatsuba"]
 
 
+def custom_div(obj: any, a: int, b: int):
+    if (a < 0) ^ (b < 0):
+        sign = -1
+    else:
+        sign = 1
+
+    a = abs(a)
+    b = abs(b)
+
+    return a // b * sign
+
+
 class DivisionTest(ArithmeticTest):
     name = "Division test"
-    operation = operator.floordiv
+    operation = custom_div
     method_number = METHOD_NUMBER["Division/"]
 
 

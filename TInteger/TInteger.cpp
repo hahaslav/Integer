@@ -274,7 +274,7 @@ std::vector<TInteger> TInteger::split(int parts, int part_length) {
      */
     int full_length = part_length * parts;
 
-    if (length() > full_length) throw;
+    if (length() > full_length) throw("Integer cannot be splitted fully");
 
     std::vector<std::vector<int>> result_values;
     int i, j = -1;

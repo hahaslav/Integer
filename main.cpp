@@ -38,13 +38,16 @@ int main() {
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088
 
-    TInteger c("21474836470");
+    TInteger c("297341879348783753897347348734974328732734798347");
 
     std::cout << (int)c << "\n";
-
-    std::vector<TInteger> parts = c.split(8, 3);
-    for (int i = 0; i < parts.size(); i++) {
-        std::cout << parts[i] << ' ';
+    try {
+        std::vector<TInteger> parts = c.split(8, 3);
+        for (int i = 0; i < parts.size(); i++) {
+            std::cout << parts[i] << ' ';
+        }
+    } catch (char const* msg) {
+        std::cout << msg;
     }
     std::cout << "\n";
 

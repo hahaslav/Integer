@@ -106,7 +106,13 @@ TInteger TomCook::multiply(TInteger a, TInteger b) {
     std::vector<TInteger> r = get_r(r_brackets);
 
     // recomposition
+    TInteger result(0), current_shift(1);
+    int i;
 
+    for (i = 0; i < POINTS; i++) {
+        result = result + r[i] * current_shift;
+        current_shift = current_shift * base_i;
+    }
 
-    return TInteger(59932);
+    return result;
 }

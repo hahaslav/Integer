@@ -177,18 +177,16 @@ TInteger TInteger::operator*(TInteger other) {
         subvalue[subvalue.size() - 1] = overflow;
         result = result + TInteger(subvalue);
 
-        return result;
-    }
-
-    for (i = 0; i < other.length(); i++) {
-        TInteger subproduct = *this * TInteger(other.digits[i]);
-        std::vector<int> subvalue(subproduct.length() + i, 0);
-        for (j = 0; j < subproduct.length(); j++) {
-            subvalue[j + i] = subproduct.digits[j];
+    } else {
+        for (i = 0; i < other.length(); i++) {
+            TInteger subproduct = *this * TInteger(other.digits[i]);
+            std::vector<int> subvalue(subproduct.length() + i, 0);
+            for (j = 0; j < subproduct.length(); j++) {
+                subvalue[j + i] = subproduct.digits[j];
+            }
+            result = result + (TInteger(subvalue));
         }
-        result = result + (TInteger(subvalue));
     }
-
     if (to_invert) {
         result.invert();
     }
@@ -251,11 +249,16 @@ TInteger::operator std::string() {
 
 TInteger::operator int() {
     // if integer's absolute value is bigger than 999'999'999, returns (it's sign)1'000'000'000
-    if (length() > 9) {
-        return 1'000'000'000 * (-1 * (negative));
-    }
+    int result = 0;
 
-    int result = 0, i;
+    if (length() > 9) {
+        result = 1'000'000'000;
+        if (negative) {
+            result *= -1;
+        }
+        return result;
+    }
+    int i;
 
     for (i = length() - 1; i >= 0; i--) {
         result = result * BASE + digits[i];
@@ -264,6 +267,7 @@ TInteger::operator int() {
     if (negative) {
         result *= -1;
     }
+
     return result;
 }
 
@@ -274,7 +278,7 @@ std::vector<TInteger> TInteger::split(int parts, int part_length) {
      */
     int full_length = part_length * parts;
 
-    if (length() > full_length) throw;
+    if (length() > full_length) throw("Integer cannot be splitted fully");
 
     std::vector<std::vector<int>> result_values;
     int i, j = -1;

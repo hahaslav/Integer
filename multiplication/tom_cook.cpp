@@ -6,6 +6,7 @@
 // make Tom-3
 
 const int TOM = 3;
+const int POINTS = TOM + 2;
 
 std::vector<TInteger> get_p(std::vector<TInteger> m) {
     /*
@@ -35,8 +36,36 @@ std::vector<TInteger> get_r_brackets(std::vector<TInteger> p, std::vector<TInteg
     std::vector<TInteger> result;
     int i;
 
-    for (i = 0; i < TOM + 2; i++) {
+    for (i = 0; i < POINTS; i++) {
         result.push_back(p[i] * q[i]);
+    }
+
+    return result;
+}
+
+std::vector<TInteger> get_r(std::vector<TInteger> r_brackets) {
+    std::vector<std::vector<TInteger>> first_matrix =
+            /*
+             *   /  6 0  0  0  0  \
+             *  |  3 2 -6  1 -12 |
+             *  | -6 3  3  0  -6 |
+             *  | -3 1  3 -1  12 |
+             *   \  0 0  0  0  6  /
+             */
+            {{TInteger(6), TInteger(0), TInteger(0), TInteger(0), TInteger(0)},
+            {TInteger(3), TInteger(2), TInteger(-6), TInteger(1), TInteger(-12)},
+            {TInteger(-6), TInteger(3), TInteger(3), TInteger(0), TInteger(-6)},
+            {TInteger(-3), TInteger(1), TInteger(3), TInteger(-1), TInteger(12)},
+            {TInteger(0), TInteger(0), TInteger(0), TInteger(0), TInteger(6)}};
+    std::vector<TInteger> result(POINTS, TInteger(0));
+    const int divider = 6;
+    int i, j;
+
+    for (i = 0; i < POINTS; i++) {
+        for (j = 0; j < POINTS; j++) {
+            result[i] = result[i] + first_matrix[i][j] * r_brackets[j];
+        }
+        result[i] = result[i] / divider;
     }
 
     return result;
@@ -74,14 +103,7 @@ TInteger TomCook::multiply(TInteger a, TInteger b) {
     std::vector<TInteger> r_brackets = get_r_brackets(p_a, p_b);
 
     // interpolation
-    /*
-     *   /  6 0  0  0  0  \ /  r(0) \
-     * 1 |  3 2 -6  1 -12 | |  r(1) |
-     * - | -6 3  3  0  -6 | | r(-1) |
-     * 6 | -3 1  3 -1  12 | | r(-2) |
-     *   \  0 0  0  0  6  / \  r(∞) /
-     */
-
+    std::vector<TInteger> r = get_r(r_brackets);
 
     // recomposition
 

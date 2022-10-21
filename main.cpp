@@ -39,7 +39,7 @@ int main() {
     std::cout << a * b << "\n"; // 123 * 456 = 56088
 
     a = TInteger("1234567890123456789012");
-    b = TInteger("9876543210987654321098");
+    b = TInteger("987654321987654321098");
 
     multiply_method = new TomCook;
     std::cout << multiply_method->multiply(a, b) << "\n";

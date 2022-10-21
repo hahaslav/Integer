@@ -10,7 +10,7 @@ const int TOM = 3;
 std::vector<TInteger> get_p(std::vector<TInteger> m) {
     /*
      * Gets splitted integer
-     * Returns vector of p values in the order:
+     * Returns vector of p() values in the order:
      * p(0), p(1), p(-1), p(-2), p(∞)
      *  [0],  [1], ...
      */
@@ -21,6 +21,23 @@ std::vector<TInteger> get_p(std::vector<TInteger> m) {
     result.push_back(m[2] - m[1] + m[0]);
     result.push_back(m[2] - (TInteger(2) * m[1]) + (TInteger(4) * m[0]));
     result.push_back(m[0]);
+
+    return result;
+}
+
+std::vector<TInteger> get_r_brackets(std::vector<TInteger> p, std::vector<TInteger> q) {
+    /*
+     * Gets polynomials p() and q() as vectors
+     * Returns vector of r() values in the order:
+     * r(0), r(1), r(-1), r(-2), r(∞)
+     *  [0],  [1], ...
+     */
+    std::vector<TInteger> result;
+    int i;
+
+    for (i = 0; i < TOM + 2; i++) {
+        result.push_back(p[i] * q[i]);
+    }
 
     return result;
 }
@@ -53,9 +70,8 @@ TInteger TomCook::multiply(TInteger a, TInteger b) {
     std::vector<TInteger> p_a = get_p(parts_a);
     std::vector<TInteger> p_b = get_p(parts_b);
 
-
     // pointwise multiplication
-
+    std::vector<TInteger> r_brackets = get_r_brackets(p_a, p_b);
 
     // interpolation
     /*

@@ -71,6 +71,15 @@ int main(int argc, char *argv[]) {
             }
             break;
         }
+        case 2: {
+            if (! second_integer_exist) {
+                std::cout << "Second integer is required. Aborting execution.";
+            } else {
+                Multiplication* multiply_method = new TomCook;
+                std::cout << multiply_method->multiply(a, b);
+            }
+            break;
+        }
         case 11: {
             if (! second_integer_exist) {
                 std::cout << "Second integer is required. Aborting execution.";

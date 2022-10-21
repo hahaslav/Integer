@@ -138,6 +138,11 @@ class KaratsubaTest(ProductTest):
     method_number = METHOD_NUMBER["Karatsuba"]
 
 
+class TomCookTest(ProductTest):
+    name = "Tom-Cook multiplication test"
+    method_number = METHOD_NUMBER["Tom-Cook"]
+
+
 def custom_div(obj: any, a: int, b: int):
     if (a < 0) ^ (b < 0):
         sign = -1
@@ -162,6 +167,7 @@ TESTS_FOR_CATEGORY = {
     SubtractTest: 40,
     ProductTest: 10,
     KaratsubaTest: 10,
+    TomCookTest: 10,
     DivisionTest: 40
 }
 NUMBER1_LENGTH = {
@@ -171,6 +177,7 @@ NUMBER1_LENGTH = {
     SubtractTest: 1000,
     ProductTest: 200,
     KaratsubaTest: 200,
+    TomCookTest: 200,
     DivisionTest: 1000
 }
 NUMBER2_LENGTH = {
@@ -180,6 +187,7 @@ NUMBER2_LENGTH = {
     SubtractTest: 1000,
     ProductTest: 200,
     KaratsubaTest: 200,
+    TomCookTest: 200,
     DivisionTest: 8
 }
 

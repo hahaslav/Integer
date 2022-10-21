@@ -251,11 +251,16 @@ TInteger::operator std::string() {
 
 TInteger::operator int() {
     // if integer's absolute value is bigger than 999'999'999, returns (it's sign)1'000'000'000
-    if (length() > 9) {
-        return 1'000'000'000 * (-1 * (negative));
-    }
+    int result = 0;
 
-    int result = 0, i;
+    if (length() > 9) {
+        result = 1'000'000'000;
+        if (negative) {
+            result *= -1;
+        }
+        return result;
+    }
+    int i;
 
     for (i = length() - 1; i >= 0; i--) {
         result = result * BASE + digits[i];
@@ -264,6 +269,7 @@ TInteger::operator int() {
     if (negative) {
         result *= -1;
     }
+
     return result;
 }
 

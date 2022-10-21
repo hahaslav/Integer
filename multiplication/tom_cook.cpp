@@ -114,5 +114,8 @@ TInteger TomCook::multiply(TInteger a, TInteger b) {
         current_shift = current_shift * base_i;
     }
 
+    if (to_invert) {
+        result.invert();
+    }
     return result;
 }

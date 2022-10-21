@@ -177,18 +177,16 @@ TInteger TInteger::operator*(TInteger other) {
         subvalue[subvalue.size() - 1] = overflow;
         result = result + TInteger(subvalue);
 
-        return result;
-    }
-
-    for (i = 0; i < other.length(); i++) {
-        TInteger subproduct = *this * TInteger(other.digits[i]);
-        std::vector<int> subvalue(subproduct.length() + i, 0);
-        for (j = 0; j < subproduct.length(); j++) {
-            subvalue[j + i] = subproduct.digits[j];
+    } else {
+        for (i = 0; i < other.length(); i++) {
+            TInteger subproduct = *this * TInteger(other.digits[i]);
+            std::vector<int> subvalue(subproduct.length() + i, 0);
+            for (j = 0; j < subproduct.length(); j++) {
+                subvalue[j + i] = subproduct.digits[j];
+            }
+            result = result + (TInteger(subvalue));
         }
-        result = result + (TInteger(subvalue));
     }
-
     if (to_invert) {
         result.invert();
     }

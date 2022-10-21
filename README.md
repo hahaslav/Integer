@@ -9,7 +9,7 @@ TODO:
 * [X] Support for << operator (for cout)
 * [X] Multiplication base class
 * [X] Karatsuba multiplication method
-* [ ] Tom-Cook multiplication method
+* [X] Tom-Cook multiplication method
 * [ ] Modular multiplication method
 * [ ] Schönhage-Strassen multiplication method
 * [ ] Cook method of calculating numbers after comma?

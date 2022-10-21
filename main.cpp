@@ -16,7 +16,7 @@ int main() {
 
     // Should output:
     // 56088
-    // 59932
+    // 56088
     // 54321
     // 33141
     //
@@ -27,8 +27,8 @@ int main() {
     Multiplication* multiply_method = new Karatsuba;
     std::cout << multiply_method->multiply(a, b) << "\n";
 
-//    multiply_method = new TomCook;
-//    std::cout << multiply_method->multiply(a, b) << "\n";
+    multiply_method = new TomCook;
+    std::cout << multiply_method->multiply(a, b) << "\n";
 
     multiply_method = new Modular;
     std::cout << multiply_method->multiply(a, b) << "\n";

@@ -7,6 +7,24 @@
 
 const int TOM = 3;
 
+std::vector<TInteger> get_p(std::vector<TInteger> m) {
+    /*
+     * Gets splitted integer
+     * Returns vector of p values in the order:
+     * p(0), p(1), p(-1), p(-2), p(∞)
+     *  [0],  [1], ...
+     */
+    std::vector<TInteger> result;
+
+    result.push_back(m[2]);
+    result.push_back(m[2] + m[1] + m[0]);
+    result.push_back(m[2] - m[1] + m[0]);
+    result.push_back(m[2] - (TInteger(2) * m[1]) + (TInteger(4) * m[0]));
+    result.push_back(m[0]);
+
+    return result;
+}
+
 TInteger TomCook::multiply(TInteger a, TInteger b) {
     if (std::abs((int)a) < BASE * BASE || std::abs((int)b) < BASE * BASE) {
         return a * b;
@@ -29,8 +47,11 @@ TInteger TomCook::multiply(TInteger a, TInteger b) {
 
     std::vector<TInteger> parts_a = a.split(TOM, split_lenght);
     std::vector<TInteger> parts_b = b.split(TOM, split_lenght);
+    TInteger base_i = pow_of_10(split_lenght);
 
     // evaluation
+    std::vector<TInteger> p_a = get_p(parts_a);
+    std::vector<TInteger> p_b = get_p(parts_b);
 
 
     // pointwise multiplication

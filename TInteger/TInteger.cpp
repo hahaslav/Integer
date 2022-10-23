@@ -1,5 +1,51 @@
 #include "TInteger.h"
 
+std::vector<TInteger> TInteger::integer_division(int b) {
+    if (b == 0) {
+        throw("Division by 0");
+    }
+
+    std::vector<TInteger> result = {TInteger(0), TInteger(0)};
+    bool to_invert = negative xor (b < 0);
+    b = std::abs(b);
+
+    int i = length() - 1, remainder = 0, one_division;
+    std::vector<int> reversed_value;
+
+    while (remainder < b && i >= 0) {
+        remainder = remainder * BASE + digits[i];
+        i--;
+    }
+    if (remainder < b) {
+        result[1] = TInteger(remainder);
+        return result;
+    }
+
+    while (i >= 0) {
+        one_division = remainder / b;
+        reversed_value.push_back(one_division);
+        remainder -= one_division * b;
+
+        remainder = remainder * BASE + digits[i];
+        i--;
+    }
+    one_division = remainder / b;
+    reversed_value.push_back(one_division);
+    remainder -= one_division * b;
+
+    std::vector<int> result_value;
+    for (i = reversed_value.size() - 1; i >= 0; i--) {
+        result_value.push_back(reversed_value[i]);
+    }
+
+    result[0] = TInteger(result_value);
+    if (to_invert) {
+        result[0].invert();
+    }
+    result[1] = TInteger(remainder);
+    return result;
+}
+
 TInteger::TInteger() {}
 
 TInteger::TInteger(int integer) {
@@ -197,41 +243,14 @@ TInteger TInteger::operator/(int other) {
     /*
      * Returns integer part of division
      */
-    bool to_invert = negative xor (other < 0);
-    other = std::abs(other);
+    return integer_division(other)[0];
+}
 
-    int i = length() - 1, remainder = 0, one_division;
-    std::vector<int> reversed_value;
-
-    while (remainder < other && i >= 0) {
-        remainder = remainder * BASE + digits[i];
-        i--;
-    }
-    if (remainder < other) {
-        return TInteger(0);
-    }
-
-    while (i >= 0) {
-        one_division = remainder / other;
-        reversed_value.push_back(one_division);
-        remainder -= one_division * other;
-
-        remainder = remainder * BASE + digits[i];
-        i--;
-    }
-    one_division = remainder / other;
-    reversed_value.push_back(one_division);
-
-    std::vector<int> result_value;
-    for (i = reversed_value.size() - 1; i >= 0; i--) {
-        result_value.push_back(reversed_value[i]);
-    }
-
-    TInteger result(result_value);
-    if (to_invert) {
-        result.invert();
-    }
-    return result;
+TInteger TInteger::operator%(int other) {
+    /*
+     * Returns remainder of division
+     */
+    return integer_division(other)[1];
 }
 
 TInteger::operator std::string() {

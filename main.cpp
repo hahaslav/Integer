@@ -38,11 +38,14 @@ int main() {
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088
 
-    a = TInteger("1234567890123456789012");
-    b = TInteger("987654321987654321098");
+    a = TInteger(4);
+    b = TInteger(0);
 
-    multiply_method = new TomCook;
-    std::cout << multiply_method->multiply(a, b) << "\n";
+    try {
+        std::cout << a / b << " " << a % b << "\n";
+    } catch (char const* msg) {
+        std::cout << msg << "\n";
+    }
 
     return 0;
 }

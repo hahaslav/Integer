@@ -20,7 +20,8 @@ METHOD_NUMBER = {
     "Sum": 11,
     "Subtract": 12,
     "Product": 13,
-    "Division/": 14
+    "Division/": 14,
+    "Remainder": 15
 }
 RANDOM_TO_LENGTH = 5
 
@@ -161,6 +162,19 @@ class DivisionTest(ArithmeticTest):
     method_number = METHOD_NUMBER["Division/"]
 
 
+def custom_mod(obj: any, a: int, b: int):
+    a = abs(a)
+    b = abs(b)
+
+    return a % b
+
+
+class RemainderTest(ArithmeticTest):
+    name = "Remainder test"
+    operation = custom_mod
+    method_number = METHOD_NUMBER["Remainder"]
+
+
 TESTS_FOR_CATEGORY = {
     Test: 40,
     SumTest: 40,
@@ -168,7 +182,8 @@ TESTS_FOR_CATEGORY = {
     ProductTest: 10,
     KaratsubaTest: 10,
     TomCookTest: 10,
-    DivisionTest: 40
+    DivisionTest: 40,
+    RemainderTest: 40
 }
 NUMBER1_LENGTH = {
     "max": 1000,
@@ -178,7 +193,8 @@ NUMBER1_LENGTH = {
     ProductTest: 200,
     KaratsubaTest: 200,
     TomCookTest: 200,
-    DivisionTest: 1000
+    DivisionTest: 1000,
+    RemainderTest: 1000
 }
 NUMBER2_LENGTH = {
     "max": 1000,
@@ -188,7 +204,8 @@ NUMBER2_LENGTH = {
     ProductTest: 200,
     KaratsubaTest: 200,
     TomCookTest: 200,
-    DivisionTest: 8
+    DivisionTest: 8,
+    RemainderTest: 8
 }
 
 

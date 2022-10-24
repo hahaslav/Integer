@@ -13,4 +13,4 @@ Tests TODO:
 * [X] Support for << operator (for cout)
 * [X] Karatsuba multiplication method
 * [X] Tom-Cook multiplication method
-* [ ] Rabin-Miller primality check method
+* [X] Rabin-Miller primality check method

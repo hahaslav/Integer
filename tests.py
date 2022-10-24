@@ -2,6 +2,7 @@ from os import system
 from time import perf_counter
 import operator
 from random import randint, choice
+from sympy import isprime
 
 BASE_COMMAND = "cmake-build-debug\\integer.exe "
 TEST_FILE = "test.txt"
@@ -116,6 +117,23 @@ class ArithmeticTest(Test):
         self.my_result = f"{self.operation(self.integer1, self.integer2)}"
 
 
+class PrimalityTest(Test):
+    """
+    Base class for primality check tests
+    """
+    name = "Primality test"
+    method_number = None
+
+    def __init__(self, integer1: int):
+        Test.__init__(self, method=self.method_number, integer1=integer1)
+
+    def self_execute(self):
+        if isprime(self.integer1) == True:
+            self.my_result = "IS_PRIME"
+        else:
+            self.my_result = "NOT_PRIME"
+
+
 class SumTest(ArithmeticTest):
     name = "Sum test"
     operation = operator.add
@@ -175,6 +193,11 @@ class RemainderTest(ArithmeticTest):
     method_number = METHOD_NUMBER["Remainder"]
 
 
+class RabinMillerTest(PrimalityTest):
+    name = "Rabin-Miller test"
+    method_number = METHOD_NUMBER["Rabin-Miller"]
+
+
 TESTS_FOR_CATEGORY = {
     Test: 40,
     SumTest: 40,
@@ -183,7 +206,8 @@ TESTS_FOR_CATEGORY = {
     KaratsubaTest: 10,
     TomCookTest: 10,
     DivisionTest: 40,
-    RemainderTest: 40
+    RemainderTest: 40,
+    RabinMillerTest: 20
 }
 NUMBER1_LENGTH = {
     "max": 1000,
@@ -194,7 +218,8 @@ NUMBER1_LENGTH = {
     KaratsubaTest: 200,
     TomCookTest: 200,
     DivisionTest: 1000,
-    RemainderTest: 1000
+    RemainderTest: 1000,
+    RabinMillerTest: 4,
 }
 NUMBER2_LENGTH = {
     "max": 1000,
@@ -205,7 +230,8 @@ NUMBER2_LENGTH = {
     KaratsubaTest: 200,
     TomCookTest: 200,
     DivisionTest: 8,
-    RemainderTest: 8
+    RemainderTest: 8,
+    RabinMillerTest: None
 }
 
 
@@ -266,7 +292,10 @@ def main():
 
     for category in TESTS_FOR_CATEGORY:
         for _ in range(TESTS_FOR_CATEGORY[category]):
-            all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category]), integer2=get_random_integer(length=NUMBER2_LENGTH[category])))
+            if issubclass(category, PrimalityTest):
+                all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category], positive=True)))
+            else:
+                all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category]), integer2=get_random_integer(length=NUMBER2_LENGTH[category])))
 
     for i, test in enumerate(all_tests, 1):
         print(f"{i:>3}. {test.name:>70}")

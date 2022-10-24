@@ -38,8 +38,8 @@ int main() {
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088
 
-    std::cout << (TInteger(1) == TInteger(1)) << ' ' << (TInteger(1) == TInteger(-1)) << ' ' << (TInteger(23144) == TInteger(213451)) << ' ' << "\n";
-    std::cout << (TInteger(1) != TInteger(1)) << ' ' << (TInteger(1) != TInteger(-1)) << ' ' << (TInteger(23144) != TInteger(213451)) << ' ' << "\n";
+    PrimalityCheck* is_prime = new RabinMiller;
+    std::cout << is_prime->check(TInteger(23)) << "\n";
 
     return 0;
 }

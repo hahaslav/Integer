@@ -32,27 +32,27 @@ protected:
         return "";
     }
 public:
-    virtual TInteger check(TInteger a) { return TInteger(1); }
+    virtual std::string check(TInteger a) { return "Choose a child class"; }
 };
 
 class Fermat: public PrimalityCheck {
 public:
-    TInteger check(TInteger a) override;
+    std::string check(TInteger a) override;
 };
 
 class RabinMiller: public PrimalityCheck {
 public:
-    TInteger check(TInteger a) override;
+    std::string check(TInteger a) override;
 };
 
 class SolovayShtrassen: public PrimalityCheck {
 public:
-    TInteger check(TInteger a) override;
+    std::string check(TInteger a) override;
 };
 
 class Agrawal: public PrimalityCheck {
 public:
-    TInteger check(TInteger a) override;
+    std::string check(TInteger a) override;
 };
 
 #endif //LAB2_PRIME_H

@@ -38,14 +38,8 @@ int main() {
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088
 
-    a = TInteger(4);
-    b = TInteger(0);
-
-    try {
-        std::cout << a / b << " " << a % b << "\n";
-    } catch (char const* msg) {
-        std::cout << msg << "\n";
-    }
+    std::cout << (TInteger(1) == TInteger(1)) << ' ' << (TInteger(1) == TInteger(-1)) << ' ' << (TInteger(23144) == TInteger(213451)) << ' ' << "\n";
+    std::cout << (TInteger(1) != TInteger(1)) << ' ' << (TInteger(1) != TInteger(-1)) << ' ' << (TInteger(23144) != TInteger(213451)) << ' ' << "\n";
 
     return 0;
 }

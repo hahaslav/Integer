@@ -253,6 +253,20 @@ TInteger TInteger::operator%(int other) {
     return integer_division(other)[1];
 }
 
+bool TInteger::operator==(TInteger other) {
+    if (negative != other.negative) {
+        return false;
+    }
+    if (digits != other.digits) {
+        return false;
+    }
+    return true;
+}
+
+bool TInteger::operator!=(TInteger other) {
+    return (!(*this == other));
+}
+
 TInteger::operator std::string() {
     int i;
     std::string result = "";

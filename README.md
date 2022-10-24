@@ -19,6 +19,6 @@ TODO:
 * [ ] Cook division method?
 * [X] Primality check base class
 * [ ] Fermat primality check method
-* [ ] Rabin-Miller primality check method
+* [X] Rabin-Miller primality check method
 * [ ] Solovay-Strassen primality check method
 * [ ] Agrawal-Kayal-Saxena primality check method

@@ -14,8 +14,6 @@ class TInteger {
      */
     std::vector<int> digits; // Index 0 points to the right end of the integer
     bool negative = false;
-
-    std::vector<TInteger> integer_division(int b);
 public:
     TInteger();
 
@@ -37,9 +35,15 @@ public:
 
     TInteger operator*(TInteger other);
 
+    std::vector<TInteger> integer_division(int b);
+
     TInteger operator/(int other);
 
     TInteger operator%(int other);
+
+    bool operator==(TInteger other);
+
+    bool operator!=(TInteger other);
 
     operator std::string();
 

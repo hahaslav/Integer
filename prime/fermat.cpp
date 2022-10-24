@@ -2,6 +2,11 @@
 
 // https://en.wikipedia.org/wiki/Fermat_primality_test
 
-TInteger Fermat::check(TInteger a, TInteger b) {
-    return TInteger(12561);
+std::string Fermat::check(TInteger a) {
+    std::string fast_result = basic_check(a);
+    if (fast_result != "") {
+        return fast_result;
+    }
+
+    return "Fermat_idk";
 }

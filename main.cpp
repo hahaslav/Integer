@@ -81,6 +81,11 @@ int main(int argc, char *argv[]) {
             }
             break;
         }
+        case 8: {
+            PrimalityCheck* is_prime = new RabinMiller;
+            std::cout << is_prime->check(a);
+            break;
+        }
         case 11: {
             if (! second_integer_exist) {
                 std::cout << "Second integer is required. Aborting execution.";

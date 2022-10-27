@@ -207,7 +207,7 @@ TESTS_FOR_CATEGORY = {
     TomCookTest: 10,
     DivisionTest: 40,
     RemainderTest: 40,
-    RabinMillerTest: 20
+    RabinMillerTest: 70
 }
 NUMBER1_LENGTH = {
     "max": 1000,

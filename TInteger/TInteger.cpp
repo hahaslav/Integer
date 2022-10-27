@@ -1,13 +1,13 @@
 #include "TInteger.h"
 
-std::vector<TInteger> TInteger::integer_division(int b) {
-    if (b == 0) {
+std::vector<TInteger> TInteger::integer_division(const int& other) const {
+    if (other == 0) {
         throw("Division by 0");
     }
 
     std::vector<TInteger> result = {TInteger(0), TInteger(0)};
-    bool to_invert = negative xor (b < 0);
-    b = std::abs(b);
+    bool to_invert = negative xor (other < 0);
+    int b = std::abs(other);
 
     int i = length() - 1, remainder = 0, one_division;
     std::vector<int> reversed_value;
@@ -92,15 +92,15 @@ void TInteger::invert() {
     negative = not negative;
 }
 
-bool TInteger::is_negative() {
+bool TInteger::is_negative() const {
     return negative;
 }
 
-int TInteger::length() {
+int TInteger::length() const {
     return digits.size();
 }
 
-TInteger TInteger::operator+(TInteger other) {
+TInteger TInteger::operator+(const TInteger& other) const {
     std::vector<int> result_value;
     int i, overflow = 0;
     TInteger a = *this;
@@ -145,7 +145,7 @@ TInteger TInteger::operator+(TInteger other) {
     return result;
 }
 
-TInteger TInteger::operator-(TInteger other) {
+TInteger TInteger::operator-(const TInteger& other) const {
     std::vector<int> result_value;
     int i, overflow = 0;
     TInteger a = *this;
@@ -204,7 +204,7 @@ TInteger TInteger::operator-(TInteger other) {
     return result;
 }
 
-TInteger TInteger::operator*(TInteger other) {
+TInteger TInteger::operator*(const TInteger& other) const {
     TInteger result (0);
     bool to_invert = negative xor other.negative;
     int i, j;
@@ -239,21 +239,21 @@ TInteger TInteger::operator*(TInteger other) {
     return result;
 }
 
-TInteger TInteger::operator/(int other) {
+TInteger TInteger::operator/(const int& other) const {
     /*
      * Returns integer part of division
      */
     return integer_division(other)[0];
 }
 
-TInteger TInteger::operator%(int other) {
+TInteger TInteger::operator%(const int& other) const {
     /*
      * Returns remainder of division
      */
     return integer_division(other)[1];
 }
 
-bool TInteger::operator==(TInteger other) {
+bool TInteger::operator==(const TInteger& other) const {
     if (negative != other.negative) {
         return false;
     }
@@ -263,11 +263,11 @@ bool TInteger::operator==(TInteger other) {
     return true;
 }
 
-bool TInteger::operator!=(TInteger other) {
+bool TInteger::operator!=(const TInteger& other) const {
     return (!(*this == other));
 }
 
-TInteger::operator std::string() {
+TInteger::operator std::string() const {
     int i;
     std::string result = "";
     if (negative) {
@@ -280,7 +280,7 @@ TInteger::operator std::string() {
     return result;
 }
 
-TInteger::operator int() {
+TInteger::operator int() const {
     // if integer's absolute value is bigger than 999'999'999, returns (it's sign)1'000'000'000
     int result = 0;
 
@@ -304,7 +304,7 @@ TInteger::operator int() {
     return result;
 }
 
-std::vector<TInteger> TInteger::split(int parts, int part_length) {
+std::vector<TInteger> TInteger::split(int parts, int part_length) const {
     /*
      * Returns some parts of the integer, with using given part length
      * Forgets about the integer's sign
@@ -336,7 +336,7 @@ std::vector<TInteger> TInteger::split(int parts, int part_length) {
     return result;
 }
 
-std::vector<TInteger> TInteger::halves(int half_length) {
+std::vector<TInteger> TInteger::halves(int half_length) const {
     /*
      * Returns two parts of the integer, with using given part length
      * Forgets about the integer's sign

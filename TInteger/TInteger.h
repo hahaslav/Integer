@@ -25,32 +25,32 @@ public:
 
     void invert();
 
-    bool is_negative();
+    bool is_negative() const;
 
-    int length();
+    int length() const;
 
-    TInteger operator+(TInteger other);
+    TInteger operator+(const TInteger& other) const;
 
-    TInteger operator-(TInteger other);
+    TInteger operator-(const TInteger& other) const;
 
-    TInteger operator*(TInteger other);
+    TInteger operator*(const TInteger& other) const;
 
-    std::vector<TInteger> integer_division(int b);
+    std::vector<TInteger> integer_division(const int& other) const;
 
-    TInteger operator/(int other);
+    TInteger operator/(const int& other) const;
 
-    TInteger operator%(int other);
+    TInteger operator%(const int& other) const;
 
-    bool operator==(TInteger other);
+    bool operator==(const TInteger& other) const;
 
-    bool operator!=(TInteger other);
+    bool operator!=(const TInteger& other) const;
 
-    operator std::string();
+    operator std::string() const;
 
-    operator int();
+    operator int() const;
 
-    std::vector<TInteger> split(int parts, int part_length);
+    std::vector<TInteger> split(int parts, int part_length) const;
 
-    std::vector<TInteger> halves(int half_length);
+    std::vector<TInteger> halves(int half_length) const;
 };
 #endif //LAB2_TINTEGER_H

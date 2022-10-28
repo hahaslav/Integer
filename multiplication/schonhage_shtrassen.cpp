@@ -2,6 +2,6 @@
 
 // https://en.wikipedia.org/wiki/Sch%C3%B6nhage%E2%80%93Strassen_algorithm
 
-TInteger SchonhageShtrassen::multiply(TInteger a, TInteger b) {
+TInteger SchonhageShtrassen::multiply(const TInteger &a, const TInteger &b) const {
     return TInteger(33141);
 }

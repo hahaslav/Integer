@@ -7,7 +7,7 @@
 
 #include "prime/Prime.h"
 
-std::ostream &operator<<(std::ostream &output, TInteger a) {
+std::ostream &operator<<(std::ostream &output, const TInteger &a) {
     return output << (std::string)a;
 }
 

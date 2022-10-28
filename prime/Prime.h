@@ -7,7 +7,7 @@ const std::string NOT_PRIME = "NOT_PRIME";
 
 class PrimalityCheck {
 protected:
-    std::string basic_check(TInteger a) {
+    static std::string basic_check(const TInteger &a) {
             if ((a == TInteger(2)) ||
                 (a == TInteger(3)) ||
                 (a == TInteger(5)) ||
@@ -32,27 +32,27 @@ protected:
         return "";
     }
 public:
-    virtual std::string check(TInteger a) { return "Choose a child class"; }
+    virtual std::string check(const TInteger &a) const { return "Choose a child class"; }
 };
 
 class Fermat: public PrimalityCheck {
 public:
-    std::string check(TInteger a) override;
+    std::string check(const TInteger &a) const override;
 };
 
 class RabinMiller: public PrimalityCheck {
 public:
-    std::string check(TInteger a) override;
+    std::string check(const TInteger &a) const override;
 };
 
 class SolovayShtrassen: public PrimalityCheck {
 public:
-    std::string check(TInteger a) override;
+    std::string check(const TInteger &a) const override;
 };
 
 class Agrawal: public PrimalityCheck {
 public:
-    std::string check(TInteger a) override;
+    std::string check(const TInteger &a) const override;
 };
 
 #endif //LAB2_PRIME_H

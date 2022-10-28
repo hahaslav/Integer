@@ -1,6 +1,6 @@
 #include "TInteger.h"
 
-std::vector<TInteger> TInteger::integer_division(const int& other) const {
+std::vector<TInteger> TInteger::integer_division(const int other) const {
     if (other == 0) {
         throw("Division by 0");
     }
@@ -100,7 +100,7 @@ int TInteger::length() const {
     return digits.size();
 }
 
-TInteger TInteger::operator+(const TInteger& other) const {
+TInteger TInteger::operator+(const TInteger &other) const {
     std::vector<int> result_value;
     int i, overflow = 0;
     TInteger a = *this;
@@ -145,7 +145,7 @@ TInteger TInteger::operator+(const TInteger& other) const {
     return result;
 }
 
-TInteger TInteger::operator-(const TInteger& other) const {
+TInteger TInteger::operator-(const TInteger &other) const {
     std::vector<int> result_value;
     int i, overflow = 0;
     TInteger a = *this;
@@ -204,7 +204,7 @@ TInteger TInteger::operator-(const TInteger& other) const {
     return result;
 }
 
-TInteger TInteger::operator*(const TInteger& other) const {
+TInteger TInteger::operator*(const TInteger &other) const {
     TInteger result (0);
     bool to_invert = negative xor other.negative;
     int i, j;
@@ -239,21 +239,21 @@ TInteger TInteger::operator*(const TInteger& other) const {
     return result;
 }
 
-TInteger TInteger::operator/(const int& other) const {
+TInteger TInteger::operator/(const int other) const {
     /*
      * Returns integer part of division
      */
     return integer_division(other)[0];
 }
 
-TInteger TInteger::operator%(const int& other) const {
+TInteger TInteger::operator%(const int other) const {
     /*
      * Returns remainder of division
      */
     return integer_division(other)[1];
 }
 
-bool TInteger::operator==(const TInteger& other) const {
+bool TInteger::operator==(const TInteger &other) const {
     if (negative != other.negative) {
         return false;
     }
@@ -263,7 +263,7 @@ bool TInteger::operator==(const TInteger& other) const {
     return true;
 }
 
-bool TInteger::operator!=(const TInteger& other) const {
+bool TInteger::operator!=(const TInteger &other) const {
     return (!(*this == other));
 }
 

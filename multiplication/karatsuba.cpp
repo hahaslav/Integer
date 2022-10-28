@@ -2,7 +2,7 @@
 
 // https://en.wikipedia.org/wiki/Karatsuba_algorithm
 
-TInteger Karatsuba::multiply(TInteger a, TInteger b) {
+TInteger Karatsuba::multiply(const TInteger &a, const TInteger &b) const {
     if (std::abs((int)a) < BASE || std::abs((int)b) < BASE) {
         return a * b;
     }

@@ -4,11 +4,11 @@
 #define LAB2_MULTIPLICATION_H
 class Multiplication {
 protected:
-    bool negative_after_multiplication(TInteger a, TInteger b) {
+    static bool negative_after_multiplication(const TInteger &a, const TInteger &b) {
         return a.is_negative() xor b.is_negative();
     }
 
-    TInteger pow_of_10(int n) {
+    static TInteger pow_of_10(const int n) {
         TInteger ten(10), result = ten;
         int i;
 
@@ -19,26 +19,26 @@ protected:
         return result;
     }
 public:
-    virtual TInteger multiply(TInteger a, TInteger b) { return TInteger(1); }
+    virtual TInteger multiply(const TInteger &a, const TInteger &b) const { return TInteger(1); }
 };
 
 class Karatsuba: public Multiplication {
 public:
-    TInteger multiply(TInteger a, TInteger b) override;
+    TInteger multiply(const TInteger &a, const TInteger &b) const override;
 };
 
 class TomCook: public Multiplication {
 public:
-    TInteger multiply(TInteger a, TInteger b) override;
+    TInteger multiply(const TInteger &a, const TInteger &b) const override;
 };
 
 class Modular: public Multiplication {
 public:
-    TInteger multiply(TInteger a, TInteger b) override;
+    TInteger multiply(const TInteger &a, const TInteger &b) const override;
 };
 
 class SchonhageShtrassen: public Multiplication {
 public:
-    TInteger multiply(TInteger a, TInteger b) override;
+    TInteger multiply(const TInteger &a, const TInteger &b) const override;
 };
 #endif //LAB2_MULTIPLICATION_H

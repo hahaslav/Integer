@@ -29,21 +29,21 @@ public:
 
     int length() const;
 
-    TInteger operator+(const TInteger& other) const;
+    TInteger operator+(const TInteger &other) const;
 
-    TInteger operator-(const TInteger& other) const;
+    TInteger operator-(const TInteger &other) const;
 
-    TInteger operator*(const TInteger& other) const;
+    TInteger operator*(const TInteger &other) const;
 
-    std::vector<TInteger> integer_division(const int& other) const;
+    std::vector<TInteger> integer_division(const int other) const;
 
-    TInteger operator/(const int& other) const;
+    TInteger operator/(const int other) const;
 
-    TInteger operator%(const int& other) const;
+    TInteger operator%(const int other) const;
 
-    bool operator==(const TInteger& other) const;
+    bool operator==(const TInteger &other) const;
 
-    bool operator!=(const TInteger& other) const;
+    bool operator!=(const TInteger &other) const;
 
     operator std::string() const;
 

@@ -4,7 +4,7 @@
 // Warning! Your brain level is below recommended level
 // https://en.wikipedia.org/wiki/AKS_primality_test
 
-std::string Agrawal::check(TInteger a) {
+std::string Agrawal::check(const TInteger &a) const {
     std::string fast_result = basic_check(a);
     if (fast_result != "") {
         return fast_result;

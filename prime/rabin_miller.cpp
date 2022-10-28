@@ -7,7 +7,7 @@ const int MAX_INTEGER = 999'999'997;
 const TInteger ZERO(0);
 const TInteger ONE(1);
 
-std::string RabinMiller::check(TInteger a) {
+std::string RabinMiller::check(const TInteger &a) const {
     std::string fast_result = basic_check(a);
     if (fast_result != "") {
         return fast_result;

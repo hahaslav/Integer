@@ -8,7 +8,7 @@
 const int TOM = 3;
 const int POINTS = TOM + 2;
 
-std::vector<TInteger> get_p(std::vector<TInteger> m) {
+std::vector<TInteger> get_p(const std::vector<TInteger> &m) {
     /*
      * Gets splitted integer
      * Returns vector of p() values in the order:
@@ -26,7 +26,7 @@ std::vector<TInteger> get_p(std::vector<TInteger> m) {
     return result;
 }
 
-std::vector<TInteger> get_r_brackets(std::vector<TInteger> p, std::vector<TInteger> q) {
+std::vector<TInteger> get_r_brackets(const std::vector<TInteger> &p, const std::vector<TInteger> &q) {
     /*
      * Gets polynomials p() and q() as vectors
      * Returns vector of r() values in the order:
@@ -43,7 +43,7 @@ std::vector<TInteger> get_r_brackets(std::vector<TInteger> p, std::vector<TInteg
     return result;
 }
 
-std::vector<TInteger> get_r(std::vector<TInteger> r_brackets) {
+std::vector<TInteger> get_r(const std::vector<TInteger> &r_brackets) {
     std::vector<std::vector<TInteger>> first_matrix =
             /*
              *   /  6 0  0  0  0  \
@@ -71,7 +71,7 @@ std::vector<TInteger> get_r(std::vector<TInteger> r_brackets) {
     return result;
 }
 
-TInteger TomCook::multiply(TInteger a, TInteger b) {
+TInteger TomCook::multiply(const TInteger &a, const TInteger &b) const {
     if (std::abs((int)a) < BASE * BASE || std::abs((int)b) < BASE * BASE) {
         return a * b;
     }

@@ -81,6 +81,11 @@ int main(int argc, char *argv[]) {
             }
             break;
         }
+        case 7: {
+            PrimalityCheck* is_prime = new Fermat;
+            std::cout << is_prime->check(a);
+            break;
+        }
         case 8: {
             PrimalityCheck* is_prime = new RabinMiller;
             std::cout << is_prime->check(a);

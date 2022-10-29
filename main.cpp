@@ -91,6 +91,11 @@ int main(int argc, char *argv[]) {
             std::cout << is_prime->check(a);
             break;
         }
+        case 9: {
+            PrimalityCheck* is_prime = new SolovayShtrassen;
+            std::cout << is_prime->check(a);
+            break;
+        }
         case 11: {
             if (! second_integer_exist) {
                 std::cout << "Second integer is required. Aborting execution.";

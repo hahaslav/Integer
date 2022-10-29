@@ -15,3 +15,5 @@ Tests TODO:
 * [X] Tom-Cook multiplication method
 * [X] Fermat primality check method
 * [X] Rabin-Miller primality check method
+* [X] Rabin-Miller primality check method
+* [ ] Solovay-Strassen primality check method

@@ -45,6 +45,14 @@ public:
 
     bool operator!=(const TInteger &other) const;
 
+    bool operator>(const TInteger &other) const;
+
+    bool operator>=(const TInteger &other) const;
+
+    bool operator<(const TInteger &other) const;
+
+    bool operator<=(const TInteger &other) const;
+
     operator std::string() const;
 
     operator int() const;

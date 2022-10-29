@@ -261,6 +261,85 @@ bool TInteger::operator!=(const TInteger &other) const {
     return negative != other.negative || digits != other.digits;
 }
 
+bool TInteger::operator>(const TInteger &other) const {
+    if (*this == other) {
+        return false;
+    }
+    if (! negative && other.negative) {
+        return true;
+    }
+    if (negative && ! other.negative) {
+        return false;
+    }
+    if (negative && other.negative) {
+        TInteger a = *this;
+        TInteger b = other;
+        a.invert();
+        b.invert();
+
+        return b > a;
+    }
+    if (length() > other.length()){
+        return true;
+    }
+    if (length() < other.length()){
+        return false;
+    }
+    int i;
+
+    for (i = length() - 1; i >= 0; i--) {
+        if (digits[i] > other.digits[i]) {
+            return true;
+        }
+        if (digits[i] < other.digits[i]) {
+            return false;
+        }
+    }
+
+    return false; // they are equal, but it is checked at the beginning
+}
+
+bool TInteger::operator>=(const TInteger &other) const {
+    return *this == other || *this > other;
+}
+
+bool TInteger::operator<(const TInteger &other) const {
+    if (*this == other) {
+        return false;
+    }
+    if (! negative && other.negative) {
+        return false;
+    }
+    if (negative && ! other.negative) {
+        return true;
+    }
+    if (negative && other.negative) {
+        return other > *this;
+    }
+    if (length() < other.length()){
+        return true;
+    }
+    if (length() > other.length()){
+        return false;
+    }
+    int i;
+
+    for (i = length() - 1; i >= 0; i--) {
+        if (digits[i] < other.digits[i]) {
+            return true;
+        }
+        if (digits[i] > other.digits[i]) {
+            return false;
+        }
+    }
+
+    return false; // they are equal, but it is checked at the beginning
+}
+
+bool TInteger::operator<=(const TInteger &other) const {
+    return *this == other || *this < other;
+}
+
 TInteger::operator std::string() const {
     int i;
     std::string result = "";

@@ -9,6 +9,10 @@ TODO:
 * [X] Support for % operator
 * [X] Support for == operator
 * [X] Support for != operator
+* [X] Support for > operator
+* [X] Support for >= operator
+* [X] Support for < operator
+* [X] Support for <= operator
 * [X] Support for << operator (for cout)
 * [X] Multiplication base class
 * [X] Karatsuba multiplication method

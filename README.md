@@ -20,5 +20,5 @@ TODO:
 * [X] Primality check base class
 * [X] Fermat primality check method
 * [X] Rabin-Miller primality check method
-* [ ] Solovay-Strassen primality check method
+* [X] Solovay-Strassen primality check method
 * [ ] Agrawal-Kayal-Saxena primality check method

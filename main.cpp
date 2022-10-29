@@ -38,11 +38,16 @@ int main() {
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088
 
+    TInteger prime(6323);
+
     PrimalityCheck* is_prime = new Fermat;
-    std::cout << is_prime->check(TInteger("6323")) << "\n";
+    std::cout << is_prime->check(prime) << "\n";
 
     is_prime = new RabinMiller;
-    std::cout << is_prime->check(TInteger("6323")) << "\n";
+    std::cout << is_prime->check(prime) << "\n";
+
+    is_prime = new SolovayShtrassen;
+    std::cout << is_prime->check(prime) << "\n";
 
     return 0;
 }

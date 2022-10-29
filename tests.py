@@ -11,12 +11,12 @@ METHOD_NUMBER = {
     "Karatsuba": 1,
     "Tom-Cook": 2,
     "Modular": 3,
-    "Schonhage-Shtrassen": 4,
+    "Schonhage-Strassen": 4,
     "Float": 5,
     "Division": 6,
     "Fermat": 7,
     "Rabin-Miller": 8,
-    "Solovay_Shtrassen": 8,
+    "Solovay-Strassen": 9,
     "Agrawal": 10,
     "Sum": 11,
     "Subtract": 12,
@@ -203,6 +203,11 @@ class RabinMillerTest(PrimalityTest):
     method_number = METHOD_NUMBER["Rabin-Miller"]
 
 
+class SolovayStrassenTest(PrimalityTest):
+    name = "Solovay-Strassen test"
+    method_number = METHOD_NUMBER["Solovay-Strassen"]
+
+
 TESTS_FOR_CATEGORY = {
     Test: 40,
     SumTest: 40,
@@ -212,8 +217,9 @@ TESTS_FOR_CATEGORY = {
     TomCookTest: 10,
     DivisionTest: 40,
     RemainderTest: 40,
-    FermatTest: 85,
-    RabinMillerTest: 85,
+    FermatTest: 90,
+    RabinMillerTest: 90,
+    SolovayStrassenTest: 90
 }
 NUMBER1_LENGTH = {
     "max": 1000,
@@ -227,6 +233,7 @@ NUMBER1_LENGTH = {
     RemainderTest: 1000,
     FermatTest: 4,
     RabinMillerTest: 4,
+    SolovayStrassenTest: 4
 }
 NUMBER2_LENGTH = {
     "max": 1000,
@@ -239,7 +246,8 @@ NUMBER2_LENGTH = {
     DivisionTest: 8,
     RemainderTest: 8,
     FermatTest: None,
-    RabinMillerTest: None
+    RabinMillerTest: None,
+    SolovayStrassenTest: None
 }
 
 

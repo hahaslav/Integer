@@ -254,17 +254,11 @@ TInteger TInteger::operator%(const int other) const {
 }
 
 bool TInteger::operator==(const TInteger &other) const {
-    if (negative != other.negative) {
-        return false;
-    }
-    if (digits != other.digits) {
-        return false;
-    }
-    return true;
+    return negative == other.negative && digits == other.digits;
 }
 
 bool TInteger::operator!=(const TInteger &other) const {
-    return (!(*this == other));
+    return negative != other.negative || digits != other.digits;
 }
 
 TInteger::operator std::string() const {

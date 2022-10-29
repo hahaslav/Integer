@@ -53,4 +53,7 @@ public:
 
     std::vector<TInteger> halves(int half_length) const;
 };
+
+const TInteger I_ZERO(0);
+const TInteger I_ONE(1);
 #endif //LAB2_TINTEGER_H

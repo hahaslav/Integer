@@ -19,7 +19,7 @@ protected:
         return result;
     }
 public:
-    virtual TInteger multiply(const TInteger &a, const TInteger &b) const { return TInteger(1); }
+    virtual TInteger multiply(const TInteger &a, const TInteger &b) const { return I_ONE; }
 };
 
 class Karatsuba: public Multiplication {

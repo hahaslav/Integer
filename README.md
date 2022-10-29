@@ -18,7 +18,7 @@ TODO:
 * [ ] Cook method of calculating numbers after comma?
 * [ ] Cook division method?
 * [X] Primality check base class
-* [ ] Fermat primality check method
+* [X] Fermat primality check method
 * [X] Rabin-Miller primality check method
 * [ ] Solovay-Strassen primality check method
 * [ ] Agrawal-Kayal-Saxena primality check method

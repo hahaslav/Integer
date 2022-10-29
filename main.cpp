@@ -38,7 +38,10 @@ int main() {
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088
 
-    PrimalityCheck* is_prime = new RabinMiller;
+    PrimalityCheck* is_prime = new Fermat;
+    std::cout << is_prime->check(TInteger("6323")) << "\n";
+
+    is_prime = new RabinMiller;
     std::cout << is_prime->check(TInteger("6323")) << "\n";
 
     return 0;

@@ -193,6 +193,11 @@ class RemainderTest(ArithmeticTest):
     method_number = METHOD_NUMBER["Remainder"]
 
 
+class FermatTest(PrimalityTest):
+    name = "Fermat test"
+    method_number = METHOD_NUMBER["Fermat"]
+
+
 class RabinMillerTest(PrimalityTest):
     name = "Rabin-Miller test"
     method_number = METHOD_NUMBER["Rabin-Miller"]
@@ -207,7 +212,8 @@ TESTS_FOR_CATEGORY = {
     TomCookTest: 10,
     DivisionTest: 40,
     RemainderTest: 40,
-    RabinMillerTest: 70
+    FermatTest: 85,
+    RabinMillerTest: 85,
 }
 NUMBER1_LENGTH = {
     "max": 1000,
@@ -219,6 +225,7 @@ NUMBER1_LENGTH = {
     TomCookTest: 200,
     DivisionTest: 1000,
     RemainderTest: 1000,
+    FermatTest: 4,
     RabinMillerTest: 4,
 }
 NUMBER2_LENGTH = {
@@ -231,6 +238,7 @@ NUMBER2_LENGTH = {
     TomCookTest: 200,
     DivisionTest: 8,
     RemainderTest: 8,
+    FermatTest: None,
     RabinMillerTest: None
 }
 

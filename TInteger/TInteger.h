@@ -64,4 +64,7 @@ public:
 
 const TInteger I_ZERO(0);
 const TInteger I_ONE(1);
+
+TInteger pow(const TInteger &base, const TInteger &exp);
+TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod);
 #endif //LAB2_TINTEGER_H

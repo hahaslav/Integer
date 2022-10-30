@@ -46,7 +46,7 @@ public:
     std::string check(const TInteger &a) const override;
 };
 
-class SolovayShtrassen: public PrimalityCheck {
+class SolovayStrassen: public PrimalityCheck {
 public:
     std::string check(const TInteger &a) const override;
 };

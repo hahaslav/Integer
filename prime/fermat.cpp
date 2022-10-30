@@ -12,16 +12,11 @@ std::string Fermat::check(const TInteger &a) const {
 
     srand(time(0));
     TInteger p = a - I_ONE;
-    TInteger j;
     int i;
 
     for (i = 0; i < TESTS; i++) {
         TInteger base(rand() % MAX_RND_INTEGER + 2);
-
-        TInteger x(1);
-        for (j = I_ZERO; j != p; j = j + I_ONE) {
-            x = x * base % a;
-        }
+        TInteger x = pow(base, p, a);
 
         if (x == I_ONE) {
             continue;

@@ -33,7 +33,7 @@ int main() {
     multiply_method = new Modular;
     std::cout << multiply_method->multiply(a, b) << "\n";
 
-    multiply_method = new SchonhageShtrassen;
+    multiply_method = new SchonhageStrassen;
     std::cout << multiply_method->multiply(a, b) << "\n\n";
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088
@@ -49,6 +49,8 @@ int main() {
     std::cout << (I_ZERO < I_ONE) << ' ' << (I_ZERO < TInteger(-1)) << ' ' << (I_ZERO > I_ONE) << ' ' << (I_ZERO > TInteger(-1)) << "\n";
 
     TInteger prime(6323);
+    std::cout << pow(prime, TInteger(2)) << "\n";
+    std::cout << pow(prime, TInteger(2), TInteger(1000)) << "\n";
 
     PrimalityCheck* is_prime = new Fermat;
     std::cout << is_prime->check(prime) << "\n";
@@ -56,7 +58,7 @@ int main() {
     is_prime = new RabinMiller;
     std::cout << is_prime->check(prime) << "\n";
 
-    is_prime = new SolovayShtrassen;
+    is_prime = new SolovayStrassen;
     std::cout << is_prime->check(prime) << "\n";
 
     return 0;

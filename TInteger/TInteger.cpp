@@ -416,3 +416,31 @@ std::vector<TInteger> TInteger::halves(int half_length) const {
      */
     return split(2, half_length);
 }
+
+TInteger pow(const TInteger &base, const TInteger &exp) {
+    /*
+     * Returns base^exp
+     */
+    TInteger result(1);
+    TInteger i;
+
+    for (i = I_ZERO; i != exp; i = i + I_ONE) {
+        result = result * base;
+    }
+
+    return result;
+}
+
+TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod) {
+    /*
+     * Returns base^exp % mod
+     */
+    TInteger result(1);
+    TInteger i;
+
+    for (i = I_ZERO; i != exp; i = i + I_ONE) {
+        result = result * base % mod;
+    }
+
+    return result;
+}

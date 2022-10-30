@@ -37,7 +37,7 @@ public:
     TInteger multiply(const TInteger &a, const TInteger &b) const override;
 };
 
-class SchonhageShtrassen: public Multiplication {
+class SchonhageStrassen: public Multiplication {
 public:
     TInteger multiply(const TInteger &a, const TInteger &b) const override;
 };

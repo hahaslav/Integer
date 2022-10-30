@@ -9,7 +9,7 @@ const int MAX_RND_INTEGER = 999'999'997;
 class PrimalityCheck {
 protected:
     static std::string basic_check(const TInteger &a) {
-            if ((a == TInteger(2)) ||
+            if ((a == I_TWO) ||
                 (a == TInteger(3)) ||
                 (a == TInteger(5)) ||
                 (a == TInteger(7)) ||
@@ -20,7 +20,7 @@ protected:
                 return IS_PRIME;
             }
             if ((a == I_ZERO) || (a == I_ONE) || (a.is_negative()) ||
-                (a % TInteger(2) == I_ZERO) ||
+                (a % I_TWO == I_ZERO) ||
                 (a % TInteger(3) == I_ZERO) ||
                 (a % TInteger(5) == I_ZERO) ||
                 (a % TInteger(7) == I_ZERO) ||

@@ -49,8 +49,8 @@ int main() {
     std::cout << (I_ZERO < I_ONE) << ' ' << (I_ZERO < TInteger(-1)) << ' ' << (I_ZERO > I_ONE) << ' ' << (I_ZERO > TInteger(-1)) << "\n";
 
     TInteger prime(6323);
-    std::cout << pow(prime, TInteger(2)) << "\n";
-    std::cout << pow(prime, TInteger(2), TInteger(1000)) << "\n";
+    std::cout << pow(prime, I_TWO) << "\n";
+    std::cout << pow(prime, I_TWO, TInteger(1000)) << "\n";
 
     PrimalityCheck* is_prime = new Fermat;
     std::cout << is_prime->check(prime) << "\n";
@@ -59,6 +59,10 @@ int main() {
     std::cout << is_prime->check(prime) << "\n";
 
     is_prime = new SolovayStrassen;
+    std::cout << is_prime->check(prime) << "\n";
+
+    is_prime = new Agrawal;
+    std::cout << is_prime->check(1369) << "\n";
     std::cout << is_prime->check(prime) << "\n";
 
     return 0;

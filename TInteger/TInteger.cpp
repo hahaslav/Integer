@@ -5,7 +5,7 @@ std::vector<TInteger> TInteger::integer_division(const int other) const {
         throw("Division by 0");
     }
 
-    std::vector<TInteger> result = {TInteger(0), TInteger(0)};
+    std::vector<TInteger> result = {I_ZERO, I_ZERO};
     bool to_invert = negative xor (other < 0);
     int b = std::abs(other);
 
@@ -205,7 +205,7 @@ TInteger TInteger::operator-(const TInteger &other) const {
 }
 
 TInteger TInteger::operator*(const TInteger &other) const {
-    TInteger result (0);
+    TInteger result = I_ZERO;
     bool to_invert = negative xor other.negative;
     int i, j;
 
@@ -421,7 +421,7 @@ TInteger pow(const TInteger &base, const TInteger &exp) {
     /*
      * Returns base^exp
      */
-    TInteger result(1);
+    TInteger result = I_ONE;
     TInteger i;
 
     for (i = I_ZERO; i != exp; i = i + I_ONE) {
@@ -435,7 +435,7 @@ TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod) {
     /*
      * Returns base^exp % mod
      */
-    TInteger result(1);
+    TInteger result = I_ONE;
     TInteger i;
 
     for (i = I_ZERO; i != exp; i = i + I_ONE) {

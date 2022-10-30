@@ -11,7 +11,7 @@ std::string RabinMiller::check(const TInteger &a) const {
     }
 
     srand(time(0));
-    TInteger d = a / TInteger(2);
+    TInteger d = a / I_TWO;
     int s = 0;
     std::vector<TInteger> better_d = d.integer_division(2);
     while (better_d[1] == I_ZERO) {

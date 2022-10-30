@@ -12,7 +12,7 @@ std::string SolovayStrassen::check(const TInteger &a) const {
 
     srand(time(0));
     TInteger p = a - I_ONE;
-    TInteger n = p / TInteger(2);
+    TInteger n = p / I_TWO;
     int i;
 
     for (i = 0; i < TESTS; i++) {

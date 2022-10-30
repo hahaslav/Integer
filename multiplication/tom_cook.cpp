@@ -20,7 +20,7 @@ std::vector<TInteger> get_p(const std::vector<TInteger> &m) {
     result.push_back(m[2]);
     result.push_back(m[2] + m[1] + m[0]);
     result.push_back(m[2] - m[1] + m[0]);
-    result.push_back(m[2] - (TInteger(2) * m[1]) + (TInteger(4) * m[0]));
+    result.push_back(m[2] - (I_TWO * m[1]) + (TInteger(4) * m[0]));
     result.push_back(m[0]);
 
     return result;
@@ -52,12 +52,12 @@ std::vector<TInteger> get_r(const std::vector<TInteger> &r_brackets) {
              *  | -3 1  3 -1  12 |
              *   \  0 0  0  0  6  /
              */
-            {{TInteger(6), TInteger(0), TInteger(0), TInteger(0), TInteger(0)},
-            {TInteger(3), TInteger(2), TInteger(-6), TInteger(1), TInteger(-12)},
-            {TInteger(-6), TInteger(3), TInteger(3), TInteger(0), TInteger(-6)},
-            {TInteger(-3), TInteger(1), TInteger(3), TInteger(-1), TInteger(12)},
-            {TInteger(0), TInteger(0), TInteger(0), TInteger(0), TInteger(6)}};
-    std::vector<TInteger> result(POINTS, TInteger(0));
+            {{TInteger(6), I_ZERO, I_ZERO, I_ZERO, I_ZERO},
+            {TInteger(3), I_TWO, TInteger(-6), I_ONE, TInteger(-12)},
+            {TInteger(-6), TInteger(3), TInteger(3), I_ZERO, TInteger(-6)},
+            {TInteger(-3), I_ONE, TInteger(3), TInteger(-1), TInteger(12)},
+            {I_ZERO, I_ZERO, I_ZERO, I_ZERO, TInteger(6)}};
+    std::vector<TInteger> result(POINTS, I_ZERO);
     const int divider = 6;
     int i, j;
 
@@ -106,7 +106,7 @@ TInteger TomCook::multiply(const TInteger &a, const TInteger &b) const {
     std::vector<TInteger> r = get_r(r_brackets);
 
     // recomposition
-    TInteger result(0), current_shift(1);
+    TInteger result = I_ZERO, current_shift = I_ONE;
     int i;
 
     for (i = 0; i < POINTS; i++) {

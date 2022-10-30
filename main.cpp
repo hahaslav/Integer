@@ -67,6 +67,7 @@ int main() {
 
     is_prime = new Agrawal;
     std::cout << is_prime->check(1369) << "\n";
+    std::cout << is_prime->check(31) << "\n";
     std::cout << is_prime->check(prime) << "\n";
 
     return 0;

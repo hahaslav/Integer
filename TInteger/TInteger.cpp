@@ -254,17 +254,90 @@ TInteger TInteger::operator%(const int other) const {
 }
 
 bool TInteger::operator==(const TInteger &other) const {
-    if (negative != other.negative) {
-        return false;
-    }
-    if (digits != other.digits) {
-        return false;
-    }
-    return true;
+    return negative == other.negative && digits == other.digits;
 }
 
 bool TInteger::operator!=(const TInteger &other) const {
-    return (!(*this == other));
+    return negative != other.negative || digits != other.digits;
+}
+
+bool TInteger::operator>(const TInteger &other) const {
+    if (*this == other) {
+        return false;
+    }
+    if (! negative && other.negative) {
+        return true;
+    }
+    if (negative && ! other.negative) {
+        return false;
+    }
+    if (negative && other.negative) {
+        TInteger a = *this;
+        TInteger b = other;
+        a.invert();
+        b.invert();
+
+        return b > a;
+    }
+    if (length() > other.length()){
+        return true;
+    }
+    if (length() < other.length()){
+        return false;
+    }
+    int i;
+
+    for (i = length() - 1; i >= 0; i--) {
+        if (digits[i] > other.digits[i]) {
+            return true;
+        }
+        if (digits[i] < other.digits[i]) {
+            return false;
+        }
+    }
+
+    return false; // they are equal, but it is checked at the beginning
+}
+
+bool TInteger::operator>=(const TInteger &other) const {
+    return *this == other || *this > other;
+}
+
+bool TInteger::operator<(const TInteger &other) const {
+    if (*this == other) {
+        return false;
+    }
+    if (! negative && other.negative) {
+        return false;
+    }
+    if (negative && ! other.negative) {
+        return true;
+    }
+    if (negative && other.negative) {
+        return other > *this;
+    }
+    if (length() < other.length()){
+        return true;
+    }
+    if (length() > other.length()){
+        return false;
+    }
+    int i;
+
+    for (i = length() - 1; i >= 0; i--) {
+        if (digits[i] < other.digits[i]) {
+            return true;
+        }
+        if (digits[i] > other.digits[i]) {
+            return false;
+        }
+    }
+
+    return false; // they are equal, but it is checked at the beginning
+}
+
+bool TInteger::operator<=(const TInteger &other) const {
+    return *this == other || *this < other;
 }
 
 TInteger::operator std::string() const {
@@ -342,4 +415,32 @@ std::vector<TInteger> TInteger::halves(int half_length) const {
      * Forgets about the integer's sign
      */
     return split(2, half_length);
+}
+
+TInteger pow(const TInteger &base, const TInteger &exp) {
+    /*
+     * Returns base^exp
+     */
+    TInteger result(1);
+    TInteger i;
+
+    for (i = I_ZERO; i != exp; i = i + I_ONE) {
+        result = result * base;
+    }
+
+    return result;
+}
+
+TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod) {
+    /*
+     * Returns base^exp % mod
+     */
+    TInteger result(1);
+    TInteger i;
+
+    for (i = I_ZERO; i != exp; i = i + I_ONE) {
+        result = result * base % mod;
+    }
+
+    return result;
 }

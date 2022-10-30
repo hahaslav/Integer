@@ -21,15 +21,10 @@ std::string RabinMiller::check(const TInteger &a) const {
     }
 
     int i, k, max_base = std::min(MAX_RND_INTEGER, (int)(a - TInteger(4)));
-    TInteger j;
 
     for (i = 0; i < BASES; i++) {
         TInteger base(rand() % max_base + 2);
-
-        TInteger x(1);
-        for (j = I_ZERO; j != d; j = j + I_ONE) {
-            x = x * base % a;
-        }
+        TInteger x = pow(base, d, a);
 
         if (x == I_ONE || x == a - I_ONE) {
             continue;

@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
             break;
         }
         case 9: {
-            PrimalityCheck* is_prime = new SolovayShtrassen;
+            PrimalityCheck* is_prime = new SolovayStrassen;
             std::cout << is_prime->check(a);
             break;
         }

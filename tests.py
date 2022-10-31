@@ -22,7 +22,8 @@ METHOD_NUMBER = {
     "Subtract": 12,
     "Product": 13,
     "Division/": 14,
-    "Remainder": 15
+    "Remainder": 15,
+    "Repeated addition": 16
 }
 RANDOM_TO_LENGTH = 5
 
@@ -162,6 +163,11 @@ class TomCookTest(ProductTest):
     method_number = METHOD_NUMBER["Tom-Cook"]
 
 
+class RepeatedAdditionTest(ProductTest):
+    name = "Repeated addition multiplication test"
+    method_number = METHOD_NUMBER["Repeated addition"]
+
+
 def custom_div(obj: any, a: int, b: int):
     if (a < 0) ^ (b < 0):
         sign = -1
@@ -215,11 +221,12 @@ TESTS_FOR_CATEGORY = {
     ProductTest: 10,
     KaratsubaTest: 10,
     TomCookTest: 10,
+    RepeatedAdditionTest: 15,
     DivisionTest: 40,
     RemainderTest: 40,
-    FermatTest: 90,
-    RabinMillerTest: 90,
-    SolovayStrassenTest: 90
+    FermatTest: 85,
+    RabinMillerTest: 85,
+    SolovayStrassenTest: 85
 }
 NUMBER1_LENGTH = {
     "max": 1000,
@@ -229,6 +236,7 @@ NUMBER1_LENGTH = {
     ProductTest: 200,
     KaratsubaTest: 200,
     TomCookTest: 200,
+    RepeatedAdditionTest: 1000,
     DivisionTest: 1000,
     RemainderTest: 1000,
     FermatTest: 4,
@@ -243,6 +251,7 @@ NUMBER2_LENGTH = {
     ProductTest: 200,
     KaratsubaTest: 200,
     TomCookTest: 200,
+    RepeatedAdditionTest: 4,
     DivisionTest: 8,
     RemainderTest: 8,
     FermatTest: None,

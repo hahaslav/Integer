@@ -41,4 +41,9 @@ class SchonhageStrassen: public Multiplication {
 public:
     TInteger multiply(const TInteger &a, const TInteger &b) const override;
 };
+
+class RepeatedAddition: public Multiplication {
+public:
+    TInteger multiply(const TInteger &a, const TInteger &b) const override;
+};
 #endif //LAB2_MULTIPLICATION_H

@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
      * 13 - multiplication "in column"
      * 14 - division
      * 15 - remainder
+     * 16 - RepeatedAddition
      */
     if (argc == 1) {
         std::cout << "No arguments were given. Aborting execution.";
@@ -133,6 +134,15 @@ int main(int argc, char *argv[]) {
                 std::cout << "Second integer is required. Aborting execution.";
             } else {
                 std::cout << a % ((int)b);
+            }
+            break;
+        }
+        case 16: {
+            if (! second_integer_exist) {
+                std::cout << "Second integer is required. Aborting execution.";
+            } else {
+                Multiplication* multiply_method = new RepeatedAddition;
+                std::cout << multiply_method->multiply(a, b);
             }
             break;
         }

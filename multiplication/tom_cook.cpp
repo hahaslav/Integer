@@ -80,20 +80,20 @@ TInteger TomCook::multiply(const TInteger &a, const TInteger &b) const {
 
     // splitting
     TInteger longest;
-    int split_lenght = std::max(a.length(), b.length());
-    if (split_lenght == a.length()) {
+    int split_length = std::max(a.length(), b.length());
+    if (split_length == a.length()) {
         longest = a;
     } else {
         longest = b;
     }
-    split_lenght /= TOM;
+    split_length /= TOM;
     if (longest.length() % 3 != 0) {
-        split_lenght++;
+        split_length++;
     }
 
-    std::vector<TInteger> parts_a = a.split(TOM, split_lenght);
-    std::vector<TInteger> parts_b = b.split(TOM, split_lenght);
-    TInteger base_i = pow_of_10(split_lenght);
+    std::vector<TInteger> parts_a = a.split(TOM, split_length);
+    std::vector<TInteger> parts_b = b.split(TOM, split_length);
+    TInteger base_i = pow_of_10(split_length);
 
     // evaluation
     std::vector<TInteger> p_a = get_p(parts_a);

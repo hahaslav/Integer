@@ -21,7 +21,7 @@ public:
 
     TInteger(std::string integer);
 
-    TInteger(std::vector<int> integer);
+    TInteger(std::vector<int> integer, bool is_negative = false);
 
     void invert();
 

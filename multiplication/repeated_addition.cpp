@@ -4,12 +4,19 @@
 // https://en.wikipedia.org/wiki/Multiplication
 
 TInteger RepeatedAddition::multiply(const TInteger &a, const TInteger &b) const {
-    TInteger i, result = I_ZERO;
+    TInteger i, result = I_ZERO, multiplier = a, multiplicand = b;
 
     bool to_invert = negative_after_multiplication(a, b);
 
-    for (i = I_ZERO; i != b; i = i + I_ONE) {
-        result = result + a;
+    if (multiplier < I_ZERO) {
+        multiplier.invert();
+    }
+    if (multiplicand < I_ZERO) {
+        multiplicand.invert();
+    }
+
+    for (i = I_ZERO; i != multiplicand; i = i + I_ONE) {
+        result = result + multiplier;
     }
 
     if (to_invert) {

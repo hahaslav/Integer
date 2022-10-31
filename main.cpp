@@ -19,6 +19,7 @@ int main() {
     // 56088
     // 54321
     // 33141
+    // 56088
     //
     // *output for the next tests*
 
@@ -34,6 +35,9 @@ int main() {
     std::cout << multiply_method->multiply(a, b) << "\n";
 
     multiply_method = new SchonhageStrassen;
+    std::cout << multiply_method->multiply(a, b) << "\n";
+
+    multiply_method = new RepeatedAddition;
     std::cout << multiply_method->multiply(a, b) << "\n\n";
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088

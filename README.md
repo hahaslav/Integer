@@ -19,6 +19,7 @@ TODO:
 * [X] Tom-Cook multiplication method
 * [ ] Modular multiplication method
 * [ ] Schönhage-Strassen multiplication method
+* [X] The Best Multiplication Method Ever 🤩 (WOW)
 * [ ] Cook method of calculating numbers after comma?
 * [ ] Cook division method?
 * [X] Primality check base class

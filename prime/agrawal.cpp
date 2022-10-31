@@ -2,6 +2,169 @@
 
 // https://en.wikipedia.org/wiki/AKS_primality_test
 
+struct Indeterminate {
+    /*
+     * Describes coefficient * x^power
+     */
+    TInteger coefficient;
+    TInteger power;
+};
+
+class Polynomial {
+    /*
+     * Holds a polynomial expression
+     */
+    std::vector<Indeterminate> addends;
+public:
+    Polynomial() {}
+
+    Polynomial(Indeterminate &one_addend) {
+        addends.push_back(one_addend);
+    }
+
+    Polynomial(std::vector<Indeterminate> &indeterminates) {
+        addends = indeterminates;
+    }
+
+    int length() const {
+        return addends.size();
+    }
+
+    void append(const Indeterminate &next_addend) {
+        addends.push_back(next_addend);
+    }
+
+    void pop_lead_zeros() {
+        while (addends[0].coefficient == I_ZERO) {
+            addends.erase(addends.begin());
+        }
+    }
+
+    void insert_missing_zeros() {
+        int i = 1;
+
+        while (true) {
+            if (i >= length()) {
+
+                if (length() == 0) {
+                    return;
+                }
+                while (addends[length() - 1].power != I_ZERO) {
+                    append({0, addends[length() - 1].power - I_ONE});
+                } return;
+            }
+            if (addends[i - 1].power - addends[i].power) {
+                // TODO
+            }
+        }
+    }
+
+    void operator*(const TInteger &n) {
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            addends[i].coefficient = addends[i].coefficient * n;
+        }
+    }
+
+    void operator%(const Polynomial &other) {
+        int i;
+
+        // TODO
+    }
+
+    bool operator !=(const Polynomial &other) const {
+        if (length() != other.length()) {
+            return true;
+        }
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            if (addends[i].coefficient != other.addends[i].coefficient) {
+                return true;
+            }
+            if (addends[i].power != other.addends[i].power) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    operator std::string() const {
+        std::string result = "";
+        int i;
+
+        for (i = 0; i < length() - 1; i++) {
+            result += (std::string)addends[i].coefficient;
+            result += "*x^";
+            result += (std::string)addends[i].power;
+            result += ", ";
+        }
+        result += (std::string)addends[i].coefficient;
+
+        return result;
+    }
+};
+
+TInteger factorial(const TInteger &n) {
+    /*
+     * Returns n!
+     */
+    TInteger i, result = 1;
+
+    for (i = I_ONE; i <= n; i = i + I_ONE) {
+        result = result * i;
+    }
+
+    return result;
+}
+
+TInteger combinations(const TInteger &n, const TInteger &k) {
+    /*
+     * Returns combinations from n to k
+     * Converts dividend into int, that can mess up result
+     */
+    return factorial(n) / (factorial(k) * factorial(n - k));
+}
+
+Polynomial binom(const TInteger &a, const TInteger &n) {
+    /*
+     * Returns binomial expansion of (x + a)^n
+     */
+    Polynomial result;
+    TInteger i;
+
+    for (i = I_ZERO; i <= n; i = i + I_ONE) {
+        Indeterminate next_addend;
+        next_addend.coefficient = combinations(n, i);
+        next_addend.power = n - i;
+        result.append(next_addend);
+    }
+
+    return result;
+}
+
+Polynomial x_pow_a_plus_b(const TInteger &a, const TInteger &b) {
+    /*
+     * Returns x^a + b
+     */
+    std::vector<Indeterminate> result_value(2, {1, 0});
+
+    result_value[0].power = a;
+    result_value[1].coefficient = b;
+
+    Polynomial result(result_value);
+    return result;
+}
+
+Polynomial x_pow_a_minus_1(const TInteger &a) {
+    /*
+     * Returns x^a - 1
+     */
+    return x_pow_a_plus_b(a, TInteger(-1));
+}
+
 bool is_perfect_power(const TInteger &n) {
     TInteger a = I_TWO, b = I_TWO;
 
@@ -87,8 +250,8 @@ std::string Agrawal::check(const TInteger &a) const {
 
     TInteger j;
 
-    for (j = TInteger(3); // not starts from 2 because we already checked it
-        j <= min(r, a - I_ONE);  // in basic_check()
+    for (j = TInteger(23); // not starts from 2 because we already
+        j <= min(r, a - I_ONE);  // checked 2, 3, 5,.. in basic_check()
         j = j + I_TWO // and here too
     ) {
         if (a % j == I_ZERO) {
@@ -100,5 +263,15 @@ std::string Agrawal::check(const TInteger &a) const {
         return IS_PRIME;
     }
 
-    return "next step";
+    for (j = I_ONE; j != (r - I_ONE) * a; j = j + I_ONE) {
+        break; // TODO
+        Polynomial left_exp = binom(j, a);
+        left_exp % x_pow_a_minus_1(r);
+
+        if (left_exp != x_pow_a_plus_b(a, j)) {
+            return NOT_PRIME;
+        }
+    }
+
+    return IS_PRIME;
 }

@@ -76,7 +76,7 @@ TInteger::TInteger(std::string integer) {
     }
 }
 
-TInteger::TInteger(std::vector<int> integer) {
+TInteger::TInteger(std::vector<int> integer, bool is_negative) {
     int i;
 
     for (i = integer.size() - 1; i > 0; i--) {
@@ -86,6 +86,9 @@ TInteger::TInteger(std::vector<int> integer) {
     }
 
     digits = integer;
+    if (is_negative) {
+        invert();
+    }
 }
 
 void TInteger::invert() {

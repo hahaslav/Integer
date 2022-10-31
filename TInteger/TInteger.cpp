@@ -447,3 +447,11 @@ TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod) {
 
     return result;
 }
+
+TInteger min(const TInteger &a, const TInteger &b) {
+    if (a <= b) {
+        return a;
+    }
+
+    return b;
+}

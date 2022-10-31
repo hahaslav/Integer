@@ -85,5 +85,20 @@ std::string Agrawal::check(const TInteger &a) const {
         r = r + I_ONE;
     }
 
-    return (std::string)r;
+    TInteger j;
+
+    for (j = TInteger(3); // not starts from 2 because we already checked it
+        j <= min(r, a - I_ONE);  // in basic_check()
+        j = j + I_TWO // and here too
+    ) {
+        if (a % j == I_ZERO) {
+            return NOT_PRIME;
+        }
+    }
+
+    if (a <= r) {
+        return IS_PRIME;
+    }
+
+    return "next step";
 }

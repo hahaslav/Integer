@@ -1,5 +1,75 @@
 #include "TInteger.h"
 
+TInteger division_by_repeated_multiplication(const TInteger &a, const TInteger &b) {
+    /*
+     * From a/b = c we can get a = bc. So, we can iterate over c from 0 until
+     * the biggest c that a >= bc.
+     *
+     * Its purpose is to remove unpredicted recursion in the next division method
+     */
+    TInteger c = I_ZERO;
+
+    while (a >= b * (c + I_ONE)) {
+        c = c + I_ONE;
+    }
+
+    return c;
+}
+
+std::vector<TInteger> TInteger::tinteger_division(const TInteger &other) const {
+    /*
+     * It is not a template method because of different way of working with int
+     */
+    if (other == I_ZERO) {
+        throw("Division by 0");
+    }
+
+    std::vector<TInteger> result = {I_ZERO, I_ZERO};
+    bool to_invert = negative xor other.negative;
+
+    TInteger b = other;
+    if (b.negative) {
+        b.invert();
+    }
+
+    int i = length() - 1;
+    TInteger remainder = I_ZERO, one_division;
+    std::vector<TInteger> reversed_value;
+
+    while (remainder < b && i >= 0) {
+        remainder = remainder * I_TEN + TInteger(digits[i]);
+        i--;
+    }
+    if (remainder < b) {
+        result[1] = remainder;
+        return result;
+    }
+
+    while (i >= 0) {
+        one_division = division_by_repeated_multiplication(remainder, b);
+        reversed_value.push_back(one_division);
+        remainder = remainder - one_division * b;
+
+        remainder = remainder * I_TEN + TInteger(digits[i]);
+        i--;
+    }
+    one_division = division_by_repeated_multiplication(remainder, b);
+    reversed_value.push_back(one_division);
+    remainder = remainder - one_division * b;
+
+    std::vector<int> result_value;
+    for (i = reversed_value.size() - 1; i >= 0; i--) {
+        result_value.push_back((int)reversed_value[i]);
+    }
+
+    result[0] = result_value;
+    if (to_invert) {
+        result[0].invert();
+    }
+    result[1] = remainder;
+    return result;
+}
+
 std::vector<TInteger> TInteger::integer_division(const int other) const {
     if (other == 0) {
         throw("Division by 0");
@@ -249,11 +319,31 @@ TInteger TInteger::operator/(const int other) const {
     return integer_division(other)[0];
 }
 
+TInteger TInteger::operator/(const TInteger &other) const {
+    /*
+     * Returns integer part of division
+     */
+    if (other.length() < 10) {
+        return integer_division(other)[0];
+    }
+    return tinteger_division(other)[0];
+}
+
 TInteger TInteger::operator%(const int other) const {
+    /*
+     * Returns integer part of division
+     */
+    return integer_division(other)[1];
+}
+
+TInteger TInteger::operator%(const TInteger &other) const {
     /*
      * Returns remainder of division
      */
-    return integer_division(other)[1];
+    if (other.length() < 10) {
+        return integer_division(other)[1];
+    }
+    return tinteger_division(other)[1];
 }
 
 bool TInteger::operator==(const TInteger &other) const {

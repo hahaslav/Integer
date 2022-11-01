@@ -2,8 +2,8 @@
 
 #include "multiplication/Multiplication.h"
 
-#include "cook/float_cook.h"
-#include "cook/division_cook.h"
+#include "pseudo_float/inverse.h"
+#include "pseudo_float/division_cook.h"
 
 #include "prime/Prime.h"
 

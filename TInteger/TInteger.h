@@ -68,4 +68,6 @@ const TInteger I_TWO(2);
 
 TInteger pow(const TInteger &base, const TInteger &exp);
 TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod);
+
+TInteger min(const TInteger &a, const TInteger &b);
 #endif //LAB2_TINTEGER_H

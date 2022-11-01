@@ -11,8 +11,7 @@ std::ostream &operator<<(std::ostream &output, const TInteger &a) {
 int main() {
     TInteger a(123), b("456");
 
-    PseudoFloat flo(411);
-    std::cout << flo << "\n\n";
+    std::cout << inverse(a) << "\n\n";
 
     // Should output:
     // 56088

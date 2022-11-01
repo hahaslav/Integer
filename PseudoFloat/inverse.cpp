@@ -2,7 +2,7 @@
 
 // http://www.dsplog.com/2011/12/25/newtons-method-square-root-inverse/
 
-const int ITERATIONS = 2;
+const int ITERATIONS = 6;
 
 std::string inverse(const TInteger &n) {
     int i;
@@ -10,7 +10,7 @@ std::string inverse(const TInteger &n) {
     TInteger d = n * float_shift, real_two = I_TWO * float_shift;
 
     for (i = 0; i < ITERATIONS; i++) {
-        x = x * (real_two - x * d / float_shift); // TODO make operator/(TInteger)
+        x = x * (real_two - x * d / float_shift);
         d = d * float_shift;
         real_two = real_two * float_shift;
         float_shift = float_shift * float_shift;

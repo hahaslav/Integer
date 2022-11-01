@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
             if (! second_integer_exist) {
                 std::cout << "Second integer is required. Aborting execution.";
             } else {
-                std::cout << a / ((int)b);
+                std::cout << a / b;
             }
             break;
         }
@@ -133,7 +133,7 @@ int main(int argc, char *argv[]) {
             if (! second_integer_exist) {
                 std::cout << "Second integer is required. Aborting execution.";
             } else {
-                std::cout << a % ((int)b);
+                std::cout << a % b;
             }
             break;
         }

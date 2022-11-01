@@ -93,7 +93,7 @@ TInteger TomCook::multiply(const TInteger &a, const TInteger &b) const {
 
     std::vector<TInteger> parts_a = a.split(TOM, split_length);
     std::vector<TInteger> parts_b = b.split(TOM, split_length);
-    TInteger base_i = pow_of_10(split_length);
+    TInteger base_i = pow(I_TEN, split_length);
 
     // evaluation
     std::vector<TInteger> p_a = get_p(parts_a);

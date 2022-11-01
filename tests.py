@@ -12,7 +12,7 @@ METHOD_NUMBER = {
     "Tom-Cook": 2,
     "Modular": 3,
     "Schonhage-Strassen": 4,
-    "Float": 5,
+    "Newton": 5,
     "Division": 6,
     "Fermat": 7,
     "Rabin-Miller": 8,

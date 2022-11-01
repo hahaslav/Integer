@@ -46,7 +46,7 @@ std::vector<TInteger> TInteger::integer_division(const int other) const {
     return result;
 }
 
-TInteger::TInteger() {}
+TInteger::TInteger() {} // for declaration
 
 TInteger::TInteger(int integer) {
     if (integer == 0) {
@@ -428,6 +428,20 @@ TInteger pow(const TInteger &base, const TInteger &exp) {
     TInteger i;
 
     for (i = I_ZERO; i != exp; i = i + I_ONE) {
+        result = result * base;
+    }
+
+    return result;
+}
+
+TInteger pow(const TInteger &base, const int exp) {
+    /*
+     * Returns base^exp
+     */
+    TInteger result = I_ONE;
+    int i;
+
+    for (i = 0; i < exp; i++) {
         result = result * base;
     }
 

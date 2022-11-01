@@ -46,7 +46,7 @@ std::vector<TInteger> TInteger::integer_division(const int other) const {
     return result;
 }
 
-TInteger::TInteger() {}
+TInteger::TInteger() {} // for declaration
 
 TInteger::TInteger(int integer) {
     if (integer == 0) {

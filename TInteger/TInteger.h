@@ -57,7 +57,7 @@ public:
 
     bool operator<=(const TInteger &other) const;
 
-    virtual operator std::string() const;
+    operator std::string() const;
 
     operator int() const;
 

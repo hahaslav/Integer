@@ -186,6 +186,10 @@ class DivisionTest(ArithmeticTest):
     method_number = METHOD_NUMBER["Division/"]
 
 
+class LargeDivisionTest(DivisionTest):
+    name = "Large division test"
+
+
 def custom_mod(obj: any, a: int, b: int):
     a = abs(a)
     b = abs(b)
@@ -195,6 +199,12 @@ def custom_mod(obj: any, a: int, b: int):
 
 class RemainderTest(ArithmeticTest):
     name = "Remainder test"
+    operation = custom_mod
+    method_number = METHOD_NUMBER["Remainder"]
+
+
+class LargeRemainderTest(RemainderTest):
+    name = "Large remainder test"
     operation = custom_mod
     method_number = METHOD_NUMBER["Remainder"]
 
@@ -224,6 +234,8 @@ TESTS_FOR_CATEGORY = {
     RepeatedAdditionTest: 15,
     DivisionTest: 40,
     RemainderTest: 40,
+    LargeDivisionTest: 50,
+    LargeRemainderTest: 50,
     FermatTest: 85,
     RabinMillerTest: 85,
     SolovayStrassenTest: 85
@@ -239,6 +251,8 @@ NUMBER1_LENGTH = {
     RepeatedAdditionTest: 1000,
     DivisionTest: 1000,
     RemainderTest: 1000,
+    LargeDivisionTest: 1000,
+    LargeRemainderTest: 1000,
     FermatTest: 4,
     RabinMillerTest: 4,
     SolovayStrassenTest: 4
@@ -254,6 +268,8 @@ NUMBER2_LENGTH = {
     RepeatedAdditionTest: 4,
     DivisionTest: 8,
     RemainderTest: 8,
+    LargeDivisionTest: 900,
+    LargeRemainderTest: 900,
     FermatTest: None,
     RabinMillerTest: None,
     SolovayStrassenTest: None

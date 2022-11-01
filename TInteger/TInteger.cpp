@@ -1,6 +1,25 @@
 #include "TInteger.h"
 
+TInteger division_by_repeated_multiplication(const TInteger &a, const TInteger &b) {
+    /*
+     * From a/b = c we can get a = bc. So, we can iterate over c from 0 until
+     * the biggest c that a >= bc.
+     *
+     * Its purpose is to remove unpredicted recursion in the next division method
+     */
+    TInteger c = I_ZERO;
+
+    while (a >= b * (c + I_ONE)) {
+        c = c + I_ONE;
+    }
+
+    return c;
+}
+
 std::vector<TInteger> TInteger::tinteger_division(const TInteger &other) const {
+    /*
+     * It is not a template method because of different way of working with int
+     */
     if (other == I_ZERO) {
         throw("Division by 0");
     }
@@ -27,14 +46,14 @@ std::vector<TInteger> TInteger::tinteger_division(const TInteger &other) const {
     }
 
     while (i >= 0) {
-        one_division = remainder / b;
+        one_division = division_by_repeated_multiplication(remainder, b);
         reversed_value.push_back(one_division);
         remainder = remainder - one_division * b;
 
         remainder = remainder * I_TEN + TInteger(digits[i]);
         i--;
     }
-    one_division = remainder / b;
+    one_division = division_by_repeated_multiplication(remainder, b);
     reversed_value.push_back(one_division);
     remainder = remainder - one_division * b;
 
@@ -293,32 +312,38 @@ TInteger TInteger::operator*(const TInteger &other) const {
     return result;
 }
 
-TInteger TInteger::operator/(const TInteger &other) const {
-    /*
-     * Returns integer part of division
-     */
-    return tinteger_division(other)[0];
-}
-
 TInteger TInteger::operator/(const int other) const {
     /*
      * Returns integer part of division
      */
-    return *this / TInteger(other);
+    return integer_division(other)[0];
 }
 
-TInteger TInteger::operator%(const TInteger &other) const {
+TInteger TInteger::operator/(const TInteger &other) const {
     /*
-     * Returns remainder of division
+     * Returns integer part of division
      */
-    return tinteger_division(other)[1];
+    if (other.length() < 10) {
+        return integer_division(other)[0];
+    }
+    return tinteger_division(other)[0];
 }
 
 TInteger TInteger::operator%(const int other) const {
     /*
      * Returns integer part of division
      */
-    return *this % TInteger(other);
+    return integer_division(other)[1];
+}
+
+TInteger TInteger::operator%(const TInteger &other) const {
+    /*
+     * Returns remainder of division
+     */
+    if (other.length() < 10) {
+        return integer_division(other)[1];
+    }
+    return tinteger_division(other)[1];
 }
 
 bool TInteger::operator==(const TInteger &other) const {

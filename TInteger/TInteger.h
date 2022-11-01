@@ -39,13 +39,11 @@ public:
 
     std::vector<TInteger> integer_division(const int other) const;
 
+    TInteger operator/(const int other) const;
     TInteger operator/(const TInteger &other) const;
 
-    TInteger operator/(const int other) const;
-
-    TInteger operator%(const TInteger &other) const;
-
     TInteger operator%(const int other) const;
+    TInteger operator%(const TInteger &other) const;
 
     bool operator==(const TInteger &other) const;
 

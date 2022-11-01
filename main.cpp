@@ -1,10 +1,7 @@
 #include <iostream>
 
 #include "multiplication/Multiplication.h"
-
-#include "pseudo_float/inverse.h"
-#include "pseudo_float/division_cook.h"
-
+#include "PseudoFloat/PseudoFloat.h"
 #include "prime/Prime.h"
 
 std::ostream &operator<<(std::ostream &output, const TInteger &a) {

@@ -20,7 +20,7 @@ TODO:
 * [ ] Modular multiplication method
 * [ ] Schönhage-Strassen multiplication method
 * [X] The Best Multiplication Method Ever 🤩 (WOW)
-* [ ] Cook method of calculating numbers after comma?
+* [ ] Newton's inverse method
 * [ ] Cook division method?
 * [X] Primality check base class
 * [X] Fermat primality check method

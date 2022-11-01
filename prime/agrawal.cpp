@@ -1,6 +1,7 @@
 #include "Prime.h"
 
 // https://en.wikipedia.org/wiki/AKS_primality_test
+// https://www.cse.iitk.ac.in/users/manindra/algebra/primality_v6.pdf
 
 struct Indeterminate {
     /*

@@ -7,17 +7,6 @@ protected:
     static bool negative_after_multiplication(const TInteger &a, const TInteger &b) {
         return a.is_negative() xor b.is_negative();
     }
-
-    static TInteger pow_of_10(const int n) {
-        TInteger ten(10), result = ten;
-        int i;
-
-        for (i = 2; i <= n; i++) {
-            result = result * ten;
-        }
-
-        return result;
-    }
 public:
     virtual TInteger multiply(const TInteger &a, const TInteger &b) const { return I_ONE; }
 };

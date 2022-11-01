@@ -434,6 +434,20 @@ TInteger pow(const TInteger &base, const TInteger &exp) {
     return result;
 }
 
+TInteger pow(const TInteger &base, const int exp) {
+    /*
+     * Returns base^exp
+     */
+    TInteger result = I_ONE;
+    int i;
+
+    for (i = 0; i < exp; i++) {
+        result = result * base;
+    }
+
+    return result;
+}
+
 TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod) {
     /*
      * Returns base^exp % mod

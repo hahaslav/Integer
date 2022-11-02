@@ -1,12 +1,11 @@
 #include "TInteger.h"
 
-TInteger division_by_repeated_multiplication(const TInteger &a, const TInteger &b) {
-    /*
-     * From a/b = c we can get a = bc. So, we can iterate over c from 0 until
-     * the biggest c that a >= bc.
-     *
-     * Its purpose is to remove unpredicted recursion in the next division method
-     */
+TInteger division_by_repeated_multiplication(const TInteger &a, const TInteger &b)
+/* From a/b = c we can get a = bc. So, we can iterate over c from 0 until
+ * the biggest c that a >= bc.
+ *
+ * Its purpose is to remove unpredicted recursion in the next division method
+ */ {
     TInteger c = I_ZERO;
 
     while (a >= b * (c + I_ONE)) {
@@ -16,10 +15,9 @@ TInteger division_by_repeated_multiplication(const TInteger &a, const TInteger &
     return c;
 }
 
-std::vector<TInteger> TInteger::tinteger_division(const TInteger &other) const {
-    /*
-     * It is not a template method because of different way of working with int
-     */
+std::vector<TInteger> TInteger::tinteger_division(const TInteger &other) const
+// It is not a template method because of different way of working with int
+{
     if (other == I_ZERO) {
         throw("Division by 0");
     }
@@ -312,34 +310,30 @@ TInteger TInteger::operator*(const TInteger &other) const {
     return result;
 }
 
-TInteger TInteger::operator/(const int other) const {
-    /*
-     * Returns integer part of division
-     */
+TInteger TInteger::operator/(const int other) const
+// Returns integer part of division
+{
     return integer_division(other)[0];
 }
 
-TInteger TInteger::operator/(const TInteger &other) const {
-    /*
-     * Returns integer part of division
-     */
+TInteger TInteger::operator/(const TInteger &other) const
+// Returns integer part of division
+{
     if (other.length() < 10) {
         return integer_division(other)[0];
     }
     return tinteger_division(other)[0];
 }
 
-TInteger TInteger::operator%(const int other) const {
-    /*
-     * Returns integer part of division
-     */
+TInteger TInteger::operator%(const int other) const
+// Returns remainder of division
+{
     return integer_division(other)[1];
 }
 
-TInteger TInteger::operator%(const TInteger &other) const {
-    /*
-     * Returns remainder of division
-     */
+TInteger TInteger::operator%(const TInteger &other) const
+// Returns remainder of division
+{
     if (other.length() < 10) {
         return integer_division(other)[1];
     }
@@ -446,8 +440,9 @@ TInteger::operator std::string() const {
     return result;
 }
 
-TInteger::operator int() const {
-    // if integer's absolute value is bigger than 999'999'999, returns (it's sign)1'000'000'000
+TInteger::operator int() const
+// if integer's absolute value is bigger than 999'999'999, returns (it's sign)1'000'000'000
+{
     int result = 0;
 
     if (length() > 9) {
@@ -470,11 +465,10 @@ TInteger::operator int() const {
     return result;
 }
 
-std::vector<TInteger> TInteger::split(int parts, int part_length) const {
-    /*
-     * Returns some parts of the integer, with using given part length
-     * Forgets about the integer's sign
-     */
+std::vector<TInteger> TInteger::split(int parts, int part_length) const
+/* Returns some parts of the integer, with using given part length
+ * Forgets about the integer's sign
+ */ {
     int full_length = part_length * parts;
 
     if (length() > full_length) throw("Integer cannot be splitted fully");
@@ -502,18 +496,16 @@ std::vector<TInteger> TInteger::split(int parts, int part_length) const {
     return result;
 }
 
-std::vector<TInteger> TInteger::halves(int half_length) const {
-    /*
-     * Returns two parts of the integer, with using given part length
-     * Forgets about the integer's sign
-     */
+std::vector<TInteger> TInteger::halves(int half_length) const
+/* Returns two parts of the integer, with using given part length
+ * Forgets about the integer's sign
+ */ {
     return split(2, half_length);
 }
 
-TInteger pow(const TInteger &base, const TInteger &exp) {
-    /*
-     * Returns base^exp
-     */
+TInteger pow(const TInteger &base, const TInteger &exp)
+// Returns base^exp
+{
     TInteger result = I_ONE;
     TInteger i;
 
@@ -524,10 +516,9 @@ TInteger pow(const TInteger &base, const TInteger &exp) {
     return result;
 }
 
-TInteger pow(const TInteger &base, const int exp) {
-    /*
-     * Returns base^exp
-     */
+TInteger pow(const TInteger &base, const int exp)
+// Returns base^exp
+{
     TInteger result = I_ONE;
     int i;
 
@@ -538,10 +529,9 @@ TInteger pow(const TInteger &base, const int exp) {
     return result;
 }
 
-TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod) {
-    /*
-     * Returns base^exp % mod
-     */
+TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod)
+// Returns base^exp
+{
     TInteger result = I_ONE;
     TInteger i;
 

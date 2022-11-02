@@ -108,10 +108,9 @@ public:
     }
 };
 
-TInteger factorial(const TInteger &n) {
-    /*
-     * Returns n!
-     */
+TInteger factorial(const TInteger &n)
+ // Returns n!
+ {
     TInteger i, result = 1;
 
     for (i = I_ONE; i <= n; i = i + I_ONE) {
@@ -121,18 +120,16 @@ TInteger factorial(const TInteger &n) {
     return result;
 }
 
-TInteger combinations(const TInteger &n, const TInteger &k) {
-    /*
-     * Returns combinations from n to k
-     * Converts dividend into int, that can mess up result
-     */
+TInteger combinations(const TInteger &n, const TInteger &k)
+/* Returns combinations from n to k
+ * Converts dividend into int, that can mess up result
+ */ {
     return factorial(n) / (factorial(k) * factorial(n - k));
 }
 
-Polynomial binom(const TInteger &a, const TInteger &n) {
-    /*
-     * Returns binomial expansion of (x + a)^n
-     */
+Polynomial binom(const TInteger &a, const TInteger &n)
+//  Returns binomial expansion of (x + a)^n
+{
     Polynomial result;
     TInteger i;
 
@@ -146,10 +143,9 @@ Polynomial binom(const TInteger &a, const TInteger &n) {
     return result;
 }
 
-Polynomial x_pow_a_plus_b(const TInteger &a, const TInteger &b) {
-    /*
-     * Returns x^a + b
-     */
+Polynomial x_pow_a_plus_b(const TInteger &a, const TInteger &b)
+// Returns x^a + b
+{
     std::vector<Indeterminate> result_value(2, {1, 0});
 
     result_value[0].power = a;
@@ -159,10 +155,9 @@ Polynomial x_pow_a_plus_b(const TInteger &a, const TInteger &b) {
     return result;
 }
 
-Polynomial x_pow_a_minus_1(const TInteger &a) {
-    /*
-     * Returns x^a - 1
-     */
+Polynomial x_pow_a_minus_1(const TInteger &a)
+// Returns x^a - 1
+{
     return x_pow_a_plus_b(a, TInteger(-1));
 }
 
@@ -186,10 +181,9 @@ bool is_perfect_power(const TInteger &n) {
     return false;
 }
 
-TInteger kinda_log2(const TInteger &n) {
-    /*
-     * Returns ceil of logarithm of n with base 2
-     */
+TInteger kinda_log2(const TInteger &n)
+// Returns ceil of logarithm of n with base 2
+{
     TInteger result = I_ONE;
 
     while (pow(I_TWO, result) < n) {
@@ -210,13 +204,12 @@ bool coprime(const TInteger &a, const TInteger &b) {
     return gcd(a, b) == I_ONE;
 }
 
-TInteger ord(const TInteger &a, const TInteger &n) {
-    /*
-     * Returns multiplicative order of a modulo n
-     * https://en.wikipedia.org/wiki/Multiplicative_order
-     *
-     * Given integers must be coprime
-     */
+TInteger ord(const TInteger &a, const TInteger &n)
+/* Returns multiplicative order of a modulo n
+ * https://en.wikipedia.org/wiki/Multiplicative_order
+ *
+ * Given integers must be coprime
+ */ {
     TInteger result = I_ONE;
 
     while (pow(a, result, n) != I_ONE) {

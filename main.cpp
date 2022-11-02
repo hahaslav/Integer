@@ -1,10 +1,7 @@
 #include <iostream>
 
 #include "multiplication/Multiplication.h"
-
-#include "pseudo_float/inverse.h"
-#include "pseudo_float/division_cook.h"
-
+#include "PseudoFloat/PseudoFloat.h"
 #include "prime/Prime.h"
 
 std::ostream &operator<<(std::ostream &output, const TInteger &a) {
@@ -33,7 +30,7 @@ int main(int argc, char *argv[]) {
      * Numbers of the methods:
      * 0 - outputs the given integers
      * [1; 4] - multiplication methods
-     * 5 - float method
+     * 5 - inverse method
      * 6 - division method
      * [7; 10] - primality check methods
      * 11 - sum
@@ -80,6 +77,10 @@ int main(int argc, char *argv[]) {
                 Multiplication* multiply_method = new TomCook;
                 std::cout << multiply_method->multiply(a, b);
             }
+            break;
+        }
+        case 5: {
+            std::cout << inverse(a);
             break;
         }
         case 7: {

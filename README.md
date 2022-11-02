@@ -14,6 +14,7 @@ Tests TODO:
 * [X] Karatsuba multiplication method
 * [X] Tom-Cook multiplication method
 * [X] The Best Multiplication Method Ever 🤩 (WOW)
+* [ ] Newton's inverse method
 * [X] Fermat primality check method
 * [X] Rabin-Miller primality check method
 * [X] Rabin-Miller primality check method

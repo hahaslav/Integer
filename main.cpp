@@ -41,19 +41,7 @@ int main() {
 
     std::cout << a * b << "\n"; // 123 * 456 = 56088
 
-    TInteger pa(222), pb(223), pc(1111);
-    TInteger na(-222), nb(-223), nc(-1111);
-
-    std::cout << (pa > pb) << ' ' << (pa > pc) << ' ' << (na > nb) << ' ' << (na > nc) << ' ' << (pa > na) << ' ' << (na > pa) << "\n";
-    std::cout << (pa < pb) << ' ' << (pa < pc) << ' ' << (na < nb) << ' ' << (na < nc) << ' ' << (pa < na) << ' ' << (na < pa) << "\n";
-    std::cout << (pa > pa) << ' ' << (pa >= pa) << ' ' << (na > na) << ' ' << (na >= na) << "\n";
-    std::cout << (pa < pa) << ' ' << (pa <= pa) << ' ' << (na < na) << ' ' << (na <= na) << "\n";
-    std::cout << (I_ZERO < pa) << ' ' << (I_ZERO < na) << ' ' << (I_ZERO > pa) << ' ' << (I_ZERO > na) << "\n";
-    std::cout << (I_ZERO < I_ONE) << ' ' << (I_ZERO < TInteger(-1)) << ' ' << (I_ZERO > I_ONE) << ' ' << (I_ZERO > TInteger(-1)) << "\n";
-
     TInteger prime(6323);
-    std::cout << pow(prime, I_TWO) << "\n";
-    std::cout << pow(prime, I_TWO, TInteger(1000)) << "\n";
 
     PrimalityCheck* is_prime = new Fermat;
     std::cout << is_prime->check(prime) << "\n";

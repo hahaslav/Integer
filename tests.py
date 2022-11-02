@@ -74,6 +74,9 @@ class Test:
         if self.integer2 is not None:
             self.my_result += f" {self.integer2}"
 
+    def success_criteria(self, another_result):
+        return self.my_result == another_result
+
     def check(self):
         """
         Concludes the result of the test
@@ -88,7 +91,7 @@ class Test:
             its_result = fin.read()
 
         output = ""
-        if self.my_result == its_result:
+        if self.success_criteria(its_result):
             self.status = "SUCCESS"
         else:
             self.status = "FAIL"
@@ -116,6 +119,23 @@ class ArithmeticTest(Test):
 
     def self_execute(self):
         self.my_result = f"{self.operation(self.integer1, self.integer2)}"
+
+
+class InverseTest(Test):
+    """
+    Class for Newton's inverse method
+    """
+    name = "Inverse test"
+    method_number = METHOD_NUMBER["Newton"]
+
+    def __init__(self, integer1: int):
+        Test.__init__(self, method=self.method_number, integer1=integer1)
+
+    def self_execute(self):
+        self.my_result = f"{1 / self.integer1}"
+
+    def success_criteria(self, another_result):
+        return float(self.my_result) == float(another_result)
 
 
 class PrimalityTest(Test):
@@ -232,6 +252,7 @@ TESTS_FOR_CATEGORY = {
     KaratsubaTest: 10,
     TomCookTest: 10,
     RepeatedAdditionTest: 15,
+    InverseTest: 20,
     DivisionTest: 40,
     RemainderTest: 40,
     LargeDivisionTest: 25,
@@ -249,6 +270,7 @@ NUMBER1_LENGTH = {
     KaratsubaTest: 200,
     TomCookTest: 200,
     RepeatedAdditionTest: 1000,
+    InverseTest: 4,
     DivisionTest: 1000,
     RemainderTest: 1000,
     LargeDivisionTest: 200,
@@ -266,6 +288,7 @@ NUMBER2_LENGTH = {
     KaratsubaTest: 200,
     TomCookTest: 200,
     RepeatedAdditionTest: 4,
+    InverseTest: None,
     DivisionTest: 8,
     RemainderTest: 8,
     LargeDivisionTest: 180,
@@ -333,7 +356,7 @@ def main():
 
     for category in TESTS_FOR_CATEGORY:
         for _ in range(TESTS_FOR_CATEGORY[category]):
-            if issubclass(category, PrimalityTest):
+            if issubclass(category, PrimalityTest) or issubclass(category, InverseTest):
                 all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category], positive=True)))
             else:
                 all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category]), integer2=get_random_integer(length=NUMBER2_LENGTH[category])))

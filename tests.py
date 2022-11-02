@@ -356,7 +356,9 @@ def main():
 
     for category in TESTS_FOR_CATEGORY:
         for _ in range(TESTS_FOR_CATEGORY[category]):
-            if issubclass(category, PrimalityTest) or issubclass(category, InverseTest):
+            if issubclass(category, InverseTest):
+                all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category])))
+            elif issubclass(category, PrimalityTest):
                 all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category], positive=True)))
             else:
                 all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category]), integer2=get_random_integer(length=NUMBER2_LENGTH[category])))

@@ -17,4 +17,4 @@ Implemented methods:
 * [X] Fermat primality check method
 * [X] Rabin-Miller primality check method
 * [X] Solovay-Strassen primality check method
-* 85% Agrawal-Kayal-Saxena primality check method
+* [X] Agrawal-Kayal-Saxena primality check method

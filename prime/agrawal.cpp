@@ -149,28 +149,6 @@ public:
         }
     }
 
-    bool operator !=(const Polynomial &other) const {
-        Polynomial a = *this;
-        Polynomial b = other;
-        int i;
-
-        a.insert_missing_zeros();
-        b.insert_missing_zeros();
-        if (a.length() != b.length()) {
-            return true;
-        }
-        for (i = 0; i < length(); i++) {
-            if (a.addends[i].coefficient != b.addends[i].coefficient) {
-                return true;
-            }
-            if (a.addends[i].power != b.addends[i].power) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     operator std::string() const {
         if (length() == 0) {
             return "0";
@@ -196,6 +174,17 @@ public:
                 result += "^";
                 result += (std::string) addends[i].power;
             }
+        }
+
+        return result;
+    }
+
+    TInteger calculate(const TInteger &x) const {
+        TInteger result = 0;
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            result = result + addends[i].coefficient * pow(x, addends[i].power);
         }
 
         return result;
@@ -352,13 +341,16 @@ std::string Agrawal::check(const TInteger &a) const {
     }
 
     Polynomial base_exp = binom(j, a);
+    Polynomial middle_exp = x_pow_a_plus_b(a, I_ONE);
     Polynomial right_exp = x_pow_a_minus_1(r);
     base_exp % right_exp;
     base_exp % a;
-    return base_exp;
+    middle_exp % right_exp;
+    Polynomial final_exp;
+    final_exp + Indeterminate{I_ONE, a};
+    final_exp + Indeterminate{TInteger(-1), I_ONE};
     for (j = I_ONE; j != (r - I_ONE) * a; j = j + I_ONE) {
-
-        if (base_exp != x_pow_a_plus_b(a, j)) {
+        if (final_exp.calculate(j) % a != I_ZERO) {
             return NOT_PRIME;
         }
     }

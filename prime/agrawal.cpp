@@ -66,7 +66,7 @@ public:
     }
 
     void pop_lead_zeros() {
-        while (addends[0].coefficient == I_ZERO) {
+        while (addends[0].coefficient == I_ZERO && length() > 0) {
             addends.erase(addends.begin());
         }
     }
@@ -122,10 +122,22 @@ public:
         }
     }
 
-    void operator%(const Polynomial &other) {
-        int i;
+    void operator%(Polynomial &other) {
+        TInteger mult_coef, mult_pow;
 
-        // TODO
+        insert_missing_zeros();
+        other.sort();
+        while (addends[0].power >= other.addends[0].power) {
+            mult_coef = addends[0].coefficient / other.addends[0].coefficient;
+            if (mult_coef == I_ZERO) {
+                return;
+            }
+            mult_pow = addends[0].power - other.addends[0].power;
+            Indeterminate mult{mult_coef, mult_pow};
+            Polynomial subtractor = other;
+            subtractor * mult;
+            *this - subtractor;
+        }
     }
 
     bool operator !=(const Polynomial &other) const {
@@ -147,6 +159,9 @@ public:
     }
 
     operator std::string() const {
+        if (length() == 0) {
+            return "0";
+        }
         std::string result = "";
         int i;
 
@@ -288,16 +303,15 @@ TInteger ord(const TInteger &a, const TInteger &n)
 std::string Agrawal::check(const TInteger &a) const {
 
     Polynomial taste, smell;
-    taste + Indeterminate{1, 4};
-    taste + Indeterminate{2, 2};
+    taste + Indeterminate{6, 3};
+    taste + Indeterminate{-1, 2};
     taste + Indeterminate{-3, 1};
-    taste + Indeterminate{4, 0};
-    smell + Indeterminate{1, 2};
-    smell + Indeterminate{-1, 1};
-    smell + Indeterminate{-1, 0};
+    taste + Indeterminate{-20, 0};
+    smell + Indeterminate{2, 2};
+    smell + Indeterminate{3, 1};
+    smell + Indeterminate{4, 0};
 
-    smell * Indeterminate{1, 2};
-    taste - smell;
+    taste % smell;
     return taste;
 
     std::string fast_result = basic_check(a);
@@ -339,7 +353,8 @@ std::string Agrawal::check(const TInteger &a) const {
 
     for (j = I_ONE; j != (r - I_ONE) * a; j = j + I_ONE) {
         Polynomial left_exp = binom(j, a);
-        left_exp % x_pow_a_minus_1(r);
+        Polynomial right_exp = x_pow_a_minus_1(r);
+        left_exp % right_exp;
         return left_exp;
 
         if (left_exp != x_pow_a_plus_b(a, j)) {

@@ -101,6 +101,8 @@ public:
         for (i = 0; i < other.length(); i++) {
             *this - other.addends[i];
         }
+
+        pop_lead_zeros();
     }
 
     void operator*(const TInteger &n) {
@@ -108,6 +110,15 @@ public:
 
         for (i = 0; i < length(); i++) {
             addends[i].coefficient = addends[i].coefficient * n;
+        }
+    }
+
+    void operator*(const Indeterminate &other) {
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            addends[i].power = addends[i].power + other.power;
+            addends[i].coefficient = addends[i].coefficient * other.coefficient;
         }
     }
 
@@ -285,6 +296,7 @@ std::string Agrawal::check(const TInteger &a) const {
     smell + Indeterminate{-1, 1};
     smell + Indeterminate{-1, 0};
 
+    smell * Indeterminate{1, 2};
     taste - smell;
     return taste;
 

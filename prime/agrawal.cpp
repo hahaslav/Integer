@@ -16,16 +16,6 @@ class Polynomial {
      * Holds a polynomial expression
      */
     std::vector<Indeterminate> addends;
-public:
-    Polynomial() {}
-
-    Polynomial(Indeterminate &one_addend) {
-        addends.push_back(one_addend);
-    }
-
-    Polynomial(std::vector<Indeterminate> &indeterminates) {
-        addends = indeterminates;
-    }
 
     int length() const {
         return addends.size();
@@ -51,21 +41,10 @@ public:
         } while (changed);
     }
 
-    void operator+(const Indeterminate &other) {
-        int i;
-
-        for (i = 0; i < length(); i++) {
-            if (addends[i].power == other.power) {
-                addends[i].coefficient = addends[i].coefficient + other.coefficient;
-                return;
-            }
-        }
-
-        addends.push_back(other);
+    void pop_lead_zeros()
+    // Removes addends with coefficient 0 from the beginning
+    {
         sort();
-    }
-
-    void pop_lead_zeros() {
         while (addends[0].coefficient == I_ZERO && length() > 0) {
             addends.erase(addends.begin());
         }
@@ -121,6 +100,26 @@ public:
             addends[i].coefficient = addends[i].coefficient * other.coefficient;
         }
     }
+public:
+    Polynomial() {}
+
+    Polynomial(std::vector<Indeterminate> &indeterminates) {
+        addends = indeterminates;
+    }
+
+    void operator+(const Indeterminate &other) {
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            if (addends[i].power == other.power) {
+                addends[i].coefficient = addends[i].coefficient + other.coefficient;
+                return;
+            }
+        }
+
+        addends.push_back(other);
+        sort();
+    }
 
     void operator%(Polynomial &other) {
         TInteger mult_coef, mult_pow;
@@ -141,16 +140,20 @@ public:
     }
 
     bool operator !=(const Polynomial &other) const {
-        if (length() != other.length()) {
-            return true;
-        }
+        Polynomial a = *this;
+        Polynomial b = other;
         int i;
 
+        a.insert_missing_zeros();
+        b.insert_missing_zeros();
+        if (a.length() != b.length()) {
+            return true;
+        }
         for (i = 0; i < length(); i++) {
-            if (addends[i].coefficient != other.addends[i].coefficient) {
+            if (a.addends[i].coefficient != b.addends[i].coefficient) {
                 return true;
             }
-            if (addends[i].power != other.addends[i].power) {
+            if (a.addends[i].power != b.addends[i].power) {
                 return true;
             }
         }
@@ -301,19 +304,6 @@ TInteger ord(const TInteger &a, const TInteger &n)
 }
 
 std::string Agrawal::check(const TInteger &a) const {
-
-    Polynomial taste, smell;
-    taste + Indeterminate{6, 3};
-    taste + Indeterminate{-1, 2};
-    taste + Indeterminate{-3, 1};
-    taste + Indeterminate{-20, 0};
-    smell + Indeterminate{2, 2};
-    smell + Indeterminate{3, 1};
-    smell + Indeterminate{4, 0};
-
-    taste % smell;
-    return taste;
-
     std::string fast_result = basic_check(a);
     if (fast_result != "") {
         return fast_result;

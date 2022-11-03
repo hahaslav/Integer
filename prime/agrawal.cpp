@@ -71,22 +71,15 @@ public:
         }
     }
 
-    void insert_missing_zeros() {
-        int i = 1;
+    void insert_missing_zeros()
+    /* Adds addends explicitly when their coefficient is 0
+     * It is to make division easier
+     */ {
+        sort(); // to put the biggest power first
+        TInteger i;
 
-        while (true) {
-            if (i >= length()) {
-
-                if (length() == 0) {
-                    return;
-                }
-                while (addends[length() - 1].power != I_ZERO) {
-//                    append({0, addends[length() - 1].power - I_ONE});
-                } return;
-            }
-            if (addends[i - 1].power - addends[i].power) {
-                // TODO
-            }
+        for (i = addends[0].power - I_ONE; i >= I_ZERO; i = i - I_ONE) {
+            *this + Indeterminate{0, i};
         }
     }
 
@@ -264,10 +257,8 @@ TInteger ord(const TInteger &a, const TInteger &n)
 std::string Agrawal::check(const TInteger &a) const {
 
     Polynomial taste;
-    taste + Indeterminate{4, 2};
-    taste + Indeterminate{3, 0};
-    taste + Indeterminate{2, 1};
-    taste + Indeterminate{1, 2};
+    taste + Indeterminate{2, 2};
+    taste.insert_missing_zeros();
 
     return taste;
 

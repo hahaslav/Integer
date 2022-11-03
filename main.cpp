@@ -9,13 +9,21 @@ std::ostream &operator<<(std::ostream &output, const TInteger &a) {
 }
 
 int charstring_to_int(char s[]) {
-    int result = 0;
+    int result = 0, i = 0;
+    bool to_invert = false;
+    if (s[0] == '-') {
+        to_invert = true;
+        i = 1;
+    }
 
-    for (int i = 0; s[i] != 0; i++) {
+    for (i; s[i] != 0; i++) {
         result *= 10;
         result += s[i] - '0'; // it is converted from the ASCII character code
     }
 
+    if (to_invert) {
+        result *= -1;
+    }
     return result;
 }
 

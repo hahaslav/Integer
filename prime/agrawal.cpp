@@ -83,6 +83,26 @@ public:
         }
     }
 
+    void operator-(const Indeterminate &other) {
+        insert_missing_zeros();
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            if (addends[i].power == other.power) {
+                addends[i].coefficient = addends[i].coefficient - other.coefficient;
+                return;
+            }
+        }
+    }
+
+    void operator-(const Polynomial &other) {
+        int i;
+
+        for (i = 0; i < other.length(); i++) {
+            *this - other.addends[i];
+        }
+    }
+
     void operator*(const TInteger &n) {
         int i;
 
@@ -256,10 +276,16 @@ TInteger ord(const TInteger &a, const TInteger &n)
 
 std::string Agrawal::check(const TInteger &a) const {
 
-    Polynomial taste;
+    Polynomial taste, smell;
+    taste + Indeterminate{1, 4};
     taste + Indeterminate{2, 2};
-    taste.insert_missing_zeros();
+    taste + Indeterminate{-3, 1};
+    taste + Indeterminate{4, 0};
+    smell + Indeterminate{1, 2};
+    smell + Indeterminate{-1, 1};
+    smell + Indeterminate{-1, 0};
 
+    taste - smell;
     return taste;
 
     std::string fast_result = basic_check(a);

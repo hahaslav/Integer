@@ -121,6 +121,16 @@ public:
         sort();
     }
 
+    void operator%(const TInteger &other) {
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            addends[i].coefficient = addends[i].coefficient % other;
+        }
+
+        pop_lead_zeros();
+    }
+
     void operator%(Polynomial &other) {
         TInteger mult_coef, mult_pow;
 
@@ -341,13 +351,14 @@ std::string Agrawal::check(const TInteger &a) const {
         return IS_PRIME;
     }
 
+    Polynomial base_exp = binom(j, a);
+    Polynomial right_exp = x_pow_a_minus_1(r);
+    base_exp % right_exp;
+    base_exp % a;
+    return base_exp;
     for (j = I_ONE; j != (r - I_ONE) * a; j = j + I_ONE) {
-        Polynomial left_exp = binom(j, a);
-        Polynomial right_exp = x_pow_a_minus_1(r);
-        left_exp % right_exp;
-        return left_exp;
 
-        if (left_exp != x_pow_a_plus_b(a, j)) {
+        if (base_exp != x_pow_a_plus_b(a, j)) {
             return NOT_PRIME;
         }
     }

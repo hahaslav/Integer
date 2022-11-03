@@ -16,48 +16,72 @@ class Polynomial {
      * Holds a polynomial expression
      */
     std::vector<Indeterminate> addends;
-public:
-    Polynomial() {}
-
-    Polynomial(Indeterminate &one_addend) {
-        addends.push_back(one_addend);
-    }
-
-    Polynomial(std::vector<Indeterminate> &indeterminates) {
-        addends = indeterminates;
-    }
 
     int length() const {
         return addends.size();
     }
 
-    void append(const Indeterminate &next_addend) {
-        addends.push_back(next_addend);
+    void sort()
+    // Uses bubble sort to sort addends by descending their powers
+    {
+        bool changed;
+
+        do {
+            changed = false;
+            int i;
+
+            for (i = 1; i < length(); i++) {
+                if (addends[i - 1].power < addends[i].power) {
+                    Indeterminate tmp = addends[i];
+                    addends[i] = addends[i - 1];
+                    addends[i - 1] = tmp;
+                    changed = true;
+                }
+            }
+        } while (changed);
     }
 
-    void pop_lead_zeros() {
-        while (addends[0].coefficient == I_ZERO) {
+    void pop_lead_zeros()
+    // Removes addends with coefficient 0 from the beginning
+    {
+        sort();
+        while (addends[0].coefficient == I_ZERO && length() > 0) {
             addends.erase(addends.begin());
         }
     }
 
-    void insert_missing_zeros() {
-        int i = 1;
+    void insert_missing_zeros()
+    /* Adds addends explicitly when their coefficient is 0
+     * It is to make division easier
+     */ {
+        sort(); // to put the biggest power first
+        TInteger i;
 
-        while (true) {
-            if (i >= length()) {
+        for (i = addends[0].power - I_ONE; i >= I_ZERO; i = i - I_ONE) {
+            *this + Indeterminate{0, i};
+        }
+    }
 
-                if (length() == 0) {
-                    return;
-                }
-                while (addends[length() - 1].power != I_ZERO) {
-                    append({0, addends[length() - 1].power - I_ONE});
-                } return;
-            }
-            if (addends[i - 1].power - addends[i].power) {
-                // TODO
+    void operator-(const Indeterminate &other) {
+        insert_missing_zeros();
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            if (addends[i].power == other.power) {
+                addends[i].coefficient = addends[i].coefficient - other.coefficient;
+                return;
             }
         }
+    }
+
+    void operator-(const Polynomial &other) {
+        int i;
+
+        for (i = 0; i < other.length(); i++) {
+            *this - other.addends[i];
+        }
+
+        pop_lead_zeros();
     }
 
     void operator*(const TInteger &n) {
@@ -68,50 +92,108 @@ public:
         }
     }
 
-    void operator%(const Polynomial &other) {
-        int i;
-
-        // TODO
-    }
-
-    bool operator !=(const Polynomial &other) const {
-        if (length() != other.length()) {
-            return true;
-        }
+    void operator*(const Indeterminate &other) {
         int i;
 
         for (i = 0; i < length(); i++) {
-            if (addends[i].coefficient != other.addends[i].coefficient) {
-                return true;
-            }
-            if (addends[i].power != other.addends[i].power) {
-                return true;
+            addends[i].power = addends[i].power + other.power;
+            addends[i].coefficient = addends[i].coefficient * other.coefficient;
+        }
+    }
+public:
+    Polynomial() {}
+
+    Polynomial(std::vector<Indeterminate> &indeterminates) {
+        addends = indeterminates;
+    }
+
+    void operator+(const Indeterminate &other) {
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            if (addends[i].power == other.power) {
+                addends[i].coefficient = addends[i].coefficient + other.coefficient;
+                return;
             }
         }
 
-        return false;
+        addends.push_back(other);
+        sort();
+    }
+
+    void operator%(const TInteger &other) {
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            addends[i].coefficient = addends[i].coefficient % other;
+        }
+
+        pop_lead_zeros();
+    }
+
+    void operator%(Polynomial &other) {
+        TInteger mult_coef, mult_pow;
+
+        insert_missing_zeros();
+        other.sort();
+        while (addends[0].power >= other.addends[0].power) {
+            mult_coef = addends[0].coefficient / other.addends[0].coefficient;
+            if (mult_coef == I_ZERO) {
+                return;
+            }
+            mult_pow = addends[0].power - other.addends[0].power;
+            Indeterminate mult{mult_coef, mult_pow};
+            Polynomial subtractor = other;
+            subtractor * mult;
+            *this - subtractor;
+        }
     }
 
     operator std::string() const {
+        if (length() == 0) {
+            return "0";
+        }
         std::string result = "";
         int i;
 
         for (i = 0; i < length() - 1; i++) {
             result += (std::string)addends[i].coefficient;
-            result += "*x^";
-            result += (std::string)addends[i].power;
+            if (addends[i].power > I_ZERO) {
+                result += "*x";
+                if (addends[i].power > I_ONE) {
+                    result += "^";
+                    result += (std::string) addends[i].power;
+                }
+            }
             result += ", ";
         }
         result += (std::string)addends[i].coefficient;
+        if (addends[i].power > I_ZERO) {
+            result += "*x";
+            if (addends[i].power > I_ONE) {
+                result += "^";
+                result += (std::string) addends[i].power;
+            }
+        }
+
+        return result;
+    }
+
+    TInteger calculate(const TInteger &x) const {
+        TInteger result = 0;
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            result = result + addends[i].coefficient * pow(x, addends[i].power);
+        }
 
         return result;
     }
 };
 
-TInteger factorial(const TInteger &n) {
-    /*
-     * Returns n!
-     */
+TInteger factorial(const TInteger &n)
+ // Returns n!
+ {
     TInteger i, result = 1;
 
     for (i = I_ONE; i <= n; i = i + I_ONE) {
@@ -121,18 +203,16 @@ TInteger factorial(const TInteger &n) {
     return result;
 }
 
-TInteger combinations(const TInteger &n, const TInteger &k) {
-    /*
-     * Returns combinations from n to k
-     * Converts dividend into int, that can mess up result
-     */
+TInteger combinations(const TInteger &n, const TInteger &k)
+/* Returns combinations from n to k
+ * Converts dividend into int, that can mess up result
+ */ {
     return factorial(n) / (factorial(k) * factorial(n - k));
 }
 
-Polynomial binom(const TInteger &a, const TInteger &n) {
-    /*
-     * Returns binomial expansion of (x + a)^n
-     */
+Polynomial binom(const TInteger &a, const TInteger &n)
+//  Returns binomial expansion of (x + a)^n
+{
     Polynomial result;
     TInteger i;
 
@@ -140,16 +220,15 @@ Polynomial binom(const TInteger &a, const TInteger &n) {
         Indeterminate next_addend;
         next_addend.coefficient = combinations(n, i);
         next_addend.power = n - i;
-        result.append(next_addend);
+        result + next_addend;
     }
 
     return result;
 }
 
-Polynomial x_pow_a_plus_b(const TInteger &a, const TInteger &b) {
-    /*
-     * Returns x^a + b
-     */
+Polynomial x_pow_a_plus_b(const TInteger &a, const TInteger &b)
+// Returns x^a + b
+{
     std::vector<Indeterminate> result_value(2, {1, 0});
 
     result_value[0].power = a;
@@ -159,10 +238,9 @@ Polynomial x_pow_a_plus_b(const TInteger &a, const TInteger &b) {
     return result;
 }
 
-Polynomial x_pow_a_minus_1(const TInteger &a) {
-    /*
-     * Returns x^a - 1
-     */
+Polynomial x_pow_a_minus_1(const TInteger &a)
+// Returns x^a - 1
+{
     return x_pow_a_plus_b(a, TInteger(-1));
 }
 
@@ -186,10 +264,9 @@ bool is_perfect_power(const TInteger &n) {
     return false;
 }
 
-TInteger kinda_log2(const TInteger &n) {
-    /*
-     * Returns ceil of logarithm of n with base 2
-     */
+TInteger kinda_log2(const TInteger &n)
+// Returns ceil of logarithm of n with base 2
+{
     TInteger result = I_ONE;
 
     while (pow(I_TWO, result) < n) {
@@ -210,13 +287,12 @@ bool coprime(const TInteger &a, const TInteger &b) {
     return gcd(a, b) == I_ONE;
 }
 
-TInteger ord(const TInteger &a, const TInteger &n) {
-    /*
-     * Returns multiplicative order of a modulo n
-     * https://en.wikipedia.org/wiki/Multiplicative_order
-     *
-     * Given integers must be coprime
-     */
+TInteger ord(const TInteger &a, const TInteger &n)
+/* Returns multiplicative order of a modulo n
+ * https://en.wikipedia.org/wiki/Multiplicative_order
+ *
+ * Given integers must be coprime
+ */ {
     TInteger result = I_ONE;
 
     while (pow(a, result, n) != I_ONE) {
@@ -264,12 +340,17 @@ std::string Agrawal::check(const TInteger &a) const {
         return IS_PRIME;
     }
 
+    Polynomial base_exp = binom(j, a);
+    Polynomial middle_exp = x_pow_a_plus_b(a, I_ONE);
+    Polynomial right_exp = x_pow_a_minus_1(r);
+    base_exp % right_exp;
+    base_exp % a;
+    middle_exp % right_exp;
+    Polynomial final_exp;
+    final_exp + Indeterminate{I_ONE, a};
+    final_exp + Indeterminate{TInteger(-1), I_ONE};
     for (j = I_ONE; j != (r - I_ONE) * a; j = j + I_ONE) {
-        break; // TODO
-        Polynomial left_exp = binom(j, a);
-        left_exp % x_pow_a_minus_1(r);
-
-        if (left_exp != x_pow_a_plus_b(a, j)) {
+        if (final_exp.calculate(j) % a != I_ZERO) {
             return NOT_PRIME;
         }
     }

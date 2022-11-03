@@ -1,16 +1,10 @@
-# Very long integer class with various methods of multiplying operations, primality checking and other.
+# Very long integer class TInteger with various methods of multiplying methods, primality checking methods and other.
 
 This repository has modified main app and a python script for testing purposes.
 
-Tests TODO:
-* [X] Python script for testing
-* [X] Main app can accept arguments from the shell 
-* [X] Support for + operator
-* [X] Support for - operator
-* [X] Support for * operator
-* [X] Support for / operator
-* [X] Support for % operator
-* [X] Support for << operator (for cout)
+Implemented tests for:
+* [X] Ostream/cout `<<`
+* [X] Arithmetic operators: `+` `-` `*` `/` `%`
 * [X] Karatsuba multiplication method
 * [X] Tom-Cook multiplication method
 * [X] The Best Multiplication Method Ever 🤩 (WOW)
@@ -19,3 +13,4 @@ Tests TODO:
 * [X] Rabin-Miller primality check method
 * [X] Rabin-Miller primality check method
 * [X] Solovay-Strassen primality check method
+* [ ] Agrawal-Kayal-Saxena primality check method

@@ -8,13 +8,12 @@
 const int TOM = 3;
 const int POINTS = TOM + 2;
 
-std::vector<TInteger> get_p(const std::vector<TInteger> &m) {
-    /*
-     * Gets splitted integer
-     * Returns vector of p() values in the order:
-     * p(0), p(1), p(-1), p(-2), p(∞)
-     *  [0],  [1], ...
-     */
+std::vector<TInteger> get_p(const std::vector<TInteger> &m)
+/* Gets splitted integer
+ * Returns vector of p() values in the order:
+ * p(0), p(1), p(-1), p(-2), p(∞)
+ *  [0],  [1], ...
+ */ {
     std::vector<TInteger> result;
 
     result.push_back(m[2]);
@@ -26,13 +25,12 @@ std::vector<TInteger> get_p(const std::vector<TInteger> &m) {
     return result;
 }
 
-std::vector<TInteger> get_r_brackets(const std::vector<TInteger> &p, const std::vector<TInteger> &q) {
-    /*
-     * Gets polynomials p() and q() as vectors
-     * Returns vector of r() values in the order:
-     * r(0), r(1), r(-1), r(-2), r(∞)
-     *  [0],  [1], ...
-     */
+std::vector<TInteger> get_r_brackets(const std::vector<TInteger> &p, const std::vector<TInteger> &q)
+/* Gets polynomials p() and q() as vectors
+ * Returns vector of r() values in the order:
+ * r(0), r(1), r(-1), r(-2), r(∞)
+ *  [0],  [1], ...
+ */ {
     std::vector<TInteger> result;
     int i;
 
@@ -44,14 +42,13 @@ std::vector<TInteger> get_r_brackets(const std::vector<TInteger> &p, const std::
 }
 
 std::vector<TInteger> get_r(const std::vector<TInteger> &r_brackets) {
-    std::vector<std::vector<TInteger>> first_matrix =
-            /*
-             *   /  6 0  0  0  0  \
-             *  |  3 2 -6  1 -12 |
-             *  | -6 3  3  0  -6 |
-             *  | -3 1  3 -1  12 |
-             *   \  0 0  0  0  6  /
-             */
+    std::vector<std::vector<TInteger>> first_matrix
+            /* /  6 0  0  0  0  \
+             * |  3 2 -6  1 -12 |
+             * | -6 3  3  0  -6 |
+             * | -3 1  3 -1  12 |
+             *  \  0 0  0  0  6  /
+             */ =
             {{TInteger(6), I_ZERO, I_ZERO, I_ZERO, I_ZERO},
             {TInteger(3), I_TWO, TInteger(-6), I_ONE, TInteger(-12)},
             {TInteger(-6), TInteger(3), TInteger(3), I_ZERO, TInteger(-6)},

@@ -244,6 +244,16 @@ class SolovayStrassenTest(PrimalityTest):
     method_number = METHOD_NUMBER["Solovay-Strassen"]
 
 
+class AgrawalTest(PrimalityTest):
+    name = "Agrawal-Kayal-Saxena test"
+    method_number = METHOD_NUMBER["Agrawal"]
+
+    def __init__(self, integer1: int):
+        PrimalityTest.__init__(self, integer1)
+        while isprime(self.integer1):
+            self.integer1 += 2
+
+
 TESTS_FOR_CATEGORY = {
     Test: 40,
     SumTest: 40,
@@ -251,15 +261,16 @@ TESTS_FOR_CATEGORY = {
     ProductTest: 10,
     KaratsubaTest: 10,
     TomCookTest: 10,
-    RepeatedAdditionTest: 15,
+    RepeatedAdditionTest: 10,
     InverseTest: 20,
     DivisionTest: 40,
     RemainderTest: 40,
     LargeDivisionTest: 25,
     LargeRemainderTest: 25,
-    FermatTest: 85,
-    RabinMillerTest: 85,
-    SolovayStrassenTest: 85
+    FermatTest: 90,
+    RabinMillerTest: 90,
+    SolovayStrassenTest: 90,
+    AgrawalTest: 20
 }
 NUMBER1_LENGTH = {
     "max": 1000,
@@ -277,7 +288,8 @@ NUMBER1_LENGTH = {
     LargeRemainderTest: 200,
     FermatTest: 4,
     RabinMillerTest: 4,
-    SolovayStrassenTest: 4
+    SolovayStrassenTest: 4,
+    AgrawalTest: 4
 }
 NUMBER2_LENGTH = {
     "max": 1000,
@@ -295,7 +307,8 @@ NUMBER2_LENGTH = {
     LargeRemainderTest: 180,
     FermatTest: None,
     RabinMillerTest: None,
-    SolovayStrassenTest: None
+    SolovayStrassenTest: None,
+    AgrawalTest: None
 }
 
 
@@ -365,7 +378,7 @@ def main():
 
     try:
         for i, test in enumerate(all_tests, 1):
-            print(f"{i:>3}. {test.name:>70}")
+            print(f"{i:>3}. {test.name:>37}")
             test.execute()
             update_output()
 

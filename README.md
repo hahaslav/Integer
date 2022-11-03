@@ -13,4 +13,4 @@ Implemented tests for:
 * [X] Rabin-Miller primality check method
 * [X] Rabin-Miller primality check method
 * [X] Solovay-Strassen primality check method
-* [ ] Agrawal-Kayal-Saxena primality check method
+* [X] Agrawal-Kayal-Saxena primality check method

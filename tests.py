@@ -363,12 +363,20 @@ def main():
             else:
                 all_tests.append(category(integer1=get_random_integer(length=NUMBER1_LENGTH[category]), integer2=get_random_integer(length=NUMBER2_LENGTH[category])))
 
-    for i, test in enumerate(all_tests, 1):
-        print(f"{i:>3}. {test.name:>70}")
-        test.execute()
-        update_output()
+    try:
+        for i, test in enumerate(all_tests, 1):
+            print(f"{i:>3}. {test.name:>70}")
+            test.execute()
+            update_output()
 
-    summarise(all_tests)
+    except KeyboardInterrupt:
+        print("Testing was forcefully stopped")
+        for i in range(len(all_tests) - 1, -1, -1):
+            if all_tests[i].execution_time is None:
+                del all_tests[i]
+
+    finally:
+        summarise(all_tests)
 
 
 if __name__ == "__main__":

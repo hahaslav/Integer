@@ -31,8 +31,38 @@ public:
         return addends.size();
     }
 
-    void append(const Indeterminate &next_addend) {
-        addends.push_back(next_addend);
+    void sort()
+    // Uses bubble sort to sort addends by descending their powers
+    {
+        bool changed;
+
+        do {
+            changed = false;
+            int i;
+
+            for (i = 1; i < length(); i++) {
+                if (addends[i - 1].power < addends[i].power) {
+                    Indeterminate tmp = addends[i];
+                    addends[i] = addends[i - 1];
+                    addends[i - 1] = tmp;
+                    changed = true;
+                }
+            }
+        } while (changed);
+    }
+
+    void operator+(const Indeterminate &other) {
+        int i;
+
+        for (i = 0; i < length(); i++) {
+            if (addends[i].power == other.power) {
+                addends[i].coefficient = addends[i].coefficient + other.coefficient;
+                return;
+            }
+        }
+
+        addends.push_back(other);
+        sort();
     }
 
     void pop_lead_zeros() {
@@ -51,7 +81,7 @@ public:
                     return;
                 }
                 while (addends[length() - 1].power != I_ZERO) {
-                    append({0, addends[length() - 1].power - I_ONE});
+//                    append({0, addends[length() - 1].power - I_ONE});
                 } return;
             }
             if (addends[i - 1].power - addends[i].power) {
@@ -98,11 +128,23 @@ public:
 
         for (i = 0; i < length() - 1; i++) {
             result += (std::string)addends[i].coefficient;
-            result += "*x^";
-            result += (std::string)addends[i].power;
+            if (addends[i].power > I_ZERO) {
+                result += "*x";
+                if (addends[i].power > I_ONE) {
+                    result += "^";
+                    result += (std::string) addends[i].power;
+                }
+            }
             result += ", ";
         }
         result += (std::string)addends[i].coefficient;
+        if (addends[i].power > I_ZERO) {
+            result += "*x";
+            if (addends[i].power > I_ONE) {
+                result += "^";
+                result += (std::string) addends[i].power;
+            }
+        }
 
         return result;
     }
@@ -137,7 +179,7 @@ Polynomial binom(const TInteger &a, const TInteger &n)
         Indeterminate next_addend;
         next_addend.coefficient = combinations(n, i);
         next_addend.power = n - i;
-        result.append(next_addend);
+        result + next_addend;
     }
 
     return result;
@@ -220,6 +262,15 @@ TInteger ord(const TInteger &a, const TInteger &n)
 }
 
 std::string Agrawal::check(const TInteger &a) const {
+
+    Polynomial taste;
+    taste + Indeterminate{4, 2};
+    taste + Indeterminate{3, 0};
+    taste + Indeterminate{2, 1};
+    taste + Indeterminate{1, 2};
+
+    return taste;
+
     std::string fast_result = basic_check(a);
     if (fast_result != "") {
         return fast_result;
@@ -258,9 +309,9 @@ std::string Agrawal::check(const TInteger &a) const {
     }
 
     for (j = I_ONE; j != (r - I_ONE) * a; j = j + I_ONE) {
-        break; // TODO
         Polynomial left_exp = binom(j, a);
         left_exp % x_pow_a_minus_1(r);
+        return left_exp;
 
         if (left_exp != x_pow_a_plus_b(a, j)) {
             return NOT_PRIME;

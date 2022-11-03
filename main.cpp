@@ -9,6 +9,9 @@ std::ostream &operator<<(std::ostream &output, const TInteger &a) {
 }
 
 int main() {
+    PrimalityCheck* polynomial_test = new Agrawal;
+    std::cout << polynomial_test->check(31) << "\n";
+
     TInteger a(123), b("456");
 
     std::cout << inverse(a) << "\n\n";
@@ -56,7 +59,6 @@ int main() {
     std::cout << is_prime->check(1369) << "\n";
     std::cout << is_prime->check(31) << "\n";
     std::cout << is_prime->check(29) << "\n";
-    std::cout << is_prime->check(prime) << "\n";
 
     return 0;
 }

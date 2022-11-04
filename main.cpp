@@ -27,33 +27,16 @@ int charstring_to_int(char s[]) {
     return result;
 }
 
-int main(int argc, char *argv[]) {
-    /*
-     * If executed from a shell,
-     * the program takes these arguments:
-     * - a number of a method
-     * - first integer
-     * - second integer
-     *
-     * Numbers of the methods:
-     * 0 - outputs the given integers
-     * [1; 4] - multiplication methods
-     * 5 - inverse method
-     * 6 - division method
-     * [7; 10] - primality check methods
-     * 11 - sum
-     * 12 - subtraction
-     * 13 - multiplication "in column"
-     * 14 - division
-     * 15 - remainder
-     * 16 - RepeatedAddition
-     */
+int main(int argc, char *argv[])
+// Check info about executing in README.md
+{
     if (argc == 1) {
         std::cout << "No arguments were given. Aborting execution.";
         return 0;
     }
     if (argc == 2) {
         std::cout << "Method " << argv[1] << " was chosen, bun no integers were given. Aborting execution.";
+        return 0;
     }
 
     TInteger a(argv[2]), b;

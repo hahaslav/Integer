@@ -26,6 +26,8 @@ METHOD_NUMBER = {
     "Repeated addition": 16
 }
 RANDOM_TO_LENGTH = 5
+STATUS_PASSED = "PASS"
+STATUS_FAILED = "FAIL"
 
 last_test_executed = None
 final_output = ""
@@ -92,9 +94,9 @@ class Test:
 
         output = ""
         if self.success_criteria(its_result):
-            self.status = "SUCCESS"
+            self.status = STATUS_PASSED
         else:
-            self.status = "FAIL"
+            self.status = STATUS_FAILED
         output += self.status
         if self.integer2 is not None:
             integer_length = max([len(str(self.integer1)), len(str(self.integer2)), len(str(self.my_result)), len(str(its_result))])
@@ -333,12 +335,12 @@ def summarise(tests: list[Test]):
     global final_output
 
     tests_time = sum([test.execution_time for test in tests])
-    successful_tests = sum([1 for test in tests if test.status == "SUCCESS"])
+    successful_tests = sum([1 for test in tests if test.status == STATUS_PASSED])
     all_tests = len(tests)
     if successful_tests == all_tests:
-        status = "SUCCESS"
+        status = STATUS_PASSED
     else:
-        status = "FAIL"
+        status = STATUS_FAILED
     final_output = f"{status} {successful_tests}/{all_tests} in {perf_counter() - testing_start_time} s ({tests_time} s in the tested app)" + final_output
 
     with open(TEST_FILE, 'w', encoding="UTF-8") as fout:

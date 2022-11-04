@@ -1,5 +1,11 @@
 # CMake builds
 cmake-build-*/
 
+# Python virtual enviornment
+venv/
+
 # CLion/IntelliJ IDEA specific
 .idea/
+
+# Testing temporary files
+test.txt

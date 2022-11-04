@@ -35,7 +35,7 @@ std::vector<TInteger> TInteger::tinteger_division(const TInteger &other) const
     std::vector<TInteger> reversed_value;
 
     while (remainder < b && i >= 0) {
-        remainder = remainder * I_TEN + TInteger(digits[i]);
+        remainder = remainder * I_BASE + TInteger(digits[i]);
         i--;
     }
     if (remainder < b) {
@@ -48,7 +48,7 @@ std::vector<TInteger> TInteger::tinteger_division(const TInteger &other) const
         reversed_value.push_back(one_division);
         remainder = remainder - one_division * b;
 
-        remainder = remainder * I_TEN + TInteger(digits[i]);
+        remainder = remainder * I_BASE + TInteger(digits[i]);
         i--;
     }
     one_division = division_by_repeated_multiplication(remainder, b);

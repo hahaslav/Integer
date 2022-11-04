@@ -7,7 +7,7 @@ const int PRECISION = 20;
 
 std::string inverse(const TInteger &n) {
     int i;
-    TInteger x(1), float_shift = pow(I_TEN, n.length());
+    TInteger x(1), float_shift = pow(I_BASE, n.length());
     TInteger d = n * float_shift, real_two = I_TWO * float_shift;
     if (d.is_negative()) {
         d.invert();
@@ -16,7 +16,7 @@ std::string inverse(const TInteger &n) {
     for (i = 0; i < ITERATIONS; i++) {
         int precision_cut_length = float_shift.length() - PRECISION;
         if (precision_cut_length > 0) {
-            TInteger precision_cut = pow(I_TEN, precision_cut_length);
+            TInteger precision_cut = pow(I_BASE, precision_cut_length);
             x = x / precision_cut;
             d = d / precision_cut;
             real_two = real_two / precision_cut;

@@ -69,7 +69,7 @@ public:
 const TInteger I_ZERO(0);
 const TInteger I_ONE(1);
 const TInteger I_TWO(2);
-const TInteger I_TEN(10);
+const TInteger I_BASE(BASE);
 
 TInteger pow(const TInteger &base, const TInteger &exp);
 TInteger pow(const TInteger &base, const int exp);

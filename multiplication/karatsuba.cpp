@@ -14,7 +14,7 @@ TInteger Karatsuba::multiply(const TInteger &a, const TInteger &b) const {
     half_length /= 2;
 
     std::vector<TInteger> a_halves = a.halves(half_length), b_halves = b.halves(half_length);
-    TInteger base_m = pow(I_TEN, half_length), base_2m = pow(I_TEN, 2 * half_length);
+    TInteger base_m = pow(I_BASE, half_length), base_2m = pow(I_BASE, 2 * half_length);
 
     TInteger result = a_halves[0] * b_halves[0] * base_2m
             + (a_halves[0] * b_halves[1] + a_halves[1] * b_halves[0]) * base_m

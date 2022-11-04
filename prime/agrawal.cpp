@@ -264,18 +264,6 @@ bool is_perfect_power(const TInteger &n) {
     return false;
 }
 
-TInteger kinda_log2(const TInteger &n)
-// Returns ceil of logarithm of n with base 2
-{
-    TInteger result = I_ONE;
-
-    while (pow(I_TWO, result) < n) {
-        result = result + I_ONE;
-    }
-
-    return result;
-}
-
 TInteger gcd(const TInteger &a, const TInteger &b) {
     if (a % b == I_ZERO) {
         return b;

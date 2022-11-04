@@ -503,22 +503,11 @@ std::vector<TInteger> TInteger::halves(int half_length) const
     return split(2, half_length);
 }
 
-TInteger pow(const TInteger &base, const TInteger &exp)
-// Returns base^exp
-{
-    TInteger result = I_ONE;
-    TInteger i;
-
-    for (i = I_ZERO; i != exp; i = i + I_ONE) {
-        result = result * base;
-    }
-
-    return result;
-}
-
 TInteger pow(const TInteger &base, const int exp)
-// Returns base^exp
-{
+/* Returns base^exp
+ * This version has a slow trivial algorithm
+ * It cannot be used outside TInteger.cpp
+ */ {
     TInteger result = I_ONE;
     int i;
 
@@ -529,14 +518,77 @@ TInteger pow(const TInteger &base, const int exp)
     return result;
 }
 
-TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod)
-// Returns base^exp
-{
-    TInteger result = I_ONE;
-    TInteger i;
+TInteger pow(const TInteger &base, const TInteger &exp)
+/* Returns base^exp
+ * This version has a faster algorithm
+ */ {
+    if (exp == I_ZERO) {
+        return I_ONE;
+    }
+    if (exp == I_ONE) {
+        return base;
+    }
 
-    for (i = I_ZERO; i != exp; i = i + I_ONE) {
-        result = result * base % mod;
+    int num_of_subpows = kinda_log2(exp);
+    if (exp == pow(I_TWO, num_of_subpows)) {
+        num_of_subpows++;
+    }
+
+    std::vector<TInteger> subpows(num_of_subpows + 1, I_ONE);
+    subpows[1] = base;
+    TInteger result = I_ONE, exp_last = exp;
+    int i;
+
+    for (i = 2; i <= num_of_subpows; i++) {
+        subpows[i] = subpows[i - 1] * subpows[i - 1];
+    }
+    for (i = num_of_subpows; i > 0; i--) {
+        TInteger part_exp = pow(I_TWO, i - 1);
+        if (part_exp <= exp_last) {
+            result = result * subpows[i];
+            exp_last = exp_last - part_exp;
+        }
+        if (exp_last == I_ZERO) {
+            break;
+        }
+    }
+
+    return result;
+}
+
+TInteger pow(const TInteger &base, const TInteger &exp, const TInteger &mod)
+/* Returns base^exp % mod
+ * This version has a faster algorithm
+ */ {
+    if (exp == I_ZERO) {
+        return I_ONE;
+    }
+    if (exp == I_ONE) {
+        return base;
+    }
+
+    int num_of_subpows = kinda_log2(exp);
+    if (exp == pow(I_TWO, num_of_subpows)) {
+        num_of_subpows++;
+    }
+
+    std::vector<TInteger> subpows(num_of_subpows + 1, I_ONE);
+    subpows[1] = base % mod;
+    TInteger result = I_ONE, exp_last = exp;
+    int i;
+
+    for (i = 2; i <= num_of_subpows; i++) {
+        subpows[i] = subpows[i - 1] * subpows[i - 1] % mod;
+    }
+    for (i = num_of_subpows; i > 0; i--) {
+        TInteger part_exp = pow(I_TWO, i - 1);
+        if (part_exp <= exp_last) {
+            result = result * subpows[i] % mod;
+            exp_last = exp_last - part_exp;
+        }
+        if (exp_last == I_ZERO) {
+            break;
+        }
     }
 
     return result;
@@ -548,4 +600,16 @@ TInteger min(const TInteger &a, const TInteger &b) {
     }
 
     return b;
+}
+
+int kinda_log2(const TInteger &n)
+// Returns ceil of logarithm of n with base 2
+{
+    int result = I_ONE;
+
+    while (pow(I_TWO, result) < n) {
+        result = result + I_ONE;
+    }
+
+    return result;
 }

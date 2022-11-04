@@ -146,7 +146,12 @@ class PrimalityTest(Test):
     method_number = None
 
     def __init__(self, integer1: int):
+        if integer1 % 2 == 0:
+            integer1 += 1
+        if integer1 % 5 == 0:
+            integer1 += 2
         Test.__init__(self, method=self.method_number, integer1=integer1)
+
 
     def self_execute(self):
         if isprime(self.integer1) == True:
@@ -286,10 +291,10 @@ NUMBER1_LENGTH = {
     RemainderTest: 1000,
     LargeDivisionTest: 200,
     LargeRemainderTest: 200,
-    FermatTest: 4,
-    RabinMillerTest: 4,
-    SolovayStrassenTest: 4,
-    AgrawalTest: 4
+    FermatTest: 16,
+    RabinMillerTest: 16,
+    SolovayStrassenTest: 16,
+    AgrawalTest: 6
 }
 NUMBER2_LENGTH = {
     "max": 1000,

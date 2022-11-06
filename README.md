@@ -49,4 +49,4 @@ Numbers of the methods:
 
 ## Testing
 
-This repository also contains a [testing script](tests.py) in Python that runs all methods with random numbers, compares the results with python's fast and (*I hope*) correct results. To use this script, you need to install `sympy` (or remove the parts of the script that tests the primality check methods). After running the script, you will get feedback in `test.txt`, where you can find if the test was passed, its inputs and outputs and how much time it took to finish.
+This repository also contains a [testing script](tests.py) in Python that runs all methods with random numbers, compares the results with python's fast and (*I hope*) correct results. To use this script, you need to install `sympy` (or remove the parts of the script that tests the primality check methods). After running the script, you can check a report in `test.txt`, where you can find out if the test was passed, its inputs and outputs and how much time it took to finish.

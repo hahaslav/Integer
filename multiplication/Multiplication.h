@@ -21,16 +21,6 @@ public:
     TInteger multiply(const TInteger &a, const TInteger &b) const override;
 };
 
-class Modular: public Multiplication {
-public:
-    TInteger multiply(const TInteger &a, const TInteger &b) const override;
-};
-
-class SchonhageStrassen: public Multiplication {
-public:
-    TInteger multiply(const TInteger &a, const TInteger &b) const override;
-};
-
 class RepeatedAddition: public Multiplication {
 public:
     TInteger multiply(const TInteger &a, const TInteger &b) const override;

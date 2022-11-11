@@ -10,10 +10,7 @@ METHOD_NUMBER = {
     "Output": 0,
     "Karatsuba": 1,
     "Tom-Cook": 2,
-    "Modular": 3,
-    "Schonhage-Strassen": 4,
     "Newton": 5,
-    "Division": 6,
     "Fermat": 7,
     "Rabin-Miller": 8,
     "Solovay-Strassen": 9,
@@ -21,7 +18,7 @@ METHOD_NUMBER = {
     "Sum": 11,
     "Subtract": 12,
     "Product": 13,
-    "Division/": 14,
+    "Division": 14,
     "Remainder": 15,
     "Repeated addition": 16
 }
@@ -154,9 +151,8 @@ class PrimalityTest(Test):
             integer1 += 2
         Test.__init__(self, method=self.method_number, integer1=integer1)
 
-
     def self_execute(self):
-        if isprime(self.integer1) == True:
+        if isprime(self.integer1) is True:
             self.my_result = "IS_PRIME"
         else:
             self.my_result = "NOT_PRIME"
@@ -210,7 +206,7 @@ def custom_div(obj: any, a: int, b: int):
 class DivisionTest(ArithmeticTest):
     name = "Division test"
     operation = custom_div
-    method_number = METHOD_NUMBER["Division/"]
+    method_number = METHOD_NUMBER["Division"]
 
 
 class LargeDivisionTest(DivisionTest):

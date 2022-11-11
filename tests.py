@@ -25,6 +25,7 @@ METHOD_NUMBER = {
 RANDOM_TO_LENGTH = 5
 STATUS_PASSED = "PASS"
 STATUS_FAILED = "FAIL"
+STATUS_ABORTED = "ABORTED"
 
 last_test_executed = None
 final_output = ""
@@ -59,11 +60,16 @@ class Test:
             command += f" {self.integer2}"
         command += f" > {TEST_FILE}"
 
-        start_time = perf_counter()
-        system(command)
-        self.execution_time = perf_counter() - start_time
         global last_test_executed
         last_test_executed = self
+
+        start_time = perf_counter()
+        try:
+            system(command)
+        except KeyboardInterrupt:
+            self.execution_time = perf_counter() - start_time
+            raise KeyboardInterrupt
+        self.execution_time = perf_counter() - start_time
 
     def self_execute(self):
         """
@@ -86,22 +92,28 @@ class Test:
         if last_test_executed != self:
             raise Exception("This test's execution output has been expired")
 
-        with open(TEST_FILE, 'r') as fin:
-            its_result = fin.read()
+        if self.status != STATUS_ABORTED:
+            with open(TEST_FILE, 'r') as fin:
+                its_result = fin.read()
+        else:
+            its_result = 0
 
         output = ""
-        if self.success_criteria(its_result):
-            self.status = STATUS_PASSED
-        else:
-            self.status = STATUS_FAILED
+        if self.status != STATUS_ABORTED:
+            if self.success_criteria(its_result):
+                self.status = STATUS_PASSED
+            else:
+                self.status = STATUS_FAILED
         output += self.status
         if self.integer2 is not None:
             integer_length = max([len(str(self.integer1)), len(str(self.integer2)), len(str(self.my_result)), len(str(its_result))])
-            output += f" {self.name} executed in {self.execution_time} s\n\tIntegers:\n\t\t{self.integer1:>{integer_length}}\n\t\t{self.integer2:>{integer_length}}\n\tExpected output:\n\t\t{self.my_result:>{integer_length}}\n\tResult:\n\t\t{its_result:>{integer_length}}"
+            output += f" {self.name} executed in {self.execution_time} s\n\tIntegers:\n\t\t{self.integer1:>{integer_length}}\n\t\t{self.integer2:>{integer_length}}"
         else:
             integer_length = max([len(str(self.integer1)), len(str(self.my_result)), len(str(its_result))])
-            output += f" {self.name} executed in {self.execution_time} s\n\tInteger:\n\t\t{self.integer1:>{integer_length}}\n\tExpected output:\n\t\t{self.my_result:>{integer_length}}\n\tResult:\n\t\t{its_result:>{integer_length}}"
-
+            output += f" {self.name} executed in {self.execution_time} s\n\tInteger:\n\t\t{self.integer1:>{integer_length}}"
+        output += f"\n\tExpected output:\n\t\t{self.my_result:>{integer_length}}"
+        if self.status != STATUS_ABORTED:
+            output += f"\n\tResult:\n\t\t{its_result:>{integer_length}}"
         return output
 
 
@@ -331,12 +343,17 @@ def summarise(tests: list[Test]):
     global final_output
 
     tests_time = sum([test.execution_time for test in tests])
+    if tests[-1].status == STATUS_ABORTED:
+        tests.pop(-1)
     successful_tests = sum([1 for test in tests if test.status == STATUS_PASSED])
     all_tests = len(tests)
     if successful_tests == all_tests:
         status = STATUS_PASSED
     else:
         status = STATUS_FAILED
+    if last_test_executed.status == STATUS_ABORTED:
+        status = f"{STATUS_ABORTED} {status}"
+
     final_output = f"{status} {successful_tests}/{all_tests} in {perf_counter() - testing_start_time} s ({tests_time} s in the tested app)" + final_output
 
     with open(TEST_FILE, 'w', encoding="UTF-8") as fout:
@@ -387,6 +404,8 @@ def main():
 
     except KeyboardInterrupt:
         print("Testing was forcefully stopped")
+        last_test_executed.status = STATUS_ABORTED
+        update_output()
         for i in range(len(all_tests) - 1, -1, -1):
             if all_tests[i].execution_time is None:
                 del all_tests[i]
